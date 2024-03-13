@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
 from colorama import Fore, Back, Style
+from random import randint 
 import pyfiglet
 import pandas as pd
 
@@ -19,9 +20,6 @@ SHEET = GSPREAD_CLIENT.open('Save_the_egg')
 #Global varibel for validation
 YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
 
-#protection = SHEET.worksheet('materials')
-#data = protection.get_all_values()
-
 def choose_height():
     """
     Get height from the user that the egg is going to be droped from.
@@ -30,7 +28,7 @@ def choose_height():
     """
     while True:
         selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
-        if validation_int(selected_height):
+        if validation_number(selected_height):
             print(f"\nYou have chosen to release the egg from {selected_height} metres.")
             break
     return selected_height
@@ -98,7 +96,6 @@ def select_protection():
     
     return df['Material'][int(value)], df['Impact reduction'][int(value)]
 
-
 def impact_calculation(height, radius_egg):
     """
     Calculates the force that the egg will be impacted by when they hit the ground.
@@ -109,7 +106,6 @@ def impact_calculation(height, radius_egg):
     impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
-
 
 def broken_egg():
     """
@@ -138,10 +134,28 @@ def intact_egg():
     print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
     print("      ⠉⠉⠉⠉ ")
 
+def main():
+    egg = [0.04, 0.06]
+    egg_impact = [40, 60]
+
+    print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
+    height = int(choose_height())
+    material, reduction_of_impact = select_protection()
+    v_or_h = randint(0,1)
+    
+    impact_force = impact_calculation(height, egg[v_or_h])
+    
+    if impact_force < egg_impact[v_or_h]:
+        print('You managed to save the egg')
+        intact_egg()
+    else:
+        print("Oooo no, the egg broke")
+        broken_egg()
 
 
+main()
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
+#impact_calculation(2, 0.04)
 
-print(select_protection())
 #choose_height()
