@@ -23,28 +23,82 @@ YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
 #data = protection.get_all_values()
 
 def choose_height():
+    """
+    Get height from the user that the egg is going to be droped from.
+    Run a while loop to collect a valid number that is a integer och a flaot.
+    The loop will request input until the input is valid.
+    """
     while True:
         selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
         if validation_int(selected_height):
-            print(f"You have chosen to release the egg from {selected_height} metres.")
+            print(f"\nYou have chosen to release the egg from {selected_height} metres.")
             break
     return selected_height
 
-def validation_int(user_input):
+def validation_number(user_input, lst = None):
+    """
+    Inside the try, converts the string value to a flaot.
+    Raises a ValueError if the string can't be converted into a flaot.
+    """
     try:
         float(user_input)
-        return True
+        if lst != None:
+            return validation_int(user_input, lst)
+        
     except ValueError:
-        print(f"You have enters a string, please select a number.\n")
+        print(Fore.CYAN + f"You have entered a string, please enter a number.\n"+ Style.RESET_ALL)
         return False
 
+    return True
+
+def validation_int(input, lst):
+    """
+    Inside the try, converts a string or in to a integers.
+    Raises ValueError if string can't be converted into int 
+    and TypeError if the nummber is higher the number is 
+    higher than the length of the list.
+    """
+    try:
+        int(input)
+        if int(input) > len(lst):  
+            raise TypeError
+
+    except ValueError:
+        print(Fore.CYAN + f"Please enter a whole number, you have entered {input} which is a decimal number"+ Style.RESET_ALL)
+        return False
+    
+    except TypeError:
+        print(Fore.CYAN + f'Please enter a number between 0-{len(lst)}'+ Style.RESET_ALL)
+        return False 
+    
+    return True
+
+def select_protection():
+    protection = SHEET.worksheet('materials')
+    data = protection.get_all_values()
+    df = pd.DataFrame(data[1:], columns = data[0])
+    print("Specify which material you want to use to protect your egg?\n")
+    print(pyfiglet.figlet_format("Materials", font = "digital"))
+    print(df['Material'].to_string())
+
+    while True:
+        value = input('\nPlease enter the number for the material that you want to use:\n')
+        if validation_number(value):
+            break
+    
+    return int(float(value))
+
+
 def impact_calculation(height, radius_egg):
+    """
+    """
     g = 9.82 # Average gravity in m/s^2
     mass = 0.05 # Mass of the egg in kg
     
     impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
+
 
 def broken_egg():
     print("                          ⣠⣄⣀")
@@ -70,15 +124,7 @@ def intact_egg():
 
 
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
+print(validation_int('6', [1,2,3,4]))
 
-
-intact_egg()
-"""
-from colorama import Fore, Back, Style
-print(Fore.YELLOW + 'some red text' + Style.RESET_ALL)
-#print(Back.GREEN + 'and with a green background')
-#print(Style.DIM + 'and in dim text')
-#print(Style.RESET_ALL)
-print('back to normal now')
-print(Style.RESET_ALL)
-"""
+#select_protection()
+#choose_height()
