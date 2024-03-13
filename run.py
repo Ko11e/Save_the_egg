@@ -35,14 +35,14 @@ def choose_height():
             break
     return selected_height
 
-def validation_number(user_input, lst = None):
+def validation_number(user_input, lst=None):
     """
     Inside the try, converts the string value to a flaot.
     Raises a ValueError if the string can't be converted into a flaot.
     """
     try:
         float(user_input)
-        if lst != None:
+        if lst is not None:
             return validation_int(user_input, lst)
         
     except ValueError:
@@ -81,16 +81,18 @@ def select_protection():
     print(pyfiglet.figlet_format("Materials", font = "digital"))
     print(df['Material'].to_string())
 
-    while True:
-        value = input('\nPlease enter the number for the material that you want to use:\n')
-        if validation_number(value):
-            break
+    #while True:
+    value = input('\nPlease enter the number for the material that you want to use:\n')
+    if validation_number(value, df):
+        print("Valiadation compited")
+    #        break
     
-    return int(float(value))
+    #return int(float(value))
 
 
 def impact_calculation(height, radius_egg):
     """
+    Calculates the force that the egg will be impacted by when they hit the ground.
     """
     g = 9.82 # Average gravity in m/s^2
     mass = 0.05 # Mass of the egg in kg
@@ -101,6 +103,9 @@ def impact_calculation(height, radius_egg):
 
 
 def broken_egg():
+    """
+    Prints a broken egg
+    """
     print("                          ⣠⣄⣀")
     print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
     print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
@@ -111,6 +116,9 @@ def broken_egg():
     print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
 
 def intact_egg():
+    """
+    Prints a intact egg
+    """
     print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
     print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
     print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
@@ -124,7 +132,7 @@ def intact_egg():
 
 
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
-print(validation_int('6', [1,2,3,4]))
 
-#select_protection()
+
+select_protection()
 #choose_height()
