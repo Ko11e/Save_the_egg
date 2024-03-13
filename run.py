@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
+from random import randint
 import pandas as pd
 
 SCOPE = [
@@ -20,14 +21,6 @@ YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
 #protection = SHEET.worksheet('materials')
 #data = protection.get_all_values()
 
-def validation_int(user_input):
-    try:
-        float(user_input)
-        return True
-    except ValueError:
-        print(f"You have enters a string, please select a number.\n")
-        return False
-
 def choose_height():
     while True:
         selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
@@ -36,6 +29,23 @@ def choose_height():
             break
     return selected_height
 
+def validation_int(user_input):
+    try:
+        float(user_input)
+        return True
+    except ValueError:
+        print(f"You have enters a string, please select a number.\n")
+        return False
 
+def impact_calculation(height, radius_egg):
+    g = 9.82 # Average gravity in m/s^2
+    mass = 0.05 # Mass of the egg in kg
     
-drop_height = choose_height()
+    impact_force = (2*g*height*mass)/radius_egg
+
+    return impact_force
+
+
+force = impact_calculation(3, 0.04)
+print(f"the force is {force}")    
+#drop_height = choose_height()
