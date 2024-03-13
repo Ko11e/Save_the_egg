@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
-from random import randint
 import pandas as pd
 
 SCOPE = [
@@ -46,6 +45,3 @@ def impact_calculation(height, radius_egg):
     return impact_force
 
 
-force = impact_calculation(3, 0.04)
-print(f"the force is {force}")    
-#drop_height = choose_height()
