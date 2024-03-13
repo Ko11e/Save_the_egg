@@ -1,5 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
+from colorama import Fore, Back, Style
+import pyfiglet
 import pandas as pd
 
 SCOPE = [
@@ -44,4 +46,39 @@ def impact_calculation(height, radius_egg):
 
     return impact_force
 
+def broken_egg():
+    print("                          ⣠⣄⣀")
+    print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
+    print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
+    print(" ⣼⣿⣿⣿⣿⣀                  ⣰⣿⣿⣿⣿⣿⣿⣿⡇")
+    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
+    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
+    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+" ⣸⣿⣿⣿⡿⠟⠋")
+    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
 
+def intact_egg():
+    print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
+    print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
+    print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
+    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧")
+    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+    print(" ⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟")
+    print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
+    print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
+    print("      ⠉⠉⠉⠉ ")
+
+
+
+#print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
+
+
+intact_egg()
+"""
+from colorama import Fore, Back, Style
+print(Fore.YELLOW + 'some red text' + Style.RESET_ALL)
+#print(Back.GREEN + 'and with a green background')
+#print(Style.DIM + 'and in dim text')
+#print(Style.RESET_ALL)
+print('back to normal now')
+print(Style.RESET_ALL)
+"""
