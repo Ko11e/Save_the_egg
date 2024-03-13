@@ -68,26 +68,35 @@ def validation_int(input, lst):
         return False
     
     except TypeError:
-        print(Fore.CYAN + f'Please enter a number between 0-{len(lst)}'+ Style.RESET_ALL)
+        print(Fore.CYAN + f'Please enter a number between 0-{len(lst)-1}'+ Style.RESET_ALL)
         return False 
     
     return True
 
 def select_protection():
+    """
+    Presents the protection materials that can be selected.
+    Asks the user to indicate which protection they want.
+    Run a while loop to collect a valid number that is a integer och a flaot.
+    The loop will request input until the input is valid.
+    """
+    # Gets the data for the google sheet
     protection = SHEET.worksheet('materials')
     data = protection.get_all_values()
     df = pd.DataFrame(data[1:], columns = data[0])
-    print("Specify which material you want to use to protect your egg?\n")
-    print(pyfiglet.figlet_format("Materials", font = "digital"))
-    print(df['Material'].to_string())
 
-    #while True:
-    value = input('\nPlease enter the number for the material that you want to use:\n')
-    if validation_number(value, df):
-        print("Valiadation compited")
-    #        break
+    #Presents the user of the options
+    print("Specify which material you want to use to protect your egg?")
+    print(pyfiglet.figlet_format("Materials", font = "digital"))
+    print(df['Material'].to_string() +"\n")
+
+    #Asks the user to select a option
+    while True:
+        value = input('\nPlease enter the number for the material that you want to use:\n')
+        if validation_number(value, df):
+            break
     
-    #return int(float(value))
+    return df['Material'][int(value)], df['Impact reduction'][int(value)]
 
 
 def impact_calculation(height, radius_egg):
@@ -134,5 +143,5 @@ def intact_egg():
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
 
-select_protection()
+print(select_protection())
 #choose_height()
