@@ -137,22 +137,39 @@ def intact_egg():
     print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
     print("      ⠉⠉⠉⠉ ")
 
+def get_highscore_data(difficulty_level):
+    sheet_highscore = SHEET.worksheet('highscore_' + difficulty_level)
+    data = sheet_highscore.get_all_values()
+    highscore_list_pd = pd.DataFrame(data[1:], index = [1,2,3,4,5], columns = data[0])
+
+    return sheet_highscore, highscore_list_pd
+
 def highscore(impact_force):
     score = impact_force*10
 
     #Get data from Google sheets
-    sheet_highscore_easy = SHEET.worksheet('highscore_easy')
-    data = sheet_highscore_easy.get_all_values()
-    highscore_list = pd.DataFrame(data[1:], index = [1,2,3,4,5], columns = data[0])
+    sheet_highscore_easy, highscore_list_pd = get_highscore_data('easy')
+    
+    """
+    for i in range(1,5):
+        if socore < int(highscore_list_pd['Score'][i-1] && score > int(highscore_list_pd['Score'][i]):
+            user_name = input("Enter your name:")
+            highscore_list_pd.loc[1] = np.array([user_name, score])
+            sheet_highscore_easy.update([[user_name, score]],f'A{i+1}:B{i+1}')
+            break
+    
+    print(highscore_list_pd.to_string() + "\n")
 
-
+    """
+    
     user_name = input("Enter your name:")
-    highscore_list.loc[1] = np.array([user_name, score])
+    highscore_list_pd.loc[-1] = np.array([user_name, score])
     #Update data in google sheet
-    sheet_highscore_easy.update([[user_name, score]],'A2:B2')
+    #sheet_highscore_easy.update([[user_name, score]],'A2:B2')
     
 
-    print(highscore_list.to_string() + "\n")
+    print(highscore_list_pd.to_string() + "\n")
+    
 
 
 
@@ -160,7 +177,7 @@ def highscore(impact_force):
 
 def main():
     egg = [0.04, 0.06]
-    egg_impact = [40, 60]
+    egg_impact = np.array([40, 60])
 
     print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
     height = int(choose_height())
@@ -178,4 +195,4 @@ def main():
 #main()
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
-highscore(50)
+highscore(50) 
