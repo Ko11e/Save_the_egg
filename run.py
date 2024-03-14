@@ -153,15 +153,16 @@ def highscore(impact_force):
     """
     for i in range(1,5):
         if socore < int(highscore_list_pd['Score'][i-1] && score > int(highscore_list_pd['Score'][i]):
-            user_name = input("Enter your name:")
-            highscore_list_pd.loc[1] = np.array([user_name, score])
-            sheet_highscore_easy.update([[user_name, score]],f'A{i+1}:B{i+1}')
-            break
+            position = i
+            #user_name = input("Enter your name:")
+            #highscore_list_pd.loc[1] = np.array([user_name, score])
+            #sheet_highscore_easy.update([[user_name, score]],f'A{i+1}:B{i+1}')
+            
     
     print(highscore_list_pd.to_string() + "\n")
 
     """
-    
+
     user_name = input("Enter your name:")
     highscore_list_pd.loc[-1] = np.array([user_name, score])
     #Update data in google sheet
