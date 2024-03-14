@@ -138,43 +138,12 @@ def intact_egg():
     print("      ⠉⠉⠉⠉ ")
 
 def get_highscore_data(difficulty_level):
-    sheet_highscore = SHEET.worksheet('highscore_' + difficulty_level)
+    sheet_highscore = SHEET.worksheet(difficulty_level)
     data = sheet_highscore.get_all_values()
     highscore_list_pd = pd.DataFrame(data[1:], index = [1,2,3,4,5], columns = data[0])
 
     return sheet_highscore, highscore_list_pd
 
-def highscore(impact_force):
-    score = impact_force*10
-
-    #Get data from Google sheets
-    sheet_highscore_easy, highscore_list_pd = get_highscore_data('easy')
-    
-
-    for i in range(2,6):
-        if score > int(highscore_list_pd['Score'][1]):
-            position = 1
-        elif score < int(highscore_list_pd['Score'][i-1]) and score > int(highscore_list_pd['Score'][i]):
-            position = i
-        
-    print(f'Your position {position}')
-    print(highscore_list_pd[:2].to_string())
-    print(f"{position}  _______  {score}")
-    print(highscore_list_pd[3:].to_string(header=False) + "\n")
-    name = input(f"{position} ")
-    print (name)
-
-    """
-
-    user_name = input("Enter your name:")
-    highscore_list_pd.loc[-1] = np.array([user_name, score])
-    #Update data in google sheet
-    #sheet_highscore_easy.update([[user_name, score]],'A2:B2')
-    
-
-    print(highscore_list_pd.to_string() + "\n")
-    """
-    
 class Highscore:
     def __init__(self, level, names, scores):
         self.level = level
@@ -203,7 +172,10 @@ class Highscore:
         self.scores.insert(position, new_score)
         self.scores.pop(-1)
 
-
+    def uppdate_sheet(self):
+        for i  in range(2,7):
+            SHEET.worksheet(self.level).update([[self.names[i-2]]],f'A{i}')
+            SHEET.worksheet(self.level).update([[self.scores[i-2]]],f'B{i}')
 
 
 def main():
@@ -226,8 +198,53 @@ def main():
 #main()
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
-#highscore(50) 
+#highscore(50)
+
+
+
 highscore_easy = Highscore('easy', ['Sophie','Johan','Emme','Johan','Kalla'], [1000,800,200,250,100])
 print(highscore_easy)
-print(highscore_easy.add_to_board(2, 'Fredde', '500'))
+print(highscore_easy.add_to_board(2, 'Fredde', 500))
 print(highscore_easy)
+print(highscore_easy.add_to_board(0, 'Jesper', 1500))
+print(highscore_easy)
+highscore_easy.uppdate_sheet()
+
+
+
+
+
+#SHEET.worksheet('easy').update([['Hej'], ['jag'], ['kan']],'A2')
+
+"""
+def highscore(impact_force):
+    score = impact_force*10
+
+    #Get data from Google sheets
+    sheet_highscore_easy, highscore_list_pd = get_highscore_data('easy')
+    
+
+    for i in range(2,6):
+        if score > int(highscore_list_pd['Score'][1]):
+            position = 1
+        elif score < int(highscore_list_pd['Score'][i-1]) and score > int(highscore_list_pd['Score'][i]):
+            position = i
+        
+    print(f'Your position {position}')
+    print(highscore_list_pd[:2].to_string())
+    print(f"{position}  _______  {score}")
+    print(highscore_list_pd[3:].to_string(header=False) + "\n")
+    name = input(f"{position} ")
+    print (name)
+
+    
+
+    user_name = input("Enter your name:")
+    highscore_list_pd.loc[-1] = np.array([user_name, score])
+    #Update data in google sheet
+    #sheet_highscore_easy.update([[user_name, score]],'A2:B2')
+    
+
+    print(highscore_list_pd.to_string() + "\n")
+    
+"""  
