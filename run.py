@@ -185,11 +185,16 @@ class Highscore:
         board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
         return board.to_string()
 
-    def update_sheet(self):
-
-
-
-
+    def made_highscore(self, new_score):
+        position = 10
+        for i in range(1,5):
+            if new_score > int(self.scores[0]):
+                position = 0
+            elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
+                position = i
+        
+        return position
+                
 
 
 def main():
@@ -215,3 +220,4 @@ def main():
 #highscore(50) 
 highscore_easy = Highscore('easy', ['Sophie','Johan','Emme','Johan','Kalla'], [1000,800,200,250,100])
 print(highscore_easy)
+print(highscore_easy.made_highscore(500))
