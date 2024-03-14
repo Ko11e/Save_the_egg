@@ -4,6 +4,7 @@ from colorama import Fore, Back, Style
 from random import randint 
 import pyfiglet
 import pandas as pd
+import numpy as np
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -111,6 +112,7 @@ def broken_egg():
     """
     Prints a broken egg
     """
+    print("Oooo no, the egg broke\n")
     print("                          ⣠⣄⣀")
     print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
     print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
@@ -124,6 +126,7 @@ def intact_egg():
     """
     Prints a intact egg
     """
+    print('You managed to save the egg\n')
     print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
     print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
     print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
@@ -133,6 +136,27 @@ def intact_egg():
     print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
     print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
     print("      ⠉⠉⠉⠉ ")
+
+def highscore(impact_force):
+    score = impact_force*10
+
+    #Get data from Google sheets
+    sheet_highscore_easy = SHEET.worksheet('highscore_easy')
+    data = sheet_highscore_easy.get_all_values()
+    highscore_list = pd.DataFrame(data[1:], index = [1,2,3,4,5], columns = data[0])
+
+
+    user_name = input("Enter your name:")
+    highscore_list.loc[1] = np.array([user_name, score])
+    #Update data in google sheet
+    sheet_highscore_easy.update([[user_name, score]],'A2:B2')
+    
+
+    print(highscore_list.to_string() + "\n")
+
+
+
+
 
 def main():
     egg = [0.04, 0.06]
@@ -145,17 +169,13 @@ def main():
     
     impact_force = impact_calculation(height, egg[v_or_h])
     
-    if impact_force < egg_impact[v_or_h]:
-        print('You managed to save the egg')
+    if impact_force-reduction_of_impact < egg_impact[v_or_h]:
         intact_egg()
     else:
-        print("Oooo no, the egg broke")
         broken_egg()
 
 
-main()
+#main()
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
-#impact_calculation(2, 0.04)
-
-#choose_height()
+highscore(50)
