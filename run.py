@@ -192,9 +192,18 @@ class Highscore:
                 position = 0
             elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
                 position = i
-        
         return position
-                
+
+    def add_to_board(self, position, new_name, new_score):
+        # Add the name on the right position and removes the last name that is now on the 6:th place
+        self.names.insert(position, new_name)
+        self.names.pop(-1)
+
+        # Add the score on the right position and removes the last score that is now on the 6:th place
+        self.scores.insert(position, new_score)
+        self.scores.pop(-1)
+
+
 
 
 def main():
@@ -220,4 +229,5 @@ def main():
 #highscore(50) 
 highscore_easy = Highscore('easy', ['Sophie','Johan','Emme','Johan','Kalla'], [1000,800,200,250,100])
 print(highscore_easy)
-print(highscore_easy.made_highscore(500))
+print(highscore_easy.add_to_board(2, 'Fredde', '500'))
+print(highscore_easy)
