@@ -59,7 +59,7 @@ def validation_int(input, lst):
     """
     try:
         int(input)
-        if int(input) > len(lst):  
+        if int(input) > len(lst)-1:  
             raise TypeError
 
     except ValueError:
@@ -95,7 +95,7 @@ def select_protection():
         if validation_number(value, df):
             break
     
-    return df['Material'][int(value)], df['Impact reduction'][int(value)]
+    return df['Material'][int(value)], int(df['Impact reduction'][int(value)])
 
 def impact_calculation(height, radius_egg):
     """
@@ -150,16 +150,19 @@ def highscore(impact_force):
     #Get data from Google sheets
     sheet_highscore_easy, highscore_list_pd = get_highscore_data('easy')
     
-    """
-    for i in range(1,5):
-        if socore < int(highscore_list_pd['Score'][i-1] && score > int(highscore_list_pd['Score'][i]):
+
+    for i in range(2,6):
+        if score > int(highscore_list_pd['Score'][1]):
+            position = 1
+        elif score < int(highscore_list_pd['Score'][i-1]) and score > int(highscore_list_pd['Score'][i]):
             position = i
-            #user_name = input("Enter your name:")
-            #highscore_list_pd.loc[1] = np.array([user_name, score])
-            #sheet_highscore_easy.update([[user_name, score]],f'A{i+1}:B{i+1}')
-            
-    
-    print(highscore_list_pd.to_string() + "\n")
+        
+    print(f'Your position {position}')
+    print(highscore_list_pd[:2].to_string())
+    print(f"{position}  _______  {score}")
+    print(highscore_list_pd[3:].to_string(header=False) + "\n")
+    name = input(f"{position} ")
+    print (name)
 
     """
 
@@ -170,7 +173,20 @@ def highscore(impact_force):
     
 
     print(highscore_list_pd.to_string() + "\n")
+    """
     
+class Highscore:
+    def __init__(self, level, names, scores):
+        self.level = level
+        self.names = names
+        self.scores = scores
+
+    def __str__(self):
+        board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
+        return board.to_string()
+
+    def update_sheet(self):
+
 
 
 
@@ -187,7 +203,7 @@ def main():
     
     impact_force = impact_calculation(height, egg[v_or_h])
     
-    if impact_force-reduction_of_impact < egg_impact[v_or_h]:
+    if (impact_force - reduction_of_impact) < egg_impact[v_or_h]:
         intact_egg()
     else:
         broken_egg()
@@ -196,4 +212,6 @@ def main():
 #main()
 #print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
-highscore(50) 
+#highscore(50) 
+highscore_easy = Highscore('easy', ['Sophie','Johan','Emme','Johan','Kalla'], [1000,800,200,250,100])
+print(highscore_easy)
