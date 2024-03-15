@@ -109,6 +109,13 @@ def validation_int(input, lst):
     
     return True
 
+def validation_yes_no(input):
+    if input in YES_NO:
+        return True
+    else:
+        print(Fore.CYAN +f'You entered {input}, Please enter a \033[1mY for Yes and N for No.\033[0m'+ Style.RESET_ALL)
+        return False
+
 def select_protection():
     """
     Presents the protection materials that can be selected.
@@ -188,6 +195,12 @@ def get_highscore_data(difficulty_level):
 
     return highscore_data
 
+def reduce_force_limit(egg, landingposition, impact_force):
+    procent_impact = impact_force/egg['force_limit'][landingposition]
+    reduce_force = np.array([20,30])*procent_impact
+
+    return egg['force_limit']-reduce_force
+
 
 def main():
     egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
@@ -209,11 +222,30 @@ def main():
             if position_on_highscore != 10:
                 print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
                 print(highscore_easy)
-                try_again = input('\nDo you have to try to increase your score? [Y/N]:')
+                while True:
+                    try_again = input('\nDo you have to try to increase your score? [Y/N]:')
+                    if validation_yes_no(try_again):
+                        break
+                if YES_NO.index(try_again) >= 5:
+                    name = input('Enter your name to the highscore list:\n')
+                    highscore_easy.add_to_board(position_on_highscore, name, score)
+                    print(highscore_easy)
+                    break
+                else:
+                    egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
+
 
             else:
                 print(f'\nYour score is {score} and your score did not make the top 5')
-                try_again = input('Do you want to try to increase your score? [Y/N]:')
+                while True:
+                    try_again = input('Do you want to try to increase your score? [Y/N]:')
+                    if validation_yes_no(try_again):
+                        break
+                if YES_NO.index(try_again) >= 5:
+                    break
+                else:
+                    egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
+
 
         else:
             broken_egg()
@@ -221,7 +253,7 @@ def main():
 
 
 
-main()
+#main()
 # print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
 # highscore(50)
@@ -229,4 +261,7 @@ main()
 #data_easy = np.array(sheet_highscore.get_all_values()).T[:,1:]
 
 #print(data_easy[0], data_easy[1])
- 
+egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
+print(egg)
+egg['force_limit'] = reduce_force_limit(egg, 1, 50)
+print(egg)
