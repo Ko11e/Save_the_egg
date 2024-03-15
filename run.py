@@ -21,6 +21,41 @@ SHEET = GSPREAD_CLIENT.open('Save_the_egg')
 #Global varibel for validation
 YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
 
+class Highscore:
+    def __init__(self, level, names, scores):
+        self.level = level
+        self.names = names
+        self.scores = scores
+
+    def __str__(self):
+        board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
+        print(pyfiglet.figlet_format("Highescore", font = "threepoint" ))
+        return board.to_string()
+
+    def made_highscore(self, new_score):
+        position = 10
+        for i in range(1,5):
+            if new_score > int(self.scores[0]):
+                position = 0
+            elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
+                position = i
+                
+        return position
+
+    def add_to_board(self, position, new_name, new_score):
+        # Add the name on the right position and removes the last name that is now on the 6:th place
+        self.names.insert(position, new_name)
+        self.names.pop(-1)
+
+        # Add the score on the right position and removes the last score that is now on the 6:th place
+        self.scores.insert(position, new_score)
+        self.scores.pop(-1)
+
+    def uppdate_sheet(self):
+        for i  in range(2,7):
+            SHEET.worksheet(self.level).update([[self.names[i-2]]],f'A{i}')
+            SHEET.worksheet(self.level).update([[self.scores[i-2]]],f'B{i}')
+
 def choose_height():
     """
     Get height from the user that the egg is going to be droped from.
@@ -30,9 +65,11 @@ def choose_height():
     while True:
         selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
-            print(f"\nYou have chosen to release the egg from {selected_height} metres.")
+            print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." +Style.RESET_ALL)
+            print('--------------------------------------------\n')
             break
-    return selected_height
+    
+    return float(selected_height)
 
 def validation_number(user_input, lst=None):
     """
@@ -108,6 +145,12 @@ def impact_calculation(height, radius_egg):
 
     return impact_force
 
+def randomizing_land_of_egg():
+    """
+    Generates a 1 or a 2 which will indicate whether the egg lands horizontally or vertically.
+    """
+    return randint(0,1)
+
 def broken_egg():
     """
     Prints a broken egg
@@ -139,112 +182,51 @@ def intact_egg():
 
 def get_highscore_data(difficulty_level):
     sheet_highscore = SHEET.worksheet(difficulty_level)
-    data = sheet_highscore.get_all_values()
-    highscore_list_pd = pd.DataFrame(data[1:], index = [1,2,3,4,5], columns = data[0])
+    data = np.array(sheet_highscore.get_all_values()).T[:,1:]
 
-    return sheet_highscore, highscore_list_pd
+    highscore_data = Highscore(difficulty_level, data[0], data[1])
 
-class Highscore:
-    def __init__(self, level, names, scores):
-        self.level = level
-        self.names = names
-        self.scores = scores
-
-    def __str__(self):
-        board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
-        return board.to_string()
-
-    def made_highscore(self, new_score):
-        position = 10
-        for i in range(1,5):
-            if new_score > int(self.scores[0]):
-                position = 0
-            elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
-                position = i
-        return position
-
-    def add_to_board(self, position, new_name, new_score):
-        # Add the name on the right position and removes the last name that is now on the 6:th place
-        self.names.insert(position, new_name)
-        self.names.pop(-1)
-
-        # Add the score on the right position and removes the last score that is now on the 6:th place
-        self.scores.insert(position, new_score)
-        self.scores.pop(-1)
-
-    def uppdate_sheet(self):
-        for i  in range(2,7):
-            SHEET.worksheet(self.level).update([[self.names[i-2]]],f'A{i}')
-            SHEET.worksheet(self.level).update([[self.scores[i-2]]],f'B{i}')
+    return highscore_data
 
 
 def main():
-    egg = [0.04, 0.06]
-    egg_impact = np.array([40, 60])
-
+    egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
+    highscore_easy = get_highscore_data('easy')
+    
     print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
-    height = int(choose_height())
-    material, reduction_of_impact = select_protection()
-    v_or_h = randint(0,1)
+    while True: 
+        height = choose_height()
+        material, reduction_of_impact = select_protection()
+        landingposition = randomizing_land_of_egg()
     
-    impact_force = impact_calculation(height, egg[v_or_h])
+        impact_force = impact_calculation(height, egg['height'][landingposition])
     
-    if (impact_force - reduction_of_impact) < egg_impact[v_or_h]:
-        intact_egg()
-    else:
-        broken_egg()
+        if (impact_force - reduction_of_impact) < egg['force_limit'][landingposition]:
+            intact_egg()
+            score = int(impact_force *10)
+            position_on_highscore = highscore_easy.made_highscore(score)
 
+            if position_on_highscore != 10:
+                print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
+                print(highscore_easy)
+                try_again = input('\nDo you have to try to increase your score? [Y/N]:')
 
-#main()
-#print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
+            else:
+                print(f'\nYour score is {score} and your score did not make the top 5')
+                try_again = input('Do you want to try to increase your score? [Y/N]:')
 
-#highscore(50)
-
-
-
-highscore_easy = Highscore('easy', ['Sophie','Johan','Emme','Johan','Kalla'], [1000,800,200,250,100])
-print(highscore_easy)
-print(highscore_easy.add_to_board(2, 'Fredde', 500))
-print(highscore_easy)
-print(highscore_easy.add_to_board(0, 'Jesper', 1500))
-print(highscore_easy)
-highscore_easy.uppdate_sheet()
+        else:
+            broken_egg()
+            break
 
 
 
+main()
+# print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
+# highscore(50)
+#sheet_highscore = SHEET.worksheet('easy')
+#data_easy = np.array(sheet_highscore.get_all_values()).T[:,1:]
 
-#SHEET.worksheet('easy').update([['Hej'], ['jag'], ['kan']],'A2')
-
-"""
-def highscore(impact_force):
-    score = impact_force*10
-
-    #Get data from Google sheets
-    sheet_highscore_easy, highscore_list_pd = get_highscore_data('easy')
-    
-
-    for i in range(2,6):
-        if score > int(highscore_list_pd['Score'][1]):
-            position = 1
-        elif score < int(highscore_list_pd['Score'][i-1]) and score > int(highscore_list_pd['Score'][i]):
-            position = i
-        
-    print(f'Your position {position}')
-    print(highscore_list_pd[:2].to_string())
-    print(f"{position}  _______  {score}")
-    print(highscore_list_pd[3:].to_string(header=False) + "\n")
-    name = input(f"{position} ")
-    print (name)
-
-    
-
-    user_name = input("Enter your name:")
-    highscore_list_pd.loc[-1] = np.array([user_name, score])
-    #Update data in google sheet
-    #sheet_highscore_easy.update([[user_name, score]],'A2:B2')
-    
-
-    print(highscore_list_pd.to_string() + "\n")
-    
-"""  
+#print(data_easy[0], data_easy[1])
+ 
