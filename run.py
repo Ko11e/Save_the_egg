@@ -116,6 +116,14 @@ def validation_yes_no(input):
         print(Fore.CYAN +f'You entered {input}, Please enter a \033[1mY for Yes and N for No.\033[0m'+ Style.RESET_ALL)
         return False
 
+def yes_no_question(question):
+    while True:
+        try_again = input(question)
+            if validation_yes_no(try_again):
+                break
+    
+    return try_again
+
 def select_protection():
     """
     Presents the protection materials that can be selected.
@@ -204,11 +212,10 @@ def reduce_force_limit(egg, landingposition, impact_force):
 
 def main():
     print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center") + Style.RESET_ALL)
-    
     egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
     highscore_easy = get_highscore_data('easy')
     score = 0
-
+    
     while True: 
         height = choose_height()
         material, reduction_of_impact = select_protection()
@@ -226,37 +233,31 @@ def main():
                 print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
                 print(highscore_easy)
 
-                while True:
-                    try_again = input('\nDo you have to try to increase your score? [Y/N]:')
-                    if validation_yes_no(try_again):
-                        break
+                
+                try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
 
                 if YES_NO.index(try_again) >= 5:
                     name = input('Enter your name to the highscore list:\n')
                     highscore_easy.add_to_board(position_on_highscore, name, score)
                     print(highscore_easy)
                     highscore_easy.uppdate_sheet()
-                    break
+                    
                 else:
                     egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
 
 
             else:
                 print(f'\nYour score is {score} and your score did not make the top 5')
-                while True:
-                    try_again = input('Do you want to try to increase your score? [Y/N]:')
-                    if validation_yes_no(try_again):
-                        break
+                try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
+
                 if YES_NO.index(try_again) < 5:
                     egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
                     
         else:
             broken_egg()
         
-        while True:
-            play_again = input(f'\nDo you want to play again? [Y/N]')
-            if validation_yes_no(play_again):
-                break
+        play_again = yes_no_question('Do you want to play again? [Y/N]')
+        
         if YES_NO.index(play_again) < 5:
             print(Fore.YELLOW+ pyfiglet.figlet_format("New game", font = "mini", justify ="center")+ Style.RESET_ALL)
             print('--------------------------------------------------------------------\n')
