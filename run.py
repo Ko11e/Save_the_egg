@@ -44,12 +44,12 @@ class Highscore:
 
     def add_to_board(self, position, new_name, new_score):
         # Add the name on the right position and removes the last name that is now on the 6:th place
-        self.names.insert(position, new_name)
-        self.names.pop(-1)
+        self.names = np.insert(self.names, position, new_name)
+        self.names = np.delete(self.names, -1)
 
         # Add the score on the right position and removes the last score that is now on the 6:th place
-        self.scores.insert(position, new_score)
-        self.scores.pop(-1)
+        self.scores = np.insert(self.scores, position, new_score)
+        self.scores = np.delete(self.scores, -1)
 
     def uppdate_sheet(self):
         for i  in range(2,7):
@@ -203,36 +203,42 @@ def reduce_force_limit(egg, landingposition, impact_force):
 
 
 def main():
+    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center") + Style.RESET_ALL)
+    
     egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
     highscore_easy = get_highscore_data('easy')
-    
-    print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
+    score = 0
+
     while True: 
         height = choose_height()
         material, reduction_of_impact = select_protection()
         landingposition = randomizing_land_of_egg()
     
         impact_force = impact_calculation(height, egg['height'][landingposition])
-    
-        if (impact_force - reduction_of_impact) < egg['force_limit'][landingposition]:
+        total_impact_force = impact_force - reduction_of_impact
+
+        if (total_impact_force) < egg['force_limit'][landingposition]:
             intact_egg()
-            score = int(impact_force *10)
+            score += int(impact_force *10)
             position_on_highscore = highscore_easy.made_highscore(score)
 
             if position_on_highscore != 10:
                 print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
                 print(highscore_easy)
+
                 while True:
                     try_again = input('\nDo you have to try to increase your score? [Y/N]:')
                     if validation_yes_no(try_again):
                         break
+
                 if YES_NO.index(try_again) >= 5:
                     name = input('Enter your name to the highscore list:\n')
                     highscore_easy.add_to_board(position_on_highscore, name, score)
                     print(highscore_easy)
+                    highscore_easy.uppdate_sheet()
                     break
                 else:
-                    egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
+                    egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
 
 
             else:
@@ -241,19 +247,28 @@ def main():
                     try_again = input('Do you want to try to increase your score? [Y/N]:')
                     if validation_yes_no(try_again):
                         break
-                if YES_NO.index(try_again) >= 5:
-                    break
-                else:
+                if YES_NO.index(try_again) < 5:
                     egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
-
-
+                    
         else:
             broken_egg()
+        
+        while True:
+            play_again = input(f'\nDo you want to play again? [Y/N]')
+            if validation_yes_no(play_again):
+                break
+        if YES_NO.index(play_again) < 5:
+            print(Fore.YELLOW+ pyfiglet.figlet_format("New game", font = "mini", justify ="center")+ Style.RESET_ALL)
+            print('--------------------------------------------------------------------\n')
+        else:
+            print(Fore.YELLOW+ pyfiglet.figlet_format("Thank you for playing", font = "mini", justify ="center"))
+            print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify = "center")+ Style.RESET_ALL)
             break
 
 
 
-#main()
+
+main()
 # print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead" ))
 
 # highscore(50)
@@ -261,7 +276,4 @@ def main():
 #data_easy = np.array(sheet_highscore.get_all_values()).T[:,1:]
 
 #print(data_easy[0], data_easy[1])
-egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
-print(egg)
-egg['force_limit'] = reduce_force_limit(egg, 1, 50)
-print(egg)
+
