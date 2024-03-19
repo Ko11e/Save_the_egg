@@ -1,8 +1,10 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
-from colorama import Fore, Back, Style
-from random import randint 
+from colorama import Fore, Style
+from random import randint
+from time import sleep
 import pyfiglet
+from os import system
 import pandas as pd
 import numpy as np
 
@@ -55,6 +57,17 @@ class Highscore:
         for i  in range(2,7):
             SHEET.worksheet(self.level).update([[self.names[i-2]]],f'A{i}')
             SHEET.worksheet(self.level).update([[self.scores[i-2]]],f'B{i}')
+
+def clear_screen():
+    sleep(2)
+    system('clear')
+    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center") +Style.RESET_ALL)
+
+def end_title():
+    sleep(2)
+    system('clear')
+    print(Fore.YELLOW+ pyfiglet.figlet_format("Thank you for playing", font = "mini", justify ="center"))
+    print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify = "center")+ Style.RESET_ALL)
 
 def choose_height():
     """
@@ -119,8 +132,8 @@ def validation_yes_no(input):
 def yes_no_question(question):
     while True:
         try_again = input(question)
-            if validation_yes_no(try_again):
-                break
+        if validation_yes_no(try_again):
+            break
     
     return try_again
 
@@ -209,16 +222,20 @@ def reduce_force_limit(egg, landingposition, impact_force):
 
     return egg['force_limit']-reduce_force
 
-
 def main():
-    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center") + Style.RESET_ALL)
+    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center"))
+    print('text explaining the game\n' + Style.RESET_ALL)
     egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
     highscore_easy = get_highscore_data('easy')
     score = 0
-    
+
     while True: 
         height = choose_height()
+        clear_screen()
+
         material, reduction_of_impact = select_protection()
+        clear_screen()
+
         landingposition = randomizing_land_of_egg()
     
         impact_force = impact_calculation(height, egg['height'][landingposition])
@@ -232,8 +249,6 @@ def main():
             if position_on_highscore != 10:
                 print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
                 print(highscore_easy)
-
-                
                 try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
 
                 if YES_NO.index(try_again) >= 5:
@@ -247,7 +262,7 @@ def main():
 
 
             else:
-                print(f'\nYour score is {score} and your score did not make the top 5')
+                print(f'\nYou scored {score} points and your score did not make the top 5')
                 try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
 
                 if YES_NO.index(try_again) < 5:
@@ -262,8 +277,7 @@ def main():
             print(Fore.YELLOW+ pyfiglet.figlet_format("New game", font = "mini", justify ="center")+ Style.RESET_ALL)
             print('--------------------------------------------------------------------\n')
         else:
-            print(Fore.YELLOW+ pyfiglet.figlet_format("Thank you for playing", font = "mini", justify ="center"))
-            print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify = "center")+ Style.RESET_ALL)
+            end_title()
             break
 
 
