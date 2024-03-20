@@ -287,7 +287,6 @@ def intact_egg():
         Returns:
             No value but prints a ASCII art of a egg
     """
-    print('You managed to save the egg\n')
     print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
     print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
     print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
@@ -337,6 +336,22 @@ def reduce_force_limit(egg, landingposition, impact_force):
 
     return egg['force_limit']-reduce_force
 
+def reason(impact_total, material, egg_position):
+    egg_limit = [40,60]
+
+    if egg_limit[egg_position] == 40:
+        if impact_total < 40:
+            print(f'\nThe {material} managed to protect your egg sufficiently')
+        elif impact_total > 40 and impact_total < 60:
+            print(f'\nBecause the egg landed horizontally the {material} failed to protect your egg')
+    else:
+        if impact_total < 40:
+            print(f'\nThe {material} managed to protect your egg sufficiently, even if it had landed horizontally')
+        elif impact_total > 40 and impact_total < 60:
+            print(f'\nThe {material} managed to protect your egg sufficiently, but only because it landed vertically')
+        else:
+            print(f'\nThe {material} failed to protect your egg')
+
 def print_centre(text):
     print(text.center(get_terminal_size().columns))
 
@@ -367,6 +382,8 @@ def main():
     score = 0
 
     while True:
+        level = input('What level do you want to play at [easy/medium/hard]?')
+        #This value needs to be validated
 
         while True: 
             height = choose_height()
@@ -382,6 +399,7 @@ def main():
 
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
+                reason(total_impact_force, material, landingposition)
                 score += int(impact_force *10)
                 position_on_highscore = highscore_easy.made_highscore(score)
 
@@ -413,6 +431,7 @@ def main():
                         break    
             else:
                 broken_egg()
+                reason(total_impact_force, material, landingposition)
                 break
         
         play_again = yes_no_question('Do you want to play again? [Y/N]')
@@ -452,3 +471,31 @@ class Protection:
 
 
 main()
+
+#broken_egg()
+
+#x = pyfiglet.figlet_format("Save the Egg", font = "bulbhead")
+"""
+print_centre(pyfiglet.figlet_format("Save the Egg", font = "bulbhead"))
+"""   
+#select_protection()
+
+"""
+protection = SHEET.worksheet('materials')
+data = protection.get_all_records()
+df = pd.DataFrame(data[1:], columns = data[0])
+print(data[1])
+
+list_of_god = Protection.get_all_materials()
+for i in list_of_god:
+    print(i)
+print('')
+print(list_of_god[2])
+del list_of_god[2]
+
+print(list_of_god[2])
+print('')
+for i in list_of_god:
+    print(i)
+
+"""
