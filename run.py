@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials as cd
 from colorama import Fore, Style
+from shutil import get_terminal_size
 from random import randint
 from time import sleep
 import pyfiglet
@@ -71,7 +72,7 @@ def clear_screen():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center") +Style.RESET_ALL)
+    print_acsii_centred('Save the egg', 'bulbhead')
 
 def end_title():
     """
@@ -84,8 +85,8 @@ def end_title():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW+ pyfiglet.figlet_format("Thank you for playing", font = "mini", justify ="center"))
-    print(pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify = "center")+ Style.RESET_ALL)
+    print_acsii_centred('Thank you for playing', 'mini')
+    print_acsii_centred('Save the egg', 'bulbhead')
 
 def choose_height():
     """
@@ -104,7 +105,7 @@ def choose_height():
         selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
             print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." +Style.RESET_ALL)
-            print('--------------------------------------------\n')
+
             break
     
     return float(selected_height)
@@ -212,7 +213,7 @@ def select_protection():
     #Presents the user of the options
     print("Specify which material you want to use to protect your egg?")
     print(pyfiglet.figlet_format("Materials", font = "digital"))
-    print(df['Material'].to_string() +"\n")
+    print(df['material'].to_string() +"\n")
 
     #Asks the user to select a option
     while True:
@@ -220,7 +221,7 @@ def select_protection():
         if validation_number(value, df):
             break
     
-    return df['Material'][int(value)], int(df['Impact reduction'][int(value)])
+    return df['material'][int(value)], int(df['impact'][int(value)])
 
 def impact_calculation(height, radius_egg):
     """
@@ -336,18 +337,37 @@ def reduce_force_limit(egg, landingposition, impact_force):
 
     return egg['force_limit']-reduce_force
 
+def print_centre(text):
+    print(text.center(get_terminal_size().columns))
+
+def print_acsii_centred(text, fonts):
+    f = pyfiglet.Figlet(font=fonts)
+    print(Fore.YELLOW)
+    print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")],sep="\n")
+    print(Style.RESET_ALL)
+
+def title_and_intro():
+    print_acsii_centred('Save the egg', 'bulbhead')
+    print(Fore.YELLOW)
+    print_centre("The game is about getting as many points as possible by dropping an egg as high")
+    print_centre("as you can without breaking the egg. To be able to drop the egg higher, there are")
+    print_centre("different materials to protect the egg.\n")
+    print_centre("You can play the game on three different levels, see below how these levels work.\n")
+    print_centre("Press ENTER to Start the game\n")
+    input("")
+    print(Style.RESET_ALL)
+
 def main():
     """
     The main function running the game save the egg.
     """
-    print(Fore.YELLOW+ pyfiglet.figlet_format("Save the Egg", font = "bulbhead", justify="center"))
-    print('text explaining the game\n' + Style.RESET_ALL)
+    title_and_intro()   
     egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
     highscore_easy = get_highscore_data('easy')
     score = 0
 
     while True:
-        
+
         while True: 
             height = choose_height()
             clear_screen()
@@ -379,6 +399,7 @@ def main():
                         
                     else:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
+                        print(egg)
 
 
                 else:
@@ -387,6 +408,7 @@ def main():
 
                     if YES_NO.index(try_again) < 5:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
+                        print(egg)
                     else:
                         break    
             else:
@@ -396,12 +418,36 @@ def main():
         play_again = yes_no_question('Do you want to play again? [Y/N]')
         
         if YES_NO.index(play_again) < 5:
-            print(Fore.YELLOW+ pyfiglet.figlet_format("New game", font = "mini", justify ="center")+ Style.RESET_ALL)
-            print('--------------------------------------------------------------------\n')
+            clear_screen()
+            print_acsii_centred('New game', 'mini')
         else:
             end_title()
             break
 
+class Protection:
+    id_number = 0
+    def __init__ (self, material, impact, pionts):
+        self.material = material
+        self.impact_red = impact
+        self.pionts_red = pionts
+        self.id = Protection.id_number
+        Protection.id_number += 1
+
+    def __str__(self):
+        return f'{self.id}       {self.material}'
+
+    @classmethod
+    def get_all_materials(cls):
+        protection = SHEET.worksheet('materials')
+        data = protection.get_all_records()
+        list_of_protection = []
+        for chooses in data:
+            material = cls(**chooses)
+            list_of_protection.append(material)
+
+        return list_of_protection
+
+    #def delete_option(id, list_of_all):
 
 
 
