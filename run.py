@@ -88,6 +88,17 @@ def end_title():
     print_acsii_centred('Thank you for playing', 'mini')
     print_acsii_centred('Save the egg', 'bulbhead')
 
+def title_and_intro():
+    print_acsii_centred('Save the egg', 'bulbhead')
+    print(Fore.YELLOW)
+    print_centre("The game is about getting as many points as possible by dropping an egg as high")
+    print_centre("as you can without breaking the egg. To be able to drop the egg higher, there are")
+    print_centre("different materials to protect the egg.\n")
+    print_centre("You can play the game on three different levels, see below how these levels work.\n")
+    print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
+    input("")
+    print(Style.RESET_ALL)
+    
 def choose_height():
     """
     Get height from the user that the egg is going to be droped from.
@@ -189,7 +200,7 @@ def validation_answer(input, lst, exp_answers):
     if input in lst:
         return True
     else:
-        print(Fore.CYAN +f'You entered {input}, Please enter \033[1m{exp_answers}\033[0m'+ Style.RESET_ALL)
+        print(Fore.CYAN +f'\nYou entered {input}, Please enter \033[1m{exp_answers}\033[0m'+ Style.RESET_ALL)
         return False
 
 def question_with_valiadation(question, lst, exp_answers ):
@@ -203,30 +214,51 @@ def question_with_valiadation(question, lst, exp_answers ):
     
     return answer
 
-def select_protection():
+def get_data(sheet_name):
+    """
+    Gets data from the google sheets and returns the data as the type pandas.DataFrame
+    ----------------------------------
+        Parameters
+            sheet_name : str
+
+        returns
+            out : pandas.DataFrame
+                The data in the sheet that have the name 'sheet_name' is returned as pd.DataFrame
+    """
+    sheet = SHEET.worksheet(sheet_name)
+    data = sheet.get_all_records()
+    df = pd.DataFrame(data)
+    
+    return df
+
+def select_protection(pandas_data):
     """
     Presents the protection materials that can be selected.
     Asks the user to indicate which protection they want.
     Run a while loop to collect a valid number that is a integer och a flaot.
     The loop will request input until the input is valid.
-    """
-    # Gets the data for the google sheet
-    protection = SHEET.worksheet('materials')
-    data = protection.get_all_values()
-    df = pd.DataFrame(data[1:], columns = data[0])
+    ------------------------------------
+        Parameters
+            pandas_data : pandas.DataFrame
 
+        Returns
+            out1 : str
+                A string with the chosen material for protection
+            out2 : int
+                The value as a int the the impact will be reduced by
+    """
     #Presents the user of the options
     print("Specify which material you want to use to protect your egg?")
     print(pyfiglet.figlet_format("Materials", font = "digital"))
-    print(df['material'].to_string() +"\n")
+    print(pandas_data['material'].to_string() +"\n")
 
     #Asks the user to select a option
     while True:
         value = input('\nPlease enter the number for the material that you want to use:\n')
-        if validation_number(value, df):
+        if validation_number(value, pandas_data):
             break
     
-    return df['material'][int(value)], int(df['impact'][int(value)])
+    return pandas_data['material'][int(value)], int(pandas_data['impact'][int(value)])
 
 def impact_calculation(height, radius_egg):
     """
@@ -367,35 +399,28 @@ def print_acsii_centred(text, fonts):
     print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")],sep="\n")
     print(Style.RESET_ALL)
 
-def title_and_intro():
-    print_acsii_centred('Save the egg', 'bulbhead')
-    print(Fore.YELLOW)
-    print_centre("The game is about getting as many points as possible by dropping an egg as high")
-    print_centre("as you can without breaking the egg. To be able to drop the egg higher, there are")
-    print_centre("different materials to protect the egg.\n")
-    print_centre("You can play the game on three different levels, see below how these levels work.\n")
-    print_centre("Press ENTER to Start the game\n")
-    input("")
-    print(Style.RESET_ALL)
-
 def main():
     """
     The main function running the game save the egg.
     """
     title_and_intro()   
-    egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
-    highscore_easy = get_highscore_data('easy')
-    score = 0
 
     while True:
+        #Values the change under the game and reset when the user starts a new game
+        egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
+        data_protection = get_data('materials')
+        score = 0
+
+        # User selects difficulty of the game
         level = question_with_valiadation('What level do you want to play at? [easy/medium/hard]:\n', ['easy','medium', 'hard'], 'easy, medium or hard')
-        #This value needs to be validated
+        highscore = get_highscore_data(level)
+        print(Fore.GREEN + f'\nYou have chosen to play with difficulty level {level}\n' + Style.RESET_ALL)
 
         while True: 
             height = choose_height()
             clear_screen()
 
-            material, reduction_of_impact = select_protection()
+            material, reduction_of_impact = select_protection(data_protection)
             clear_screen()
 
             landingposition = randomizing_land_of_egg()
@@ -408,18 +433,18 @@ def main():
                 intact_egg()
                 reason(total_impact_force, material, landingposition)
                 score += int(impact_force *10)
-                position_on_highscore = highscore_easy.made_highscore(score)
+                position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
-                    print(highscore_easy)
+                    print(highscore)
                     try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
 
                     if YES_NO.index(try_again) >= 5:
                         name = input('Enter your name to the highscore list:\n')
-                        highscore_easy.add_to_board(position_on_highscore, name, score)
-                        print(highscore_easy)
-                        highscore_easy.uppdate_sheet()
+                        highscore.add_to_board(position_on_highscore, name, score)
+                        print(highscore)
+                        highscore.uppdate_sheet()
                         break
                         
                     else:
@@ -452,36 +477,21 @@ def main():
 
 
 
-    #def delete_option(id, list_of_all):
 
 
 
-main()
 
-#broken_egg()
+# main()
 
-#x = pyfiglet.figlet_format("Save the Egg", font = "bulbhead")
-"""
-print_centre(pyfiglet.figlet_format("Save the Egg", font = "bulbhead"))
-"""   
-#select_protection()
 
-"""
+
 protection = SHEET.worksheet('materials')
 data = protection.get_all_records()
-df = pd.DataFrame(data[1:], columns = data[0])
-print(data[1])
-
-list_of_god = Protection.get_all_materials()
-for i in list_of_god:
-    print(i)
+df = pd.DataFrame(data)
+print(df)
+df = df.drop([2])
 print('')
-print(list_of_god[2])
-del list_of_god[2]
-
-print(list_of_god[2])
+print(df)
+df = df.drop([3])
 print('')
-for i in list_of_god:
-    print(i)
-
-"""
+print(df)
