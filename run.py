@@ -168,7 +168,7 @@ def validation_int(input, lst):
     
     return True
 
-def validation_yes_no(input):
+def validation_answer(input, lst, exp_answers):
     """
     Checks if the 'input' is a sting that is a Y, y, Yes, YES, yes, N, n, No, NO or no.
     Raises a error with a string saying that the string provided is not a yes or a no.
@@ -176,27 +176,32 @@ def validation_yes_no(input):
         Parameters
             input : str
 
+            lst : list
+
+            exp_answers : str
+
+
         Returns
             out : boolean
                 True if the ´input´ is a Y, y, Yes, YES, yes, N, n, No, NO or no and False if not.           
     """
 
-    if input in YES_NO:
+    if input in lst:
         return True
     else:
-        print(Fore.CYAN +f'You entered {input}, Please enter a \033[1mY for Yes and N for No.\033[0m'+ Style.RESET_ALL)
+        print(Fore.CYAN +f'You entered {input}, Please enter \033[1m{exp_answers}\033[0m'+ Style.RESET_ALL)
         return False
 
-def yes_no_question(question):
+def question_with_valiadation(question, lst, exp_answers ):
     """
     
     """
     while True:
-        try_again = input(question)
-        if validation_yes_no(try_again):
+        answer = input(question)
+        if validation_answer(answer, lst, exp_answers):
             break
     
-    return try_again
+    return answer
 
 def select_protection():
     """
@@ -259,44 +264,6 @@ def randomizing_land_of_egg():
 
     return randint(0,1)
 
-def broken_egg():
-    """
-    Prints a broken egg
-    -------------------
-        Parameters
-            No argumnets nedded
-        Returns:
-            No value but prints a ASCII art of a broken egg
-    """
-    print("Oooo no, the egg broke\n")
-    print("                          ⣠⣄⣀")
-    print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
-    print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
-    print(" ⣼⣿⣿⣿⣿⣀                  ⣰⣿⣿⣿⣿⣿⣿⣿⡇")
-    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
-    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
-    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+" ⣸⣿⣿⣿⡿⠟⠋")
-    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
-
-def intact_egg():
-    """
-    Prints a intact egg
-    ------------------
-        Parameters
-            No argumnets nedded
-        Returns:
-            No value but prints a ASCII art of a egg
-    """
-    print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
-    print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
-    print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
-    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧")
-    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
-    print(" ⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟")
-    print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
-    print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
-    print("      ⠉⠉⠉⠉ ")
-
 def get_highscore_data(difficulty_level):
     """
     Text
@@ -352,6 +319,45 @@ def reason(impact_total, material, egg_position):
         else:
             print(f'\nThe {material} failed to protect your egg')
 
+# ACSII picture functions 
+def broken_egg():
+    """
+    Prints a broken egg
+    -------------------
+        Parameters
+            No argumnets nedded
+        Returns:
+            No value but prints a ASCII art of a broken egg
+    """
+    print("Oooo no, the egg broke\n")
+    print("                          ⣠⣄⣀")
+    print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
+    print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
+    print(" ⣼⣿⣿⣿⣿⣀                  ⣰⣿⣿⣿⣿⣿⣿⣿⡇")
+    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
+    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
+    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+" ⣸⣿⣿⣿⡿⠟⠋")
+    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
+
+def intact_egg():
+    """
+    Prints a intact egg
+    ------------------
+        Parameters
+            No argumnets nedded
+        Returns:
+            No value but prints a ASCII art of a egg
+    """
+    print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
+    print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
+    print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
+    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧")
+    print(" ⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿")
+    print(" ⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟")
+    print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
+    print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
+    print("      ⠉⠉⠉⠉ ")
+# Text style functions
 def print_centre(text):
     print(text.center(get_terminal_size().columns))
 
@@ -382,7 +388,7 @@ def main():
     score = 0
 
     while True:
-        level = input('What level do you want to play at [easy/medium/hard]?')
+        level = question_with_valiadation('What level do you want to play at? [easy/medium/hard]:\n', ['easy','medium', 'hard'], 'easy, medium or hard')
         #This value needs to be validated
 
         while True: 
@@ -393,7 +399,8 @@ def main():
             clear_screen()
 
             landingposition = randomizing_land_of_egg()
-        
+
+            #Calculates the force at the impact with the ground
             impact_force = impact_calculation(height, egg['height'][landingposition])
             total_impact_force = impact_force - reduction_of_impact
 
@@ -406,7 +413,7 @@ def main():
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
                     print(highscore_easy)
-                    try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
+                    try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
 
                     if YES_NO.index(try_again) >= 5:
                         name = input('Enter your name to the highscore list:\n')
@@ -422,7 +429,7 @@ def main():
 
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
-                    try_again = yes_no_question('\nDo you want to try to increase your score? [Y/N]:')
+                    try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
 
                     if YES_NO.index(try_again) < 5:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
@@ -434,7 +441,7 @@ def main():
                 reason(total_impact_force, material, landingposition)
                 break
         
-        play_again = yes_no_question('Do you want to play again? [Y/N]')
+        play_again = question_with_valiadation('Do you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
         
         if YES_NO.index(play_again) < 5:
             clear_screen()
@@ -443,28 +450,7 @@ def main():
             end_title()
             break
 
-class Protection:
-    id_number = 0
-    def __init__ (self, material, impact, pionts):
-        self.material = material
-        self.impact_red = impact
-        self.pionts_red = pionts
-        self.id = Protection.id_number
-        Protection.id_number += 1
 
-    def __str__(self):
-        return f'{self.id}       {self.material}'
-
-    @classmethod
-    def get_all_materials(cls):
-        protection = SHEET.worksheet('materials')
-        data = protection.get_all_records()
-        list_of_protection = []
-        for chooses in data:
-            material = cls(**chooses)
-            list_of_protection.append(material)
-
-        return list_of_protection
 
     #def delete_option(id, list_of_all):
 
