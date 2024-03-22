@@ -1,11 +1,14 @@
 cachetools==5.3.3
 colorama==0.4.6
+colorclass==2.2.2
+docopt==0.6.2
 google-auth==2.29.0
 google-auth-oauthlib==1.2.0
 gspread==6.0.2
-libquadmath==1.26.4
+numpy==1.26.4
 oauthlib==3.2.2
 pandas==2.2.1
+pip-upgrader==1.4.15
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pyfiglet==1.0.2
@@ -13,4 +16,6 @@ pytz==2024.1
 requests-oauthlib==1.4.0
 rsa==4.9
 StrEnum==0.4.15
+terminaltables==3.1.10
 tzdata==2024.1
+upgrade-requirements==1.7.0
