@@ -503,28 +503,27 @@ def main():
 
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
-                    print(highscore)
                     try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    clear_screen()
 
                     if YES_NO.index(try_again) >= 5:
                         name = input('Enter your name to the highscore list:\n')
                         highscore.add_to_board(position_on_highscore, name, score)
                         print(highscore)
                         highscore.uppdate_sheet()
+                        clear_screen()
                         break
                         
                     else:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-                        print(egg)
-
 
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
                     try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    clear_screen()
 
                     if YES_NO.index(try_again) < 5:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
-                        print(egg)
                     else:
                         break    
             else:
@@ -533,7 +532,7 @@ def main():
                 break
         
         play_again = question_with_valiadation('Do you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
-        
+
         if YES_NO.index(play_again) < 5:
             clear_screen()
             print_acsii_centred('New game', 'mini')
@@ -543,17 +542,3 @@ def main():
 
 
 main()
-
-
-"""
-protection = SHEET.worksheet('materials')
-data = protection.get_all_records()
-df = pd.DataFrame(data)
-print(df)
-df = df.drop([2])
-print('')
-print(df)
-df = df.drop([3])
-print('')
-print(df)
-"""
