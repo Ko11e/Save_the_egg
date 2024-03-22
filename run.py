@@ -547,5 +547,5 @@ def main():
             break
 
 
-#main()
-title_and_intro()
+main()
+#title_and_intro()
