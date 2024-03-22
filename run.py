@@ -547,10 +547,10 @@ def main():
 
 
 
-# main()
+main()
 
 
-
+"""
 protection = SHEET.worksheet('materials')
 data = protection.get_all_records()
 df = pd.DataFrame(data)
@@ -561,3 +561,4 @@ print(df)
 df = df.drop([3])
 print('')
 print(df)
+"""
