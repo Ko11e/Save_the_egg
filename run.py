@@ -97,10 +97,16 @@ def title_and_intro():
     """
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Fore.YELLOW)
-    print_centre("The game is about getting as many points as possible by dropping an egg as high")
-    print_centre("as you can without breaking the egg. To be able to drop the egg higher, there are")
-    print_centre("different materials to protect the egg.\n")
+    print_centre("The game is about getting as many points as possible by dropping an egg ")
+    print_centre("as high as you can without breaking the egg. To be able to drop the egg higher,")
+    print_centre("there are different materials to protect the egg.\n")
     print_centre("You can play the game on three different levels, see below how these levels work.\n")
+    print("EAYS:     The way the egg lands, either horizontally or vertically, will determine how well it")
+    print("          copes with the impact. If you successfully save the egg, you can attempt to earn") 
+    print("          more points by dropping it again. However, keep in mind that the egg has been damaged")
+    print("          from the previous drop, and therefore it won't be able to withstand as big ")
+    print("          of a hit as before.\n")
+    print("          If the egg breaks, you will lose your points.\n")
     print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
     input("")
     print(Style.RESET_ALL)
@@ -477,7 +483,7 @@ def main():
         score = 0
 
         # User selects difficulty of the game
-        level = question_with_valiadation('What level do you want to play at? [easy/medium/hard]:\n', ['easy','medium', 'hard'], 'easy, medium or hard')
+        level = question_with_valiadation('What level do you want to play at? [easy/medium]:\n', ['easy','medium', 'hard'], 'easy, medium or hard')
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
@@ -541,4 +547,5 @@ def main():
             break
 
 
-main()
+#main()
+title_and_intro()
