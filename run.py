@@ -107,6 +107,7 @@ def title_and_intro():
     print("          from the previous drop, and therefore it won't be able to withstand as big ")
     print("          of a hit as before.\n")
     print("          If the egg breaks, you will lose your points.\n")
+    print("MEDUIM:   ")
     print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
     input("")
     print(Style.RESET_ALL)
@@ -177,9 +178,11 @@ def validation_int(input, lst):
             out : boolean 
                 True if the sting  a number and False it it's not.
     """
+    string_lst = ', '.join(map(str, lst))
+
     try:
         int(input)
-        if int(input) > len(lst)-1:  
+        if int(input) not in lst:  
             raise TypeError
 
     except ValueError:
@@ -187,7 +190,7 @@ def validation_int(input, lst):
         return False
     
     except TypeError:
-        print(Fore.CYAN + f'Please enter a number between 0-{len(lst)-1}'+ Style.RESET_ALL)
+        print(Fore.CYAN + f'Please enter {string_lst}.'+ Style.RESET_ALL)
         return False 
     
     return True
@@ -281,10 +284,13 @@ def select_protection(pandas_data):
     print(pyfiglet.figlet_format("Materials", font = "digital"))
     print(pandas_data['material'].to_string() +"\n")
 
+    keys_data = [x for x in pandas_data.index]
+    print(f'The {keys_data} is the type {type(keys_data)}')
+
     #Asks the user to select a option
     while True:
         value = input('\nPlease enter the number for the material that you want to use:\n')
-        if validation_number(value, pandas_data):
+        if validation_number(value, keys_data):
             break
     
     value = int(value)
@@ -307,7 +313,7 @@ def impact_calculation(height, radius_egg):
     """
     g = 9.82 # Average gravity in m/s^2
     mass = 0.05 # Mass of the egg in kg
-    
+
     impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
