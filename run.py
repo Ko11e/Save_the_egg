@@ -284,7 +284,7 @@ def select_protection(pandas_data):
     print(pyfiglet.figlet_format("Materials", font = "digital"))
     print(pandas_data['material'].to_string() +"\n")
 
-    #Enter the keyvaule to a list
+    #Enter the keyvaule to a list that is needed when a element is removed
     keys_data = [x for x in pandas_data.index]
 
     #Asks the user to select a option
@@ -300,12 +300,12 @@ def select_protection(pandas_data):
 
 def score_adjustment(score, protection, points):
     """
-
+    
     """
     if protection == True:
         return score - points
     else:
-        return score + 400
+        return score + points
 
 def impact_calculation(height, radius_egg):
     """
@@ -330,6 +330,28 @@ def impact_calculation(height, radius_egg):
     impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
+
+def generatet_incident(material_value):
+    """
+
+    """
+    data = get_data('incidents')
+    # Extract data with the chosen protection material
+    chosen_material = data[data['material'] == material_value]
+    # Creates new index to the extracted data
+    chosen_material.index = [1,2,3,4,5,6,7,8]
+    
+    incident = randint(1,8)
+
+    print(chosen_material['text'][incident])
+  
+    impact_effect = chosen_material['impact'][incident]
+    # Convert the negative value in google sheet from a str to a int
+    if type(impact_effect) == str:
+        int_impact_effect = int(impact_effect.strip(impact_effect[0]))
+        impact_effect = -int_impact_effect
+  
+    return impact_effect
 
 def randomizing_land_of_egg():
     """
@@ -502,7 +524,7 @@ def main():
         score = 0
 
         # User selects difficulty of the game
-        level = question_with_valiadation('What level do you want to play at? [easy/medium]:\n', ['easy','medium', 'hard'], 'easy or medium')
+        level = question_with_valiadation('What level do you want to play at? [easy/medium/hard]:\n', ['easy','medium', 'hard'], 'easy or medium')
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
@@ -514,11 +536,13 @@ def main():
                     protection = False
                     material_values = {'material': 'None', 'impact': 0, 'points': 500}
             
-            material_values, value = select_protection(data_protection)
+            if protection == True:
+                material_values, value = select_protection(data_protection)
+                #Remove the chosen protection for the list
+                data_protection = data_protection.drop([value])
             height = choose_height()
 
-            #Remove the chosen protection for the list
-            data_protection = data_protection.drop([value])
+            
             clear_screen()
 
             landingposition = randomizing_land_of_egg()
@@ -527,9 +551,9 @@ def main():
             impact_force = impact_calculation(height, egg['height'][landingposition])
             
             #Incident that happen at the hard level
-            incident = generatet_incident(material_values) if level == 'hard' else incident = 0
+            incident = generatet_incident(material_values['material']) if level == 'hard' else 0
             
-            total_impact_force = impact_force - material_values['impact'] + incident
+            total_impact_force = impact_force - material_values['impact'] - incident
 
             #Checks if the egg breaks
             if (total_impact_force) < egg['force_limit'][landingposition]:
@@ -538,7 +562,7 @@ def main():
                 score += int(impact_force *10)
                 
                 if (level == 'medium' or level == 'hard'): 
-                    score = score_reduction(score, protection, material_values['points'])
+                    score = score_adjustment(score, protection, material_values['points'])
 
                 #See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
@@ -583,14 +607,5 @@ def main():
             break
 
 
-#main()
+main()
 #title_and_intro()
-
-
-sheet = SHEET.worksheet('materials')
-data = sheet.get_all_records()
-df = pd.DataFrame(data)
-values = df.iloc[2]
-print(type(values['material']))
-print(type(values['impact']))
-print(type(values['pionts']))
