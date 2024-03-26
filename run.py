@@ -506,33 +506,39 @@ def main():
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
-        while True: 
+        while True:
+            protection = True 
             if level == 'medium' or level == 'hard':
                 protecting_egg = question_with_valiadation('\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
-            material_values, value = select_protection(data_protection) if YES_NO.index(try_again) <= 5 else 
+                if YES_NO.index(protecting_egg) >= 5:
+                    protection = False
+                    material_values = {'material': 'None', 'impact': 0, 'points': 500}
             
+            material_values, value = select_protection(data_protection)
             height = choose_height()
 
             #Remove the chosen protection for the list
             data_protection = data_protection.drop([value])
             clear_screen()
 
-            if level == 'hard': incident = generatet_incident(level)
-
             landingposition = randomizing_land_of_egg()
 
             #Calculates the force at the impact with the ground
             impact_force = impact_calculation(height, egg['height'][landingposition])
-            total_impact_force = impact_force - material_values['impact'] #- incident
+            
+            #Incident that happen at the hard level
+            incident = generatet_incident(material_values) if level == 'hard' else incident = 0
+            
+            total_impact_force = impact_force - material_values['impact'] + incident
 
             #Checks if the egg breaks
-            print(egg['force_limit'])
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
                 reason(total_impact_force, material_values['material'], landingposition)
                 score += int(impact_force *10)
                 
-                if (level == 'medium' or level == 'hard'): score = score_reduction(score, protection, material_values['points'])
+                if (level == 'medium' or level == 'hard'): 
+                    score = score_reduction(score, protection, material_values['points'])
 
                 #See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
@@ -551,7 +557,6 @@ def main():
                         
                     else:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-                        print(egg['force_limit'])
 
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
@@ -560,7 +565,7 @@ def main():
 
                     if YES_NO.index(try_again) < 5:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-                        print(egg['force_limit'])
+
                     else:
                         break    
             else:
