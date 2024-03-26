@@ -35,7 +35,7 @@ class Highscore:
 
     def __str__(self):
         board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
-        print(pyfiglet.figlet_format("Highescore", font = "threepoint" ))
+        print(pyfiglet.figlet_format("High Score", font = "threepoint" ))
         return board.to_string()
 
     def made_highscore(self, new_score):
@@ -284,8 +284,8 @@ def select_protection(pandas_data):
     print(pyfiglet.figlet_format("Materials", font = "digital"))
     print(pandas_data['material'].to_string() +"\n")
 
+    #Enter the keyvaule to a list
     keys_data = [x for x in pandas_data.index]
-    print(f'The {keys_data} is the type {type(keys_data)}')
 
     #Asks the user to select a option
     while True:
@@ -294,8 +294,9 @@ def select_protection(pandas_data):
             break
     
     value = int(value)
+    print(Fore.GREEN +f"You've chosen to protect your egg with a {pandas_data['material'][value]}.\n"+ Style.RESET_ALL)
 
-    return pandas_data['material'][value], int(pandas_data['impact'][value]), value
+    return pandas_data.iloc[value], value
 
 def impact_calculation(height, radius_egg):
     """
@@ -311,6 +312,9 @@ def impact_calculation(height, radius_egg):
             out : float
                 Text
     """
+    print('Dropping the egg.....')
+    sleep(2)
+
     g = 9.82 # Average gravity in m/s^2
     mass = 0.05 # Mass of the egg in kg
 
@@ -489,33 +493,38 @@ def main():
         score = 0
 
         # User selects difficulty of the game
-        level = question_with_valiadation('What level do you want to play at? [easy/medium]:\n', ['easy','medium', 'hard'], 'easy, medium or hard')
+        level = question_with_valiadation('What level do you want to play at? [easy/medium]:\n', ['easy','medium', 'hard'], 'easy or medium')
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
         while True: 
+            material_values, value = select_protection(data_protection)
             height = choose_height()
-            clear_screen()
 
-            material, reduction_of_impact, value = select_protection(data_protection)
+            #Remove the chosen protection for the list
             data_protection = data_protection.drop([value])
             clear_screen()
+
+            #incident = generatet_incident(level)
 
             landingposition = randomizing_land_of_egg()
 
             #Calculates the force at the impact with the ground
             impact_force = impact_calculation(height, egg['height'][landingposition])
-            total_impact_force = impact_force - reduction_of_impact
+            total_impact_force = impact_force - material_values['impact'] #- incident
 
+            #Checks if the egg breaks
+            print(egg['force_limit'])
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
-                reason(total_impact_force, material, landingposition)
+                reason(total_impact_force, material_values['material'], landingposition)
                 score += int(impact_force *10)
+                #See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
-                    try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    try_again = question_with_valiadation('\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
                     clear_screen()
 
                     if YES_NO.index(try_again) >= 5:
@@ -523,19 +532,20 @@ def main():
                         highscore.add_to_board(position_on_highscore, name, score)
                         print(highscore)
                         highscore.uppdate_sheet()
-                        clear_screen()
                         break
                         
                     else:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
+                        print(egg['force_limit'])
 
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
-                    try_again = question_with_valiadation('\nDo you want to try to increase your score? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    try_again = question_with_valiadation('\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n', YES_NO, 'Y for Yes or N for No')
                     clear_screen()
 
                     if YES_NO.index(try_again) < 5:
-                        egg['force_limit'] = reduce_force_limit(egg, landingposition, impact_force)
+                        egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
+                        print(egg['force_limit'])
                     else:
                         break    
             else:
@@ -543,7 +553,7 @@ def main():
                 reason(total_impact_force, material, landingposition)
                 break
         
-        play_again = question_with_valiadation('Do you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+        play_again = question_with_valiadation('\nDo you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
 
         if YES_NO.index(play_again) < 5:
             clear_screen()
@@ -555,3 +565,13 @@ def main():
 
 main()
 #title_and_intro()
+
+'''
+sheet = SHEET.worksheet('materials')
+data = sheet.get_all_records()
+df = pd.DataFrame(data)
+values = df.iloc[2]
+print(type(values['material']))
+print(type(values['impact']))
+print(type(values['pionts']))
+'''
