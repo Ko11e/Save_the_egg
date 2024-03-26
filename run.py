@@ -298,6 +298,15 @@ def select_protection(pandas_data):
 
     return pandas_data.iloc[value], value
 
+def score_adjustment(score, protection, points):
+    """
+
+    """
+    if protection == True:
+        return score - points
+    else:
+        return score + 400
+
 def impact_calculation(height, radius_egg):
     """
     Calculates the force that the egg will be impacted by when it hit the ground.
@@ -498,14 +507,17 @@ def main():
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
         while True: 
-            material_values, value = select_protection(data_protection)
+            if level == 'medium' or level == 'hard':
+                protecting_egg = question_with_valiadation('\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
+            material_values, value = select_protection(data_protection) if YES_NO.index(try_again) <= 5 else 
+            
             height = choose_height()
 
             #Remove the chosen protection for the list
             data_protection = data_protection.drop([value])
             clear_screen()
 
-            #incident = generatet_incident(level)
+            if level == 'hard': incident = generatet_incident(level)
 
             landingposition = randomizing_land_of_egg()
 
@@ -519,6 +531,9 @@ def main():
                 intact_egg()
                 reason(total_impact_force, material_values['material'], landingposition)
                 score += int(impact_force *10)
+                
+                if (level == 'medium' or level == 'hard'): score = score_reduction(score, protection, material_values['points'])
+
                 #See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
 
@@ -563,10 +578,10 @@ def main():
             break
 
 
-main()
+#main()
 #title_and_intro()
 
-'''
+
 sheet = SHEET.worksheet('materials')
 data = sheet.get_all_records()
 df = pd.DataFrame(data)
@@ -574,4 +589,3 @@ values = df.iloc[2]
 print(type(values['material']))
 print(type(values['impact']))
 print(type(values['pionts']))
-'''
