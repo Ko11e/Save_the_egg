@@ -117,8 +117,9 @@ def title_and_intro():
     print("          more points by dropping it again. However, keep in mind that the egg has been damaged")
     print("          from the previous drop, and therefore it won't be able to withstand as big")
     print("          of a hit as before.\n")
-    print("          If the egg breaks, you will lose your points.\n")
-    print("MEDUIM:   ")
+    print("          If the egg breaks, you will lose your points.")
+    print("MEDUIM:   Explain the level")
+    print("HARD:     Explain the level")
     print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
     input("")
     print(Style.RESET_ALL)
@@ -140,7 +141,7 @@ def choose_height():
     """
     while True:
         selected_height = input(
-            'Choose the height from which you want to drop the egg [meters]:\n')
+            'From which height do you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
             print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." + Style.RESET_ALL)
             break
@@ -322,7 +323,18 @@ def select_protection(pandas_data):
 
 def score_adjustment(score, protection, points):
     """
-    TEXT
+    Subtract or Add the points to the score depending if the egg is proterctet or not.
+    -----------------------------------
+        Parameters
+            score : int
+                tEXT
+            protection : boolean
+                Text
+            pionts : int
+
+        Returns
+            out : int
+                text
     """
     if protection is True:
         return score - points
@@ -357,7 +369,15 @@ def impact_calculation(height, radius_egg):
 
 def generatet_incident(material_value):
     """
+    TExt
+    ---------------------------------
+        Parameters
+            material_value : str
+                TEXT
 
+        Returns
+            out : int
+                Text
     """
     data = get_data('incidents')
     # Extract data with the chosen protection material
@@ -366,8 +386,10 @@ def generatet_incident(material_value):
     chosen_material.index = [1, 2, 3, 4, 5, 6, 7, 8]
 
     incident = randint(1, 8)
-
-    print(chosen_material['text'][incident])
+    if incident <=4:
+        print(Fore.GREEN + chosen_material['text'][incident] + Style.RESET_ALL)
+    else:
+        print(Fore.RED + chosen_material['text'][incident] + Style.RESET_ALL)
 
     impact_effect = chosen_material['impact'][incident]
     # Convert the negative value in google sheet from a str to a int
@@ -630,7 +652,7 @@ def main():
                         break
             else:
                 broken_egg()
-                reason(total_impact_force, material, landingposition)
+                reason(total_impact_force, material_values['material'], landingposition)
                 break
 
         play_again = question_with_valiadation('\nDo you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
