@@ -21,8 +21,9 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Save_the_egg')
 
-#Global varibel for validation
+# Global varibel for validation
 YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
+
 
 class Highscore:
     """
@@ -34,33 +35,37 @@ class Highscore:
         self.scores = scores
 
     def __str__(self):
-        board = pd.DataFrame({'Name': self.names, 'Score': self.scores}, index=[1,2,3,4,5])
-        print(pyfiglet.figlet_format("High Score", font = "threepoint" ))
+        board = pd.DataFrame(
+            {'Name': self.names, 'Score': self.scores}, index=[1, 2, 3, 4, 5])
+        print(pyfiglet.figlet_format("High Score", font="threepoint"))
         return board.to_string()
 
     def made_highscore(self, new_score):
         position = 10
-        for i in range(1,5):
+        for i in range(1, 5):
             if new_score > int(self.scores[0]):
                 position = 0
             elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
                 position = i
-                
+
         return position
 
     def add_to_board(self, position, new_name, new_score):
-        # Add the name on the right position and removes the last name that is now on the 6:th place
+        # Add the name on the right position and removes
+        # the last name that is now on the 6:th place
         self.names = np.insert(self.names, position, new_name)
         self.names = np.delete(self.names, -1)
 
-        # Add the score on the right position and removes the last score that is now on the 6:th place
+        # Add the score on the right position and removes
+        # the last score that is now on the 6:th place
         self.scores = np.insert(self.scores, position, new_score)
         self.scores = np.delete(self.scores, -1)
 
     def uppdate_sheet(self):
-        for i  in range(2,7):
-            SHEET.worksheet(self.level).update([[self.names[i-2]]],f'A{i}')
-            SHEET.worksheet(self.level).update([[self.scores[i-2]]],f'B{i}')
+        for i in range(2, 7):
+            SHEET.worksheet(self.level).update([[self.names[i-2]]], f'A{i}')
+            SHEET.worksheet(self.level).update([[self.scores[i-2]]], f'B{i}')
+
 
 def clear_screen():
     """
@@ -74,10 +79,11 @@ def clear_screen():
     system('clear')
     print_acsii_centred('Save the egg', 'bulbhead')
 
+
 def end_title():
     """
-    This function Waits for 2 seconds and 
-    then clears the terminal and prints a text 
+    This function Waits for 2 seconds and
+    then clears the terminal and prints a text
     thanking you for playing the game
     -------------------
         Parameters
@@ -88,6 +94,7 @@ def end_title():
     print_acsii_centred('Thank you for playing', 'mini')
     print_acsii_centred('Save the egg', 'bulbhead')
 
+
 def title_and_intro():
     """
     Prints the titel of the game (Save the egg) and a introdution to the game
@@ -97,21 +104,26 @@ def title_and_intro():
     """
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Fore.YELLOW)
-    print_centre("The game is about getting as many points as possible by dropping an egg ")
-    print_centre("as high as you can without breaking the egg. To be able to drop the egg higher,")
-    print_centre("there are different materials to protect the egg.\n")
-    print_centre("You can play the game on three different levels, see below how these levels work.\n")
+    print_centre(
+        "The game is about getting as many points as possible by dropping an egg")
+    print_centre(
+        "as high as you can without breaking the egg. To be able to drop the egg higher,")
+    print_centre(
+        "there are different materials to protect the egg.\n")
+    print_centre(
+        "You can play the game on three different levels, see below how these levels work.\n")
     print("EAYS:     The way the egg lands, either horizontally or vertically, will determine how well it")
-    print("          copes with the impact. If you successfully save the egg, you can attempt to earn") 
+    print("          copes with the impact. If you successfully save the egg, you can attempt to earn")
     print("          more points by dropping it again. However, keep in mind that the egg has been damaged")
-    print("          from the previous drop, and therefore it won't be able to withstand as big ")
+    print("          from the previous drop, and therefore it won't be able to withstand as big")
     print("          of a hit as before.\n")
     print("          If the egg breaks, you will lose your points.\n")
     print("MEDUIM:   ")
     print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
     input("")
     print(Style.RESET_ALL)
-    
+
+
 def choose_height():
     """
     Get height from the user that the egg is going to be droped from.
@@ -120,20 +132,21 @@ def choose_height():
     -------------------------------------------
         Parameters
             None
-        
-        Retruns 
-            out : float 
+
+        Retruns
+            out : float
                 Given number by the user is return as a float.
 
     """
     while True:
-        selected_height = input('Choose the height from which you want to drop the egg [meters]:\n')
+        selected_height = input(
+            'Choose the height from which you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
-            print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." +Style.RESET_ALL)
-
+            print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." + Style.RESET_ALL)
             break
-    
+
     return float(selected_height)
+
 
 def validation_number(user_input, lst=None):
     """
@@ -141,12 +154,12 @@ def validation_number(user_input, lst=None):
     Raises a ValueError if the string can't be converted into a flaot.
     ------------------------------------
         Parameters
-            user_input : str 
+            user_input : str
                 String to check if it's a number
-            lst :list, optional 
-                A list with numbers (int) to check if ´user_input´ is in the list. 
-                If ´lst´ is None this function is not executed 
-        
+            lst :list, optional
+                A list with numbers (int) to check if ´user_input´
+                is in the list. If ´lst´ is None this function is not executed
+
         Returns
             boolean : True if the sting  a number and False it it's not.
     """
@@ -154,46 +167,48 @@ def validation_number(user_input, lst=None):
         float(user_input)
         if lst is not None:
             return validation_int(user_input, lst)
-        
+
     except ValueError:
-        print(Fore.CYAN + f"You have entered a string, please enter a number.\n"+ Style.RESET_ALL)
+        print(Fore.CYAN + f"You have entered a string, please enter a number.\n" + Style.RESET_ALL)
         return False
 
     return True
 
+
 def validation_int(input, lst):
     """
     Inside the try, converts a string in to a integers.
-    Raises ValueError if string can't be converted into int 
-    and TypeError if the nummber is higher the number is 
+    Raises ValueError if string can't be converted into int
+    and TypeError if the nummber is higher the number is
     higher than the length of the list.
     ------------------------------------
         Parameters
-            input : str 
+            input : str
                 string to check if it's a int and if the value is in lst
             lst :list
-                A list with numbers (int) to check if ´input´ is in the list. 
-        
+                A list with numbers (int) to check if ´input´ is in the list.
+
         Returns
-            out : boolean 
+            out : boolean
                 True if the sting  a number and False it it's not.
     """
     string_lst = ', '.join(map(str, lst))
 
     try:
         int(input)
-        if int(input) not in lst:  
+        if int(input) not in lst:
             raise TypeError
 
     except ValueError:
-        print(Fore.CYAN + f"Please enter a whole number, you have entered {input} which is a decimal number"+ Style.RESET_ALL)
+        print(Fore.CYAN + f"Please enter a whole number, you have entered {input} which is a decimal number" + Style.RESET_ALL)
         return False
-    
+
     except TypeError:
-        print(Fore.CYAN + f'Please enter {string_lst}.'+ Style.RESET_ALL)
-        return False 
-    
+        print(Fore.CYAN + f'Please enter {string_lst}.' + Style.RESET_ALL)
+        return False
+
     return True
+
 
 def validation_answer(input, lst, exp_answers):
     """
@@ -209,19 +224,21 @@ def validation_answer(input, lst, exp_answers):
                 The values the user chould answer as a stinge the is entered after "Please enter"
         Returns
             out : boolean
-                True if the ´input´ is in ´lst´ and False if not.           
+                True if the ´input´ is in ´lst´ and False if not.
     """
 
     if input in lst:
         return True
     else:
-        print(Fore.CYAN +f'\nYou entered {input}, Please enter \033[1m{exp_answers}\033[0m'+ Style.RESET_ALL)
+        print(Fore.CYAN + f'\nYou entered {input}, Please enter \033[1m{exp_answers}\033[0m' + Style.RESET_ALL)
         return False
+
 
 def question_with_valiadation(question, lst, exp_answers):
     """
-    Ask the user a 'question' which is a string and checks if the value that is expected. 
-    Run a while loop to collect a valid answer that is in the list 'lst', where 'lst' is a list with strings.
+    Ask the user a 'question' which is a string and checks if
+    the value that is expected. Run a while loop to collect a valid
+    answer that is in the list 'lst', where 'lst' is a list with strings.
     Return the valid answer
     ----------------------------------------------------
         Parameters
@@ -231,7 +248,8 @@ def question_with_valiadation(question, lst, exp_answers):
             lst : list
                 A list of strings that are the expected values from the user
             exp_answers : str
-                The values the user should answer as a stinge the is entered after "Please enter"
+                The values the user should answer as a stinge
+                and is entered after "Please enter"
         Returns
             out : str
                 One of the expected values as a string
@@ -241,8 +259,9 @@ def question_with_valiadation(question, lst, exp_answers):
         answer = input(question)
         if validation_answer(answer, lst, exp_answers):
             break
-    
+
     return answer
+
 
 def get_data(sheet_name):
     """
@@ -253,13 +272,15 @@ def get_data(sheet_name):
 
         returns
             out : pandas.DataFrame
-                The data in the sheet that have the name 'sheet_name' is returned as pd.DataFrame
+                The data in the sheet that have the name 'sheet_name'
+                is returned as pd.DataFrame
     """
     sheet = SHEET.worksheet(sheet_name)
     data = sheet.get_all_records()
     df = pd.DataFrame(data)
-    
+
     return df
+
 
 def select_protection(pandas_data):
     """
@@ -279,33 +300,35 @@ def select_protection(pandas_data):
             out3 : int
                 The index number of the chosen material
     """
-    #Presents the user of the options
+    # Presents the user of the options
     print("Specify which material you want to use to protect your egg?")
-    print(pyfiglet.figlet_format("Materials", font = "digital"))
-    print(pandas_data['material'].to_string() +"\n")
+    print(pyfiglet.figlet_format("Materials", font="digital"))
+    print(pandas_data['material'].to_string() + "\n")
 
-    #Enter the keyvaule to a list that is needed when a element is removed
+    # Enter the keyvaule to a list that is needed when a element is removed
     keys_data = [x for x in pandas_data.index]
 
-    #Asks the user to select a option
+    # Asks the user to select a option
     while True:
         value = input('\nPlease enter the number for the material that you want to use:\n')
         if validation_number(value, keys_data):
             break
-    
+
     value = int(value)
-    print(Fore.GREEN +f"You've chosen to protect your egg with a {pandas_data['material'][value]}.\n"+ Style.RESET_ALL)
+    print(Fore.GREEN + f"You've chosen to protect your egg with a {pandas_data['material'][value]}.\n" + Style.RESET_ALL)
 
     return pandas_data.iloc[value], value
 
+
 def score_adjustment(score, protection, points):
     """
-    
+    TEXT
     """
-    if protection == True:
+    if protection is True:
         return score - points
     else:
         return score + points
+
 
 def impact_calculation(height, radius_egg):
     """
@@ -316,7 +339,7 @@ def impact_calculation(height, radius_egg):
                 TEXT
             radius_egg : float
                 TEXT
-        
+
         Returns
             out : float
                 Text
@@ -324,12 +347,13 @@ def impact_calculation(height, radius_egg):
     print('Dropping the egg.....')
     sleep(2)
 
-    g = 9.82 # Average gravity in m/s^2
-    mass = 0.05 # Mass of the egg in kg
+    g = 9.82  # Average gravity in m/s^2
+    mass = 0.05  # Mass of the egg in kg
 
     impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
+
 
 def generatet_incident(material_value):
     """
@@ -339,19 +363,20 @@ def generatet_incident(material_value):
     # Extract data with the chosen protection material
     chosen_material = data[data['material'] == material_value]
     # Creates new index to the extracted data
-    chosen_material.index = [1,2,3,4,5,6,7,8]
-    
-    incident = randint(1,8)
+    chosen_material.index = [1, 2, 3, 4, 5, 6, 7, 8]
+
+    incident = randint(1, 8)
 
     print(chosen_material['text'][incident])
-  
+
     impact_effect = chosen_material['impact'][incident]
     # Convert the negative value in google sheet from a str to a int
     if type(impact_effect) == str:
         int_impact_effect = int(impact_effect.strip(impact_effect[0]))
         impact_effect = -int_impact_effect
-  
+
     return impact_effect
+
 
 def randomizing_land_of_egg():
     """
@@ -359,18 +384,18 @@ def randomizing_land_of_egg():
     --------------------------------------
         Parameters
             No arguments nedded
-        
+
         Returns:
             out : int
                 Value return is int that is a 0 or 1
-
     """
 
-    return randint(0,1)
+    return randint(0, 1)
+
 
 def get_highscore_data(difficulty_level):
     """
-    Gets data from the googlesheet with the name 'difficulty_level' 
+    Gets data from the googlesheet with the name 'difficulty_level'
     and returns the data as a class Highscore
     -------------------
         Parameters
@@ -382,21 +407,22 @@ def get_highscore_data(difficulty_level):
             out : class Highscore
     """
     sheet_highscore = SHEET.worksheet(difficulty_level)
-    data = np.array(sheet_highscore.get_all_values()).T[:,1:]
+    data = np.array(sheet_highscore.get_all_values()).T[:, 1:]
 
     highscore_data = Highscore(difficulty_level, data[0], data[1])
 
     return highscore_data
 
+
 def reduce_force_limit(egg, landingposition, impact_force):
     """
-    Reduces the limit of force the egg dependent on how much force the egg 
-    was subjected to during the first strike. One-third of the initial 
-    force limit times the percentage force to which the egg was subjected 
+    Reduces the limit of force the egg dependent on how much force the egg
+    was subjected to during the first strike. One-third of the initial
+    force limit times the percentage force to which the egg was subjected
     will be removed from limit. The reduce force limit will be returned.
-    Exempel: 
-    impact_force= 59 egg_limit=60 
-    This means 98% of [13, 20] will be reduced from [40,60]
+    Exempel:
+    impact_force= 59 egg_limit=60
+    This means 98% of [13, 20] will be reduced from [40, 60]
     which leads to the new egg_limit being [27, 40]
     -----------------
         Parameters
@@ -405,15 +431,16 @@ def reduce_force_limit(egg, landingposition, impact_force):
             landingposition : int
                 the value of 0 or 1
             impact_force : float
-        
+
         Returns
             out : numpy.ndarray
                 a np.array with the dimension 1,2
     """
     procent_impact = impact_force/egg['force_limit'][landingposition]
-    reduce_force = np.array([13,20])*procent_impact
+    reduce_force = np.array([13, 20])*procent_impact
 
     return egg['force_limit']-reduce_force
+
 
 def reason(impact_total, material, egg_position):
     """
@@ -421,15 +448,15 @@ def reason(impact_total, material, egg_position):
     --------------------------------------
         Parameter
             impact_total : float
-                The total force to which the egg was exposed to 
+                The total force to which the egg was exposed to
             material : str
-                A string of the material that was used to protect the egg 
+                A string of the material that was used to protect the egg
             egg_position : int
                 The value 0 or 1
         Returns
             None
     """
-    egg_limit = [40,60]
+    egg_limit = [40, 60]
 
     if egg_limit[egg_position] == 40:
         if impact_total < 40:
@@ -444,7 +471,8 @@ def reason(impact_total, material, egg_position):
         else:
             print(f'\nThe {material} failed to protect your egg')
 
-# ACSII picture functions 
+
+# ACSII picture functions
 def broken_egg():
     """
     Prints a broken egg
@@ -464,6 +492,7 @@ def broken_egg():
     print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+" ⣸⣿⣿⣿⡿⠟⠋")
     print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
 
+
 def intact_egg():
     """
     Prints a intact egg
@@ -482,6 +511,8 @@ def intact_egg():
     print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
     print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
     print("      ⠉⠉⠉⠉ ")
+
+
 # Text style functions
 def print_centre(text):
     """
@@ -491,80 +522,85 @@ def print_centre(text):
             text : str
                 The ´text´ you want to be centred in the terminal
         Retuns
-            No returns 
+            No returns
     """
     print(text.center(get_terminal_size().columns))
 
+
 def print_acsii_centred(text, fonts):
     """
-    Print the text entered an ACSII and with the font given as fonts. 
+    Print the text entered an ACSII and with the font given as fonts.
     The text is also centered of the terminal.
     ---------------------------------
         Parameter
             text : str
             fonts :str
-                The exempel fonts can be found on at https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/  
-
+                The exempel fonts can be found on at
+                https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
     f = pyfiglet.Figlet(font=fonts)
     print(Fore.YELLOW)
-    print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")],sep="\n")
+    print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")], sep="\n")
     print(Style.RESET_ALL)
+
 
 def main():
     """
     The main function running the game save the egg.
     """
-    title_and_intro()   
+    title_and_intro()
 
     while True:
-        #Values the change under the game and reset when the user starts a new game
-        egg = np.array([(0.04, 40),(0.06, 60)], dtype=[('height', float),('force_limit', float)])
+        # Values the change under the game and
+        # resets when the user starts a new game
+        egg = np.array([(0.04, 40), (0.06, 60)], dtype=[('height', float), ('force_limit', float)])
         data_protection = get_data('materials')
         score = 0
 
         # User selects difficulty of the game
-        level = question_with_valiadation('What level do you want to play at? [easy/medium/hard]:\n', ['easy','medium', 'hard'], 'easy or medium')
+        level = question_with_valiadation(
+            'What level do you want to play at? [easy/medium/hard]:\n',
+            ['easy', 'medium', 'hard'], 'easy or medium'
+        )
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
 
         while True:
-            protection = True 
+            protection = True
             if level == 'medium' or level == 'hard':
                 protecting_egg = question_with_valiadation('\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
                 if YES_NO.index(protecting_egg) >= 5:
                     protection = False
                     material_values = {'material': 'None', 'impact': 0, 'points': 500}
-            
-            if protection == True:
-                material_values, value = select_protection(data_protection)
-                #Remove the chosen protection for the list
-                data_protection = data_protection.drop([value])
-            height = choose_height()
 
-            
+            if protection is True:
+                material_values, value = select_protection(data_protection)
+                # Remove the chosen protection for the list
+                data_protection = data_protection.drop([value])
+
+            height = choose_height()
             clear_screen()
 
             landingposition = randomizing_land_of_egg()
 
-            #Calculates the force at the impact with the ground
+            # Calculates the force at the impact with the ground
             impact_force = impact_calculation(height, egg['height'][landingposition])
-            
-            #Incident that happen at the hard level
+
+            # Incident that happen at the hard level
             incident = generatet_incident(material_values['material']) if level == 'hard' else 0
-            
+
             total_impact_force = impact_force - material_values['impact'] - incident
 
-            #Checks if the egg breaks
+            # Checks if the egg breaks
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
                 reason(total_impact_force, material_values['material'], landingposition)
-                score += int(impact_force *10)
-                
-                if (level == 'medium' or level == 'hard'): 
+                score += int(impact_force * 10)
+
+                if (level == 'medium' or level == 'hard'):
                     score = score_adjustment(score, protection, material_values['points'])
 
-                #See if the score was high enough to make the Top 5
+                # See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
@@ -578,7 +614,7 @@ def main():
                         print(highscore)
                         highscore.uppdate_sheet()
                         break
-                        
+
                     else:
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
 
@@ -591,12 +627,12 @@ def main():
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
 
                     else:
-                        break    
+                        break
             else:
                 broken_egg()
                 reason(total_impact_force, material, landingposition)
                 break
-        
+
         play_again = question_with_valiadation('\nDo you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
 
         if YES_NO.index(play_again) < 5:
@@ -608,4 +644,3 @@ def main():
 
 
 main()
-#title_and_intro()
