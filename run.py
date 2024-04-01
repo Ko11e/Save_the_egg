@@ -27,20 +27,68 @@ YES_NO = ['Y', 'y', 'Yes', 'YES', 'yes', 'N', 'n', 'No', 'NO', 'no']
 
 class Highscore:
     """
-    TEXT
+    A class for the highscore/leaderboard of top 5
+    ......
+        Attributes
+        level : srt
+            The level of the leaderboard ex. easy, meduim, hard
+        names : numpy.ndarray
+            The namnes on the leaderboard starting with 
+            the player with the highest score.
+        score : numpy.ndarray
+            The score if the players starting with the highest score
+
+    Methods
+    -------
+    made_highscore(new_score)
+        This methos checks is the 'new_score' is high enough to make the highscore/leaderboard
+    add_to_board(position, new_name, new_score)
+        This method and a new player and its score on the highscore/leaderboard
+    uppdate_sheet()
+        This updates the data in the google sheet.
+    
     """
     def __init__(self, level, names, scores):
+        """
+        The constructor for Highscore class.
+        ----------------------------------
+            Parameter:
+                level : srt
+                    The level of the leaderboard ex. easy, meduim, hard
+                names : numpy.ndarray
+                    The namnes on the leaderboard starting with 
+                    the player with the highest score.
+                score : numpy.ndarray
+                    The score if the players starting with the highest score
+        """
         self.level = level
         self.names = names
         self.scores = scores
 
     def __str__(self):
+        """
+        Convert the data in to a padas Dataframe and returns the data as a string.
+        printing the leaderboard with the headline High Score.
+        """
         board = pd.DataFrame(
             {'Name': self.names, 'Score': self.scores}, index=[1, 2, 3, 4, 5])
         print(pyfiglet.figlet_format("High Score", font="threepoint"))
         return board.to_string()
 
     def made_highscore(self, new_score):
+        """
+        This method check if the new_score is high enough to make the top 5. 
+        If the score is not high enough the method returns the position of the placement
+        and if it does not the number 10 is returned.
+        -------------------------------------------------
+        Parameter
+            new_score : int
+                
+        Returns
+            out : int
+                The position the new_score have on the leaderboard or 
+                the number 10 if the score does not place on the leaderboard
+        """
         position = 10
         for i in range(1, 5):
             if new_score > int(self.scores[0]):
@@ -51,6 +99,21 @@ class Highscore:
         return position
 
     def add_to_board(self, position, new_name, new_score):
+        """
+        This method inserts the new_name and the new_score on the position given.
+        After that it removes the last name in the list.
+        ---------------------------
+        Parameters
+            position : int
+                The position the user is placed on the top list.
+                The number can not be higher then 4 (the 5:th placment)
+            new_name : str
+                The name of the player the have made the top 5
+            new_score : int
+                The score the player have scored
+        Returns
+            out : None
+        """
         # Add the name on the right position and removes
         # the last name that is now on the 6:th place
         self.names = np.insert(self.names, position, new_name)
@@ -62,6 +125,12 @@ class Highscore:
         self.scores = np.delete(self.scores, -1)
 
     def uppdate_sheet(self):
+        """
+        This method updates the data in the google sheet.
+        ----------------------------------------
+        Parameters
+            None
+        """
         for i in range(2, 7):
             SHEET.worksheet(self.level).update([[self.names[i-2]]], f'A{i}')
             SHEET.worksheet(self.level).update([[self.scores[i-2]]], f'B{i}')
@@ -270,7 +339,7 @@ def get_data(sheet_name):
     ----------------------------------
         Parameters
             sheet_name : str
-
+                the name of the sheet in the google sheet -´Save_the_egg´ 
         returns
             out : pandas.DataFrame
                 The data in the sheet that have the name 'sheet_name'
@@ -327,14 +396,14 @@ def score_adjustment(score, protection, points):
     -----------------------------------
         Parameters
             score : int
-                tEXT
+                The score that the player has scored 
             protection : boolean
-                Text
+                if the player has chosen to protect the egg (TRUE)or not(FALSE)
             pionts : int
-
+                The pionts that should added or substracted from the score.
         Returns
             out : int
-                text
+                The adjusted score as a int
     """
     if protection is True:
         return score - points
@@ -348,13 +417,14 @@ def impact_calculation(height, radius_egg):
     ---------------------------------------------
         Parameters
             height : int
-                TEXT
+                Height the egg is drops from
             radius_egg : float
-                TEXT
+                The raduis of the egg. 
+                (this determines the momentum of the collection i.e. impactfocre)
 
         Returns
             out : float
-                Text
+                The force that the egg will be exposed to in the impact 
     """
     print('Dropping the egg.....')
     sleep(2)
@@ -369,15 +439,19 @@ def impact_calculation(height, radius_egg):
 
 def generatet_incident(material_value):
     """
-    TExt
+    Generatets a incident depanting on the material the user have chosen.
+    The function prints a text explaning if the incident was good or bad.
+    Returns the value (int) the incident will affect the impact of the egg
     ---------------------------------
         Parameters
             material_value : str
-                TEXT
+                The chosen material of the user, this determents 
+                the incindents that are generareted.
 
         Returns
             out : int
-                Text
+                The value of the incident will affect the impact. 
+                If the incident is good a positiv value is return and negativ if bad.
     """
     data = get_data('incidents')
     # Extract data with the chosen protection material
@@ -556,7 +630,9 @@ def print_acsii_centred(text, fonts):
     ---------------------------------
         Parameter
             text : str
+                The text that will be printet
             fonts :str
+                The font the text should be in
                 The exempel fonts can be found on at
                 https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
