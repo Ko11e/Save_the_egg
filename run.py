@@ -391,7 +391,7 @@ def select_protection(pandas_data):
     value = int(value)
     print(Fore.GREEN + f"You've chosen to protect your egg with a {pandas_data['material'][value]}.\n" + Style.RESET_ALL)
 
-    return pandas_data.iloc[value], value
+    return pandas_data.loc[value], value
 
 
 def score_adjustment(score, protection, points):
@@ -536,8 +536,14 @@ def reduce_force_limit(egg, landingposition, impact_force):
             out : numpy.ndarray
                 a np.array with the dimension 1,2
     """
-    procent_impact = impact_force/egg['force_limit'][landingposition]
-    reduce_force = np.array([13, 20])*procent_impact
+    if impact_force <= 0:
+        reduce = 0
+    else:
+        print(egg['force_limit'][landingposition], impact_force)
+        procent_impact = impact_force/egg['force_limit'][landingposition]
+        print(procent_impact)
+        reduce_force = np.array([13, 20])*procent_impact
+        print(reduce_force)
 
     return egg['force_limit']-reduce_force
 
@@ -670,7 +676,8 @@ def main():
         while True:
             protection = True
             if level == 'medium' or level == 'hard':
-                protecting_egg = question_with_valiadation('\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
+                protecting_egg = question_with_valiadation(
+                    '\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
                 if YES_NO.index(protecting_egg) >= 5:
                     protection = False
                     material_values = {'material': 'None', 'impact': 0, 'points': 500}
@@ -678,10 +685,11 @@ def main():
             if protection is True:
                 material_values, value = select_protection(data_protection)
                 # Remove the chosen protection for the list
+                print(material_values, value)
                 data_protection = data_protection.drop([value])
 
             height = choose_height()
-            clear_screen()
+            #clear_screen()
 
             landingposition = randomizing_land_of_egg()
 
@@ -718,16 +726,18 @@ def main():
                         break
 
                     else:
+                        print(f"{egg['force_limit']} is the forcelimit right now")
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-
+                        print(f"{egg['force_limit']} is the changed force limit")
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
                     try_again = question_with_valiadation('\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n', YES_NO, 'Y for Yes or N for No')
                     clear_screen()
 
                     if YES_NO.index(try_again) < 5:
+                        print(f"{egg['force_limit']} is the forcelimit right now")
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-
+                        print(f"{egg['force_limit']} is the changed force limit")
                     else:
                         break
             else:
