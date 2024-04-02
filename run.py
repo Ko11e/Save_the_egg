@@ -33,7 +33,7 @@ class Highscore:
         level : srt
             The level of the leaderboard ex. easy, meduim, hard
         names : numpy.ndarray
-            The namnes on the leaderboard starting with 
+            The namnes on the leaderboard starting with
             the player with the highest score.
         score : numpy.ndarray
             The score if the players starting with the highest score
@@ -41,12 +41,13 @@ class Highscore:
     Methods
     -------
     made_highscore(new_score)
-        This methos checks is the 'new_score' is high enough to make the highscore/leaderboard
+        This methos checks if the 'new_score' is
+        high enough to make the highscore/leaderboard
     add_to_board(position, new_name, new_score)
         This method and a new player and its score on the highscore/leaderboard
     uppdate_sheet()
         This updates the data in the google sheet.
-    
+
     """
     def __init__(self, level, names, scores):
         """
@@ -56,7 +57,7 @@ class Highscore:
                 level : srt
                     The level of the leaderboard ex. easy, meduim, hard
                 names : numpy.ndarray
-                    The namnes on the leaderboard starting with 
+                    The namnes on the leaderboard starting with
                     the player with the highest score.
                 score : numpy.ndarray
                     The score if the players starting with the highest score
@@ -67,8 +68,9 @@ class Highscore:
 
     def __str__(self):
         """
-        Convert the data in to a padas Dataframe and returns the data as a string.
-        printing the leaderboard with the headline High Score.
+        Convert the data in to a padas Dataframe and
+        returns the data as a string. printing the leaderboard
+        with the headline High Score.
         """
         board = pd.DataFrame(
             {'Name': self.names, 'Score': self.scores}, index=[1, 2, 3, 4, 5])
@@ -77,16 +79,17 @@ class Highscore:
 
     def made_highscore(self, new_score):
         """
-        This method check if the new_score is high enough to make the top 5. 
-        If the score is not high enough the method returns the position of the placement
+        This method check if the new_score is high enough
+        to make the top 5. If the score is not high enough
+        the method returns the position of the placement
         and if it does not the number 10 is returned.
         -------------------------------------------------
         Parameter
             new_score : int
-                
+
         Returns
             out : int
-                The position the new_score have on the leaderboard or 
+                The position the new_score have on the leaderboard or
                 the number 10 if the score does not place on the leaderboard
         """
         position = 10
@@ -100,8 +103,9 @@ class Highscore:
 
     def add_to_board(self, position, new_name, new_score):
         """
-        This method inserts the new_name and the new_score on the position given.
-        After that it removes the last name in the list.
+        This method inserts the new_name and the new_score
+        on the position given. After that it removes the
+        last name in the list.
         ---------------------------
         Parameters
             position : int
@@ -343,7 +347,7 @@ def get_data(sheet_name):
     ----------------------------------
         Parameters
             sheet_name : str
-                the name of the sheet in the google sheet -´Save_the_egg´ 
+                the name of the sheet in the google sheet -´Save_the_egg´
         returns
             out : pandas.DataFrame
                 The data in the sheet that have the name 'sheet_name'
@@ -400,7 +404,7 @@ def score_adjustment(score, protection, points):
     -----------------------------------
         Parameters
             score : int
-                The score that the player has scored 
+                The score that the player has scored
             protection : boolean
                 if the player has chosen to protect the egg (TRUE)or not(FALSE)
             pionts : int
@@ -423,12 +427,12 @@ def impact_calculation(height, radius_egg):
             height : int
                 Height the egg is drops from
             radius_egg : float
-                The raduis of the egg. 
+                The raduis of the egg.
                 (this determines the momentum of the collection i.e. impactfocre)
 
         Returns
             out : float
-                The force that the egg will be exposed to in the impact 
+                The force that the egg will be exposed to in the impact
     """
     print('Dropping the egg.....')
     sleep(2)
@@ -449,13 +453,14 @@ def generatet_incident(material_value):
     ---------------------------------
         Parameters
             material_value : str
-                The chosen material of the user, this determents 
+                The chosen material of the user, this determents
                 the incindents that are generareted.
 
         Returns
             out : int
-                The value of the incident will affect the impact. 
-                If the incident is good a positiv value is return and negativ if bad.
+                The value of the incident will affect the impact.
+                If the incident is good a positiv value is return and
+                negativ if bad.
     """
     data = get_data('incidents')
     # Extract data with the chosen protection material
@@ -464,7 +469,7 @@ def generatet_incident(material_value):
     chosen_material.index = [1, 2, 3, 4, 5, 6, 7, 8]
 
     incident = randint(1, 8)
-    if incident <=4:
+    if incident <= 4:
         print(Fore.GREEN + "\033[1m" + chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
         print("")
     else:
@@ -502,8 +507,9 @@ def get_highscore_data(difficulty_level):
     -------------------
         Parameters
             difficulty_level : str
-                The level of the game and the name of the Sheet in googlesheet 'Save the egg'
-                (easy, meduim or hard are the values the can be entered)
+                The level of the game and the name of the Sheet
+                in googlesheet 'Save the egg'.
+                (easy, meduim or hard are the values that can be entered)
 
         Returns
             out : class Highscore
@@ -529,7 +535,8 @@ def reduce_force_limit(egg, landingposition, impact_force):
     -----------------
         Parameters
             egg : numpy.ndarray
-                the np.array need to have the dimension 2,2 and have the keyvalue 'force_limit'
+                the np.array need to have the dimension 2,2 and
+                have the keyvalue 'force_limit'
             landingposition : int
                 the value of 0 or 1
             impact_force : float
@@ -679,7 +686,7 @@ def main():
             protection = True
             if level == 'medium' or level == 'hard':
                 protecting_egg = question_with_valiadation(
-                    '\nDo you like to protect the egg? [Y/N]', 
+                    '\nDo you like to protect the egg? [Y/N]',
                     YES_NO, 'Y for Yes or N for No'
                 )
 
@@ -694,7 +701,7 @@ def main():
                 data_protection = data_protection.drop([value])
 
             height = choose_height()
-            #clear_screen()
+            clear_screen()
 
             landingposition = randomizing_land_of_egg()
 
