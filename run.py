@@ -465,9 +465,11 @@ def generatet_incident(material_value):
 
     incident = randint(1, 8)
     if incident <=4:
-        print(Fore.GREEN + chosen_material['text'][incident] + Style.RESET_ALL)
+        print(Fore.GREEN + "\033[1m" + chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
+        print("")
     else:
-        print(Fore.RED + chosen_material['text'][incident] + Style.RESET_ALL)
+        print(Fore.RED + "\033[1m" + chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
+        print("")
 
     impact_effect = chosen_material['impact'][incident]
     # Convert the negative value in google sheet from a str to a int
@@ -539,11 +541,8 @@ def reduce_force_limit(egg, landingposition, impact_force):
     if impact_force <= 0:
         reduce_force = 0
     else:
-        print(egg['force_limit'][landingposition], impact_force)
         procent_impact = impact_force/egg['force_limit'][landingposition]
-        print(procent_impact)
         reduce_force = np.array([13, 20])*procent_impact
-        print(reduce_force)
 
     return egg['force_limit']-reduce_force
 
@@ -661,14 +660,17 @@ def main():
     while True:
         # Values the change under the game and
         # resets when the user starts a new game
-        egg = np.array([(0.04, 40), (0.06, 60)], dtype=[('height', float), ('force_limit', float)])
+        egg = np.array(
+            [(0.04, 40), (0.06, 60)],
+            dtype=[('height', float), ('force_limit', float)]
+        )
         data_protection = get_data('materials')
         score = 0
 
         # User selects difficulty of the game
         level = question_with_valiadation(
             'What level do you want to play at? [easy/medium/hard]:\n',
-            ['easy', 'medium', 'hard'], 'easy or medium'
+            ['easy', 'medium', 'hard'], 'easy, medium or hard.'
         )
         highscore = get_highscore_data(level)
         print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
@@ -677,7 +679,10 @@ def main():
             protection = True
             if level == 'medium' or level == 'hard':
                 protecting_egg = question_with_valiadation(
-                    '\nDo you like to protect the egg? [Y/N]', YES_NO, 'Y for Yes or N for No')
+                    '\nDo you like to protect the egg? [Y/N]', 
+                    YES_NO, 'Y for Yes or N for No'
+                )
+
                 if YES_NO.index(protecting_egg) >= 5:
                     protection = False
                     material_values = {'material': 'None', 'impact': 0, 'points': 500}
@@ -715,7 +720,11 @@ def main():
 
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
-                    try_again = question_with_valiadation('\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    try_again = question_with_valiadation(
+                        '\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n',
+                        YES_NO, 'Y for Yes or N for No'
+                    )
+
                     clear_screen()
 
                     if YES_NO.index(try_again) >= 5:
@@ -726,18 +735,19 @@ def main():
                         break
 
                     else:
-                        print(f"{egg['force_limit']} is the forcelimit right now")
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-                        print(f"{egg['force_limit']} is the changed force limit")
+
                 else:
                     print(f'\nYou scored {score} points and your score did not make the top 5')
-                    try_again = question_with_valiadation('\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+                    try_again = question_with_valiadation(
+                        '\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n',
+                        YES_NO, 'Y for Yes or N for No'
+                    )
                     clear_screen()
 
                     if YES_NO.index(try_again) < 5:
-                        print(f"{egg['force_limit']} is the forcelimit right now")
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
-                        print(f"{egg['force_limit']} is the changed force limit")
+
                     else:
                         break
             else:
@@ -745,7 +755,10 @@ def main():
                 reason(total_impact_force, material_values['material'], landingposition)
                 break
 
-        play_again = question_with_valiadation('\nDo you want to play again? [Y/N]:\n', YES_NO, 'Y for Yes or N for No')
+        play_again = question_with_valiadation(
+            '\nDo you want to play again? [Y/N]:\n',
+            YES_NO, 'Y for Yes or N for No'
+        )
 
         if YES_NO.index(play_again) < 5:
             clear_screen()
