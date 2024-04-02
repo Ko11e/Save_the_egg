@@ -537,7 +537,7 @@ def reduce_force_limit(egg, landingposition, impact_force):
                 a np.array with the dimension 1,2
     """
     if impact_force <= 0:
-        reduce = 0
+        reduce_force = 0
     else:
         print(egg['force_limit'][landingposition], impact_force)
         procent_impact = impact_force/egg['force_limit'][landingposition]
