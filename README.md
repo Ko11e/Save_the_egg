@@ -42,6 +42,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 
 # Creation process
 ## Project Planning
+
 ## Flowchart
 ## Google API SetUp
 ## Python Logic
@@ -49,6 +50,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 ## Design Choices
 # Feature
 ## Future Features
+
 # Technologies Used
 
 # Libraries & Packages

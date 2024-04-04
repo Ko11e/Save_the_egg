@@ -185,19 +185,22 @@ def title_and_intro():
         "there are different materials to protect the egg.\n")
     print_centre(
         "You can play the game on three different levels, see below how these levels work.\n")
-    print("EAYS:     The way the egg lands, either horizontally or vertically, will determine how well it")
-    print("          copes with the impact. If you successfully save the egg, you can attempt to earn")
-    print("          more points by dropping it again. However, keep in mind that the egg has been damaged")
-    print("          from the previous drop, and therefore it won't be able to withstand as big")
-    print("          of a hit as before.\n")
-    print("          If the egg breaks, you will lose your points.")
-    print("MEDUIM:   For this level, the same rules as the previous level apply.")
-    print("          However, your choice of protection will affect the final score. Here you can also")
-    print("          choose \033[1mNOT\033[0m" + Fore.YELLOW + " to protect the egg and get 400 points plus the other points. ")
-    print("HARD:     For this level, the same rules as the previous level apply.")
-    print("          However, an event will occur after you have released the egg.")
-    print("          This event can be good or bad. So take it carefully\n")
-    print_centre("\033[1mPress ENTER to Start the game\033[0m\n")
+    print("""
+    EAYS:     The way the egg lands, either horizontally or vertically, will determine
+              how well it copes with the impact. If you successfully save the egg, you can
+              attempt to earn more points by dropping it again. However, keep in mind that
+              the egg has been damaged from the previous drop, and therefore it won't be able
+              to withstand as big of a hit as before.
+              If the egg breaks, you will lose your points.
+
+    MEDUIM:   For this level, the same rules as the previous level apply.
+              However, your choice of protection will affect the final score. Here you can also
+              choose NOT to protect the egg and get 400 points plus the other points.
+
+    HARD:     For this level, the same rules as the previous level apply.
+              However, an event will occur after you have released the egg.
+              This event can be good or bad. So take it carefully\n""")
+    print_centre("\033[1mPress ENTER to Start the game\033[0m")
     input("")
     print(Style.RESET_ALL)
 
@@ -291,7 +294,8 @@ def validation_int(input, lst):
 def validation_answer(input, lst, exp_answers):
     """
     Checks if the 'input' is in the list ´lst´.
-    Raises a error with a string saying that the string provided is not the value the are expected (exp_answers).
+    Raises a error with a string saying that the string 
+    provided is not the value the are expected (exp_answers).
     -------------------------------------------
         Parameters
             input : str
@@ -334,9 +338,7 @@ def question_with_valiadation(question, lst, exp_answers):
 
     """
     while True:
-        print(Style.BRIGHT)
         answer = input(question)
-        print(Style.RESET_ALL)
         if validation_answer(answer, lst, exp_answers):
             break
 
@@ -345,7 +347,8 @@ def question_with_valiadation(question, lst, exp_answers):
 
 def get_data(sheet_name):
     """
-    Gets data from the google sheets and returns the data as the type pandas.DataFrame
+    Gets data from the google sheets and returns 
+    the data as the type pandas.DataFrame
     ----------------------------------
         Parameters
             sheet_name : str
@@ -402,7 +405,8 @@ def select_protection(pandas_data):
 
 def score_adjustment(score, protection, points):
     """
-    Subtract or Add the points to the score depending if the egg is proterctet or not.
+    Subtract or Add the points to the score depending 
+    if the egg is proterctet or not.
     -----------------------------------
         Parameters
             score : int
@@ -423,8 +427,9 @@ def score_adjustment(score, protection, points):
 
 def impact_calculation(height, radius_egg):
     """
-    Calculates the force that the egg will be impacted by when it hit the ground.
-    ---------------------------------------------
+    Calculates the force that the egg will 
+    be impacted by when it hit the ground.
+    --------------------------------------
         Parameters
             height : int
                 Height the egg is drops from
@@ -606,7 +611,7 @@ def broken_egg():
     print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+Style.BRIGHT+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
     print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+Style.BRIGHT+" ⣸⣿⣿⣿⡿⠟⠋")
     print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+Style.BRIGHT+"   ⠉⠉⠉") 
-
+    print(Style.RESET_ALL)
 
 def intact_egg():
     """
@@ -741,11 +746,16 @@ def main():
                     if YES_NO.index(try_again) >= 5:
                         name = input('Enter your name to the highscore list:\n')
                         highscore.add_to_board(position_on_highscore, name, score)
+                        # Prints the new leaderboard with the new name
+                        print(Style.BRIGHT)
                         print(highscore)
+                        print(Style.RESET_ALL)
+                        # Updates the sheet at google sheets
                         highscore.uppdate_sheet()
                         break
 
                     else:
+                        # Reduces the forcelimit of the egg
                         egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
 
                 else:
@@ -780,3 +790,4 @@ def main():
 
 
 main()
+
