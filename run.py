@@ -697,7 +697,6 @@ def main():
             if protection is True:
                 material_values, value = select_protection(data_protection)
                 # Remove the chosen protection for the list
-                print(material_values, value)
                 data_protection = data_protection.drop([value])
 
             height = choose_height()
