@@ -176,7 +176,7 @@ def title_and_intro():
             None
     """
     print_acsii_centred('Save the egg', 'bulbhead')
-    print(Fore.YELLOW)
+    print(Fore.YELLOW + Style.BRIGHT)
     print_centre(
         "The game is about getting as many points as possible by dropping an egg")
     print_centre(
@@ -334,7 +334,9 @@ def question_with_valiadation(question, lst, exp_answers):
 
     """
     while True:
+        print(Style.BRIGHT)
         answer = input(question)
+        print(Style.RESET_ALL)
         if validation_answer(answer, lst, exp_answers):
             break
 
@@ -594,15 +596,16 @@ def broken_egg():
         Returns:
             No value but prints a ASCII art of a broken egg
     """
+    print(Style.BRIGHT)
     print("Oooo no, the egg broke\n")
     print("                          ⣠⣄⣀")
     print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
     print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
     print(" ⣼⣿⣿⣿⣿⣀                  ⣰⣿⣿⣿⣿⣿⣿⣿⡇")
-    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
-    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
-    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+" ⣸⣿⣿⣿⡿⠟⠋")
-    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+"   ⠉⠉⠉") 
+    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+Style.BRIGHT+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
+    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+Style.BRIGHT+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
+    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+Style.BRIGHT+" ⣸⣿⣿⣿⡿⠟⠋")
+    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+Style.BRIGHT+"   ⠉⠉⠉") 
 
 
 def intact_egg():
@@ -614,6 +617,7 @@ def intact_egg():
         Returns:
             No value but prints a ASCII art of a egg
     """
+    print(Style.BRIGHT)
     print("    ⣠⣾⣿⣿⣿⣿⣷⣄")
     print("   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣧")
     print("  ⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄")
@@ -623,6 +627,7 @@ def intact_egg():
     print("  ⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃")
     print("   ⠈⢿⣿⣿⣿⣿⣿⣿⡿⠋ ")
     print("      ⠉⠉⠉⠉ ")
+    print(Style.RESET_ALL)
 
 
 # Text style functions
@@ -653,7 +658,7 @@ def print_acsii_centred(text, fonts):
                 https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
     f = pyfiglet.Figlet(font=fonts)
-    print(Fore.YELLOW)
+    print(Fore.YELLOW + Style.BRIGHT)
     print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")], sep="\n")
     print(Style.RESET_ALL)
 
