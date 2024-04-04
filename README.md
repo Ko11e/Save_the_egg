@@ -30,9 +30,15 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 # User Experience/User Interface (UX/UI)
 
 ## User Goals
+"Save the Egg" is created for the user as a fun game to test the forcelimit of a egg. 
 
+  - It must be easy to navigate and to understand the rules the first time you read them
+  - An engaging UI to capture the user's interest.
+  - Clear instructions for entering data correctly are provided.
+  - No dead ends to trap the user at the end of a function.
 
 ## User Stories
+
 
 # Creation process
 ## Project Planning
