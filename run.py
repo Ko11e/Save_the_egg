@@ -96,7 +96,8 @@ class Highscore:
         for i in range(1, 5):
             if new_score > int(self.scores[0]):
                 position = 0
-            elif new_score < int(self.scores[i-1]) and new_score > int(self.scores[i]):
+            elif new_score < int(self.scores[i-1]) and \
+                    new_score > int(self.scores[i]):
                 position = i
 
         return position
@@ -177,27 +178,29 @@ def title_and_intro():
     """
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Fore.YELLOW + Style.BRIGHT)
+    print_centre("The game is about getting as many points as possible")
     print_centre(
-        "The game is about getting as many points as possible by dropping an egg")
+        "by dropping an egg as high as you can without breaking the egg.")
     print_centre(
-        "as high as you can without breaking the egg. To be able to drop the egg higher,")
+        "To be able to drop the egg higher, there are different materials")
     print_centre(
-        "there are different materials to protect the egg.\n")
-    print_centre(
-        "You can play the game on three different levels, see below how these levels work.\n")
+        "to protect the egg. You can play the game on three different levels,")
+    print_centre("see below how these levels work.\n")
     print("""
-    EAYS:     The way the egg lands, either horizontally or vertically, will determine
-              how well it copes with the impact. If you successfully save the egg, you can
-              attempt to earn more points by dropping it again. However, keep in mind that
-              the egg has been damaged from the previous drop, and therefore it won't be able
-              to withstand as big of a hit as before.
+    EAYS:     The way the egg lands, either horizontally or vertically,
+              will determine how well it copes with the impact.
+              If you successfully save the egg, you can attempt to earn
+              more points by dropping it again. However, keep in mind that
+              the egg has been damaged from the previous drop, and therefore
+              it won't be able to withstand as big of a hit as before.
               If the egg breaks, you will lose your points.
 
     MEDUIM:   For this level, the same rules as the previous level apply.
-              However, your choice of protection will affect the final score. Here you can also
-              choose NOT to protect the egg and get 400 points plus the other points.
+              However, your choice of protection will affect the final score.
+              Here you can chose NOT to protect the egg and get 500 points
+              plus the other points.
 
-    HARD:     For this level, the same rules as the previous level apply.
+    HARD:     For this level, the same rules as the previous levels apply.
               However, an event will occur after you have released the egg.
               This event can be good or bad. So take it carefully\n""")
     print_centre("\033[1mPress ENTER to Start the game\033[0m")
@@ -223,7 +226,10 @@ def choose_height():
         selected_height = input(
             'From which height do you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
-            print(Fore.GREEN + f"\nYou have chosen to release the egg from {selected_height} metres." + Style.RESET_ALL)
+            print(Fore.GREEN + Style.BRIGHT)
+            print(f"\nYou have chosen to release the egg",
+                  f"from {selected_height} metres.")
+            print(Style.RESET_ALL)
             break
 
     return float(selected_height)
@@ -250,7 +256,8 @@ def validation_number(user_input, lst=None):
             return validation_int(user_input, lst)
 
     except ValueError:
-        print(Fore.CYAN + f"You have entered a string, please enter a number.\n" + Style.RESET_ALL)
+        print(Fore.CYAN + f"You have entered a string,",
+              " please enter a number.\n" + Style.RESET_ALL)
         return False
 
     return True
@@ -281,7 +288,9 @@ def validation_int(input, lst):
             raise TypeError
 
     except ValueError:
-        print(Fore.CYAN + f"Please enter a whole number, you have entered {input} which is a decimal number" + Style.RESET_ALL)
+        print(Fore.CYAN + f"Please enter a whole number,",
+              f" you have entered {input} which is a decimal number" +
+              Style.RESET_ALL)
         return False
 
     except TypeError:
@@ -294,7 +303,7 @@ def validation_int(input, lst):
 def validation_answer(input, lst, exp_answers):
     """
     Checks if the 'input' is in the list ´lst´.
-    Raises a error with a string saying that the string 
+    Raises a error with a string saying that the string
     provided is not the value the are expected (exp_answers).
     -------------------------------------------
         Parameters
@@ -303,7 +312,8 @@ def validation_answer(input, lst, exp_answers):
             lst : list
                 A list of strings the are the expected values from the user
             exp_answers : str
-                The values the user chould answer as a stinge the is entered after "Please enter"
+                The values the user could answer as a stinge
+                the is entered after "Please enter"
         Returns
             out : boolean
                 True if the ´input´ is in ´lst´ and False if not.
@@ -312,7 +322,8 @@ def validation_answer(input, lst, exp_answers):
     if input in lst:
         return True
     else:
-        print(Fore.CYAN + f'\nYou entered {input}, Please enter \033[1m{exp_answers}\033[0m' + Style.RESET_ALL)
+        print(Fore.CYAN + f'\nYou entered {input}, ',
+              f'Please enter \033[1m{exp_answers}\033[0m' + Style.RESET_ALL)
         return False
 
 
@@ -325,7 +336,8 @@ def question_with_valiadation(question, lst, exp_answers):
     ----------------------------------------------------
         Parameters
             question : str
-                The question the user should answer, the string need to end with a \n
+                The question the user should answer,
+                the string need to end with a \n
                     exempel; "Do you what to play the game again?\n"
             lst : list
                 A list of strings that are the expected values from the user
@@ -347,7 +359,7 @@ def question_with_valiadation(question, lst, exp_answers):
 
 def get_data(sheet_name):
     """
-    Gets data from the google sheets and returns 
+    Gets data from the google sheets and returns
     the data as the type pandas.DataFrame
     ----------------------------------
         Parameters
@@ -393,19 +405,20 @@ def select_protection(pandas_data):
 
     # Asks the user to select a option
     while True:
-        value = input('\nPlease enter the number for the material that you want to use:\n')
+        value = input('\nPlease enter the number for clearthe material that you want to use:\n')
         if validation_number(value, keys_data):
             break
 
     value = int(value)
-    print(Fore.GREEN + f"You've chosen to protect your egg with a {pandas_data['material'][value]}.\n" + Style.RESET_ALL)
+    print(Fore.GREEN + "You've chosen to protect your egg with a ",
+          f"{pandas_data['material'][value]}.\n" + Style.RESET_ALL)
 
     return pandas_data.loc[value], value
 
 
 def score_adjustment(score, protection, points):
     """
-    Subtract or Add the points to the score depending 
+    Subtract or Add the points to the score depending
     if the egg is proterctet or not.
     -----------------------------------
         Parameters
@@ -427,7 +440,7 @@ def score_adjustment(score, protection, points):
 
 def impact_calculation(height, radius_egg):
     """
-    Calculates the force that the egg will 
+    Calculates the force that the egg will
     be impacted by when it hit the ground.
     --------------------------------------
         Parameters
@@ -435,7 +448,8 @@ def impact_calculation(height, radius_egg):
                 Height the egg is drops from
             radius_egg : float
                 The raduis of the egg.
-                (this determines the momentum of the collection i.e. impactfocre)
+                (this determines the momentum of the collection
+                i.e. impactfocre)
 
         Returns
             out : float
@@ -477,10 +491,12 @@ def generatet_incident(material_value):
 
     incident = randint(1, 8)
     if incident <= 4:
-        print(Fore.GREEN + "\033[1m" + chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
+        print(Fore.GREEN + "\033[1m" +
+              chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
         print("")
     else:
-        print(Fore.RED + "\033[1m" + chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
+        print(Fore.RED + "\033[1m" +
+              chosen_material['text'][incident] + "\033[0m" + Style.RESET_ALL)
         print("")
 
     impact_effect = chosen_material['impact'][incident]
@@ -581,12 +597,15 @@ def reason(impact_total, material, egg_position):
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently')
         elif impact_total > 40 and impact_total < 60:
-            print(f'\nBecause the egg landed horizontally the {material} failed to protect your egg')
+            print(f'\nBecause the egg landed horizontally',
+                  ' the {material} failed to protect your egg')
     else:
         if impact_total < 40:
-            print(f'\nThe {material} managed to protect your egg sufficiently, even if it had landed horizontally')
+            print(f'\nThe {material} managed to protect your egg sufficiently',
+                  ', even if it had landed horizontally')
         elif impact_total > 40 and impact_total < 60:
-            print(f'\nThe {material} managed to protect your egg sufficiently, but only because it landed vertically')
+            print(f'\nThe {material} managed to protect your egg sufficiently',
+                  ', but only because it landed vertically')
         else:
             print(f'\nThe {material} failed to protect your egg')
 
@@ -607,11 +626,20 @@ def broken_egg():
     print("    ⣼⣄                   ⣹⣿⣿⣿⣷⣤")
     print(" ⢀⣾⣿⣿⣯                   ⣿⣿⣿⣿⣿⣿⣿⣄")
     print(" ⣼⣿⣿⣿⣿⣀                  ⣰⣿⣿⣿⣿⣿⣿⣿⡇")
-    print("⣾⣿⣿⣿⣿⣿⣿⣀     "+Fore.YELLOW+"⣠⣴⣾⣿⣿⣷⣦⣀"+Style.RESET_ALL+Style.BRIGHT+"   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
-    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ "+Fore.YELLOW+"⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄"+Style.RESET_ALL+Style.BRIGHT+"  ⠹⣿⣿⣿⣿⣿⣿⠟")
-    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ "+Fore.YELLOW+"⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃"+Style.RESET_ALL+Style.BRIGHT+" ⣸⣿⣿⣿⡿⠟⠋")
-    print("    ⠙⠛⠛⠛⠋   "+Fore.YELLOW+"⠉⠻⠿⠿⠿⠿⠟⠋"+Style.RESET_ALL+Style.BRIGHT+"   ⠉⠉⠉") 
+    print("⣾⣿⣿⣿⣿⣿⣿⣀     " + Fore.YELLOW +
+          "⣠⣴⣾⣿⣿⣷⣦⣀" + Style.RESET_ALL + Style.BRIGHT +
+          "   ⠸⣿⣿⣿⣿⣿⣿⣿⡿ ")
+    print("⢹⣿⣿⣿⣿⣿⣿⣿⣿⣷ " + Fore.YELLOW +
+          "⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄" + Style.RESET_ALL + Style.BRIGHT +
+          "  ⠹⣿⣿⣿⣿⣿⣿⠟")
+    print(" ⠙⢻⣿⣿⣿⣿⣿⡟⠋ " + Fore.YELLOW +
+          "⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃" + Style.RESET_ALL + Style.BRIGHT +
+          " ⣸⣿⣿⣿⡿⠟⠋")
+    print("    ⠙⠛⠛⠛⠋   " + Fore.YELLOW +
+          "⠉⠻⠿⠿⠿⠿⠟⠋" + Style.RESET_ALL + Style.BRIGHT +
+          "   ⠉⠉⠉")
     print(Style.RESET_ALL)
+
 
 def intact_egg():
     """
@@ -664,7 +692,8 @@ def print_acsii_centred(text, fonts):
     """
     f = pyfiglet.Figlet(font=fonts)
     print(Fore.YELLOW + Style.BRIGHT)
-    print(*[x.center(get_terminal_size().columns) for x in f.renderText(text).split("\n")], sep="\n")
+    print(*[x.center(get_terminal_size().columns) for x in
+          f.renderText(text).split("\n")], sep="\n")
     print(Style.RESET_ALL)
 
 
@@ -690,7 +719,8 @@ def main():
             ['easy', 'medium', 'hard'], 'easy, medium or hard.'
         )
         highscore = get_highscore_data(level)
-        print(Fore.GREEN + f'\nYou have chosen to play with difficulty level: {level}\n' + Style.RESET_ALL)
+        print(Fore.GREEN + f'\nYou have chosen to play ',
+              'with difficulty level: {level}\n' + Style.RESET_ALL)
 
         while True:
             protection = True
@@ -702,7 +732,9 @@ def main():
 
                 if YES_NO.index(protecting_egg) >= 5:
                     protection = False
-                    material_values = {'material': 'None', 'impact': 0, 'points': 500}
+                    material_values = {'material': 'None',
+                                       'impact': 0,
+                                       'points': 500}
 
             if protection is True:
                 material_values, value = select_protection(data_protection)
@@ -715,37 +747,48 @@ def main():
             landingposition = randomizing_land_of_egg()
 
             # Calculates the force at the impact with the ground
-            impact_force = impact_calculation(height, egg['height'][landingposition])
+            impact_force = impact_calculation(height,
+                                              egg['height'][landingposition])
 
             # Incident that happen at the hard level
-            incident = generatet_incident(material_values['material']) if level == 'hard' else 0
+            incident = generatet_incident(
+                material_values['material']) if level == 'hard' else 0
 
-            total_impact_force = impact_force - material_values['impact'] - incident
+            total_impact_force = impact_force - \
+                material_values['impact'] - incident
 
             # Checks if the egg breaks
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
-                reason(total_impact_force, material_values['material'], landingposition)
+                reason(total_impact_force, material_values['material'],
+                       landingposition)
                 score += int(impact_force * 10)
 
+                # Adjust the score depending on the material that was used to
+                # protect the egg.
                 if (level == 'medium' or level == 'hard'):
-                    score = score_adjustment(score, protection, material_values['points'])
+                    score = score_adjustment(score, protection,
+                                             material_values['points'])
 
                 # See if the score was high enough to make the Top 5
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
-                    print(f'Woho!! You scored {score} and got on the {position_on_highscore+1}:th place\n')
+                    print(f'Woho!! You scored {score} and got on the ',
+                          '{position_on_highscore+1}:th place\n')
                     try_again = question_with_valiadation(
-                        '\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n',
+                        ('\nDo you want to risk your points to increase your',
+                         ' score and get to the top of',
+                         ' the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
 
                     clear_screen()
 
                     if YES_NO.index(try_again) >= 5:
-                        name = input('Enter your name to the highscore list:\n')
-                        highscore.add_to_board(position_on_highscore, name, score)
+                        name = input('Enter your name to the leaderboard:\n')
+                        highscore.add_to_board(position_on_highscore,
+                                               name, score)
                         # Prints the new leaderboard with the new name
                         print(Style.BRIGHT)
                         print(highscore)
@@ -756,24 +799,34 @@ def main():
 
                     else:
                         # Reduces the forcelimit of the egg
-                        egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
+                        egg['force_limit'] = \
+                            reduce_force_limit(egg,
+                                               landingposition,
+                                               total_impact_force)
 
                 else:
-                    print(f'\nYou scored {score} points and your score did not make the top 5')
+                    print(f'\nYou scored {score} points and ',
+                          'your score did not make the top 5')
                     try_again = question_with_valiadation(
-                        '\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n',
+                        ('\nDo you want to risk your points to increase',
+                         ' your score and try to get on leaderboard?[Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
 
                     if YES_NO.index(try_again) < 5:
-                        egg['force_limit'] = reduce_force_limit(egg, landingposition, total_impact_force)
+                        # Reduces the forcelimit of the egg
+                        egg['force_limit'] = \
+                            reduce_force_limit(egg,
+                                               landingposition,
+                                               total_impact_force)
 
                     else:
                         break
             else:
                 broken_egg()
-                reason(total_impact_force, material_values['material'], landingposition)
+                reason(total_impact_force,
+                       material_values['material'], landingposition)
                 break
 
         play_again = question_with_valiadation(
@@ -790,4 +843,3 @@ def main():
 
 
 main()
-

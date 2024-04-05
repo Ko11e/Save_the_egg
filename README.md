@@ -26,6 +26,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 * [**Testing**](#testing)
 * [**Deployment**](#creation--deployment)
 * [**Credits**](#credits) 
+<br>
 
 # User Experience/User Interface (UX/UI)
 
