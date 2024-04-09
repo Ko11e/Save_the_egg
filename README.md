@@ -44,6 +44,8 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 # Creation process
 ## Project Planning
 ## Flowchart
+To help structre the project, Lucidchart was use to create a flowchat over the game and the main functions needed.
+![Flowchart of Save the egg](images/flowchart.webp)
 ## Google API SetUp
 ## Logic
 ## Data Model - Google Sheets
