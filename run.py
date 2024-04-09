@@ -227,8 +227,8 @@ def choose_height():
             'From which height do you want to drop the egg [meters]:\n')
         if validation_number(selected_height):
             print(Fore.GREEN + Style.BRIGHT)
-            print(f"\nYou have chosen to release the egg",
-                  f"from {selected_height} metres.")
+            print("You have chosen to release the egg",
+                  f"from {selected_height} metres.\n")
             print(Style.RESET_ALL)
             break
 
@@ -405,13 +405,13 @@ def select_protection(pandas_data):
 
     # Asks the user to select a option
     while True:
-        value = input('\nPlease enter the number for clearthe material that you want to use:\n')
+        value = input('\nPlease enter the number for the material that you want to use:')
         if validation_number(value, keys_data):
             break
 
     value = int(value)
-    print(Fore.GREEN + "You've chosen to protect your egg with a ",
-          f"{pandas_data['material'][value]}.\n" + Style.RESET_ALL)
+    print(Fore.GREEN + Style.BRIGHT + "You've chosen to protect your egg ",
+          f"with a {pandas_data['material'][value]}.\n" + Style.RESET_ALL)
 
     return pandas_data.loc[value], value
 
@@ -425,7 +425,8 @@ def score_adjustment(score, protection, points):
             score : int
                 The score that the player has scored
             protection : boolean
-                if the player has chosen to protect the egg (TRUE)or not(FALSE)
+                if the player has chosen to protect
+                the egg (TRUE)or not(FALSE)
             pionts : int
                 The pionts that should added or substracted from the score.
         Returns
@@ -572,7 +573,7 @@ def reduce_force_limit(egg, landingposition, impact_force):
         reduce_force = 0
     else:
         procent_impact = impact_force/egg['force_limit'][landingposition]
-        reduce_force = np.array([13, 20])*procent_impact
+        reduce_force = np.array([20, 30])*procent_impact
 
     return egg['force_limit']-reduce_force
 
@@ -688,7 +689,7 @@ def print_acsii_centred(text, fonts):
             fonts :str
                 The font the text should be in
                 The exempel fonts can be found on at
-                https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
+    https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
     f = pyfiglet.Figlet(font=fonts)
     print(Fore.YELLOW + Style.BRIGHT)
@@ -719,8 +720,8 @@ def main():
             ['easy', 'medium', 'hard'], 'easy, medium or hard.'
         )
         highscore = get_highscore_data(level)
-        print(Fore.GREEN + f'\nYou have chosen to play ',
-              'with difficulty level: {level}\n' + Style.RESET_ALL)
+        print(Fore.GREEN + Style.BRIGHT + f'\nYou have chosen to play ',
+              f'with difficulty level: {level}\n' + Style.RESET_ALL)
 
         while True:
             protection = True
@@ -735,6 +736,8 @@ def main():
                     material_values = {'material': 'None',
                                        'impact': 0,
                                        'points': 500}
+                    print(Fore.GREEN + Style.BRIGHT + "You've chosen to ",
+                          "not protect your egg\n" + Style.RESET_ALL)
 
             if protection is True:
                 material_values, value = select_protection(data_protection)
@@ -775,16 +778,15 @@ def main():
 
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the ',
-                          '{position_on_highscore+1}:th place\n')
+                          f'{position_on_highscore+1}:th place\n')
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase your',
-                         ' score and get to the top of',
-                         ' the leaderboard? [Y/N]:\n'),
+                        ('\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
 
                     clear_screen()
 
+                    # Users answered NO to try to increase the score
                     if YES_NO.index(try_again) >= 5:
                         name = input('Enter your name to the leaderboard:\n')
                         highscore.add_to_board(position_on_highscore,
@@ -797,6 +799,7 @@ def main():
                         highscore.uppdate_sheet()
                         break
 
+                    # User answered YES to try to increas the score
                     else:
                         # Reduces the forcelimit of the egg
                         egg['force_limit'] = \
@@ -807,9 +810,10 @@ def main():
                 else:
                     print(f'\nYou scored {score} points and ',
                           'your score did not make the top 5')
+                    # Would you like to risk your points to boost
+                    # your score and try to reach the leaderboard?
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase',
-                         ' your score and try to get on leaderboard?[Y/N]:\n'),
+                        ('\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()

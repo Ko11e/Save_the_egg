@@ -15,7 +15,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
   * [Project Planning](#project-planning)
   * [Flowchart](#flowchart)
   * [Google API SetUp](#google-api-setup)
-  * [Python Logic](#python-logic)
+  * [Logic](#logic)
   * [Data Model - Google Sheets](#data-model---google-sheets)
   * [Design Choices](#design-choices)
 * [**Features**](#features)
@@ -31,9 +31,9 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 # User Experience/User Interface (UX/UI)
 
 ## User Goals
-"Save the Egg" is created for the user as a fun game to test the forcelimit of a egg. 
+"Save the Egg" is created for the user as a fun game to test the forcelimit of a egg. The game is shown in a Command Line Interface and the leaderboard is stored in a secure Google Sheet. This are some ponits that i have focust on when making this project
 
-  - It must be easy to navigate and to understand the rules the first time you read them
+  - It must be easy to navigate and to understand the rules the first time the user read them
   - An engaging UI to capture the user's interest.
   - Clear instructions for entering data correctly are provided.
   - No dead ends to trap the user at the end of a function.
@@ -43,10 +43,9 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 
 # Creation process
 ## Project Planning
-
 ## Flowchart
 ## Google API SetUp
-## Python Logic
+## Logic
 ## Data Model - Google Sheets
 ## Design Choices
 # Feature
@@ -57,6 +56,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 # Libraries & Packages
 
 # Testing
+I have created an additional file for manual testing and validation. You can find it here: [TESTING](/TESTING.md)
 
 # Deployment
  
