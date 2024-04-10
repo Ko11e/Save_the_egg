@@ -48,6 +48,7 @@ To help structre the project, Lucidchart was use to create a flowchat over the g
 ![Flowchart of Save the egg](images/flowchart.webp)
 ## Google API SetUp
 ## Logic
+
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
 
@@ -63,13 +64,17 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 |![Leaderboard Easy](images/highscore_easy.png)|![Leaderboard Medium](images/highscore_medium.png)|![Leaderboard Hard](images/highscore_hard.png)|
 
 ## Design Choices
+
+### A
 # Feature
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
+- The game can be played a diffrent planet
+
 # Technologies Used
 - **HTML, CSS, Javascript** <br>
 Was provided by the temple made by the Cod Institute for this project focusing on Python code.
-- **Python**
+- **Python**<br>
 The program was writen in python code inperation and code not writen by my self is cretieded in the section Credits.
 - **Gitpod** <br>
 Used as a workspace to create the program.
@@ -89,33 +94,30 @@ Was used to deploy the project.
 Used https://tinyjpg.com/ to compress the size of the images.
 
 # Packages and Libraries
-Some of the importations have only one functionen been imported this is to make the program more efficent seen i only use one function in the libraries. 
-   - **google.oauth.service_account** <br> 
-  This libary is used to acess the
-   - **gspread** <br>
-  This was imported and used its functionality to smoothly add, remove and manipulate data in the linked Google Sheets spreadsheets.
- 
-   - **Pandas**<br>
-   Pandas has been used to make it easy to handle the data from the worksheet and to present it in the user interface.
-
-   - **Numpy** <br>
-   This libary was used to esaly substact and add values to avode using for-loops.
-   Since numpy is used to handle vectors and matrices, reorganising some of the data is accomplished with more efficient code. 
-
-   - **radint, from random** <br> 
-   This function was used to generate an integer corresponding to the event or position of the egg when it lands. This makes the player less predictable, even at a lower level.
-   - **system, from os** <br>
-   This is used to clear the terminal of text, making it easier for the user to follow the game.
-   - **sleep, from time** <br>
-   Used to allow the user time to read the text on the screen before it is cleared.
-   - **Design**<br>
-   The libarys/functions was used to make the design of the game more appyling and intresting.
-      - **_pyfiglet_** <br>
-      Used for ASCII art text in the Start and the end of the game
-      - **_Fore and Style, from colorama_** <br>
-      Used to give the user a visual feedback of the input and results in the game. Makes the text in the terminal brighter and the UI more appealing.
-      - **_get_terminal_size, from shutil_** <br>
-      To make the text in the termial in the ceter of the interface. 
+Some of the imports have only one function imported, this is to make the programme more efficient, seen I only use one function in the libraries. 
+- **google.oauth.service_account** <br> 
+<span style="color:red;">This libary is used to acess the </span>
+- **gspread** <br>
+This was imported and used its functionality to smoothly add, remove and manipulate data in the linked Google Sheets spreadsheets.
+- **Pandas**<br>
+Pandas has been used to make it easy to handle the data from the worksheet and to present it in the user interface.
+- **Numpy** <br>
+This libary was used to esaly substact and add values to avode using for-loops.
+Since numpy is used to handle vectors and matrices, reorganising some of the data is accomplished with more efficient code. 
+- **radint, from random** <br> 
+This function was used to generate an integer corresponding to the event or position of the egg when it lands. This makes the player less predictable, even at a lower level.
+- **system, from os** <br>
+This is used to clear the terminal of text, making it easier for the user to follow the game.
+- **sleep, from time** <br>
+Used to allow the user time to read the text on the screen before it is cleared.
+- **Design**<br>
+The libarys/functions was used to make the design of the game more appyling and intresting.
+  - **_pyfiglet_** <br>
+  Used for ASCII art text in the Start and the end of the game
+  - **_Fore and Style, from colorama_** <br>
+  Used to give the user a visual feedback of the input and results in the game. Makes the text in the terminal brighter and the UI more appealing.
+  - **_get_terminal_size, from shutil_** <br>
+  To make the text in the termial in the ceter of the interface. 
 
 # Testing
 I have created an additional file for manual testing and validation. You can find it here: **[TESTING](/TESTING.md)**
