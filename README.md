@@ -16,7 +16,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
   * [Flowchart](#flowchart)
   * [Google API SetUp](#google-api-setup)
   * [Logic](#logic)
-  * [Data Model - Google Sheets](#data-model---google-sheets)
+  * [Google Sheets](#Google-sheets)
   * [Design Choices](#design-choices)
 * [**Features**](#features)
   * [How to play Save the egg](#how-play-use-Save-the-egg)
@@ -48,11 +48,23 @@ To help structre the project, Lucidchart was use to create a flowchat over the g
 ![Flowchart of Save the egg](images/flowchart.webp)
 ## Google API SetUp
 ## Logic
-## Data Model - Google Sheets
+## Google Sheets
+I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
+
+### Materials
+On this sheet contains the materials the user can chose from and the diffrenc of the impact is does on the egg. 
+![Google Sheets, worksheet materials](images/sheet-materials.png)
+### Incidents
+Shown below are the incidents that can occure. The incidents depent on the meterials the user have chosen to use. To see all the incidents click in the lick to the view over the whole google sheet.
+![Google Sheets, worksheet incidents](images/sheet-materials.png)
+### Highscores
+|Easy|Medium|Hard|
+|----|-----|----|
+|![Leaderboard Easy]()|![Leaderboard Medium]()|![Leaderboard Hard]()|
 ## Design Choices
 # Feature
 ## Future Features
-
+- The user can see the leaderboard for the diffrent levels before starting the game.
 # Technologies Used
 
 # Libraries & Packages

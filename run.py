@@ -779,6 +779,18 @@ def main():
                 if position_on_highscore != 10:
                     print(f'Woho!! You scored {score} and got on the ',
                           f'{position_on_highscore+1}:th place\n')
+                    # Prints a star if the user is placed first in the leaderbaord
+                    if position_on_highscore == 0:
+                        print(Style.BRIGHT + Fore.YELLOW)
+                        print("""
+                               \  :  /
+                            `. __/ \__ .'
+                            _ _\     /_ _
+                               /_   _\ 
+                             .'  \ /  `.
+                               /  :  \ 
+                                  '""")
+                        print(Style.RESET_ALL)
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
