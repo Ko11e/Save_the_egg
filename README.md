@@ -56,11 +56,11 @@ On this sheet contains the materials the user can chose from and the diffrenc of
 ![Google Sheets, worksheet materials](images/sheet-materials.png)
 ### Incidents
 Shown below are the incidents that can occure. The incidents depent on the meterials the user have chosen to use. To see all the incidents click in the lick to the view over the whole google sheet.
-![Google Sheets, worksheet incidents](images/sheet-materials.png)
+![Google Sheets, worksheet incidents](images/sheet-incidents.png)
 ### Highscores
 |Easy|Medium|Hard|
 |----|-----|----|
-|![Leaderboard Easy]()|![Leaderboard Medium]()|![Leaderboard Hard]()|
+|![Leaderboard Easy](images/highscore_easy.png)|![Leaderboard Medium](images/highscore_medium.png)|![Leaderboard Hard](images/highscore_hard.png)|
 ## Design Choices
 # Feature
 ## Future Features
