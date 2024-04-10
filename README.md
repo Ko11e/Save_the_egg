@@ -61,6 +61,7 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 |Easy|Medium|Hard|
 |----|-----|----|
 |![Leaderboard Easy](images/highscore_easy.png)|![Leaderboard Medium](images/highscore_medium.png)|![Leaderboard Hard](images/highscore_hard.png)|
+
 ## Design Choices
 # Feature
 ## Future Features
@@ -68,9 +69,36 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 # Technologies Used
 
 # Libraries & Packages
+Some of the importations have only one functionen been imported this is to make the program more efficent seen i only use one function in the libraries. 
+   - **google.oauth.service_account** <br> 
+  This libary is used to acess the
+   - **gspread** <br>
+  This was imported and used its functionality to smoothly add, remove and manipulate data in the linked Google Sheets spreadsheets.
+ 
+   - **Pandas**<br>
+   Pandas has been used to make it easy to handle the data from the worksheet and to present it in the user interface.
+
+   - **Numpy** <br>
+   This libary was used to esaly substact and add values to avode using for-loops.
+   Since numpy is used to handle vectors and matrices, reorganising some of the data is accomplished with more efficient code. 
+
+   - **radint, from random** <br> 
+   This function was used to generate an integer corresponding to the event or position of the egg when it lands. This makes the player less predictable, even at a lower level.
+   - **system, from os** <br>
+   This is used to clear the terminal of text, making it easier for the user to follow the game.
+   - **sleep, from time** <br>
+   Used to allow the user time to read the text on the screen before it is cleared.
+   - **Design**<br>
+   The libarys/functions was used to make the design of the game more appyling and intresting.
+      - **_pyfiglet_** <br>
+      Used for ASCII art text in the Start and the end of the game
+      - **_Fore and Style, from colorama_** <br>
+      Used to give the user a visual feedback of the input and results in the game. Makes the text in the terminal brighter and the UI more appealing.
+      - **_get_terminal_size, from shutil_** <br>
+      To make the text in the termial in the ceter of the interface. 
 
 # Testing
-I have created an additional file for manual testing and validation. You can find it here: [TESTING](/TESTING.md)
+I have created an additional file for manual testing and validation. You can find it here: **[TESTING](/TESTING.md)**
 
 # Deployment
  

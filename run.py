@@ -554,8 +554,8 @@ def reduce_force_limit(egg, landingposition, impact_force):
     will be removed from limit. The reduce force limit will be returned.
     Exempel:
     impact_force= 59 egg_limit=60
-    This means 98% of [13, 20] will be reduced from [40, 60]
-    which leads to the new egg_limit being [27, 40]
+    This means 98% of [20, 30] will be reduced from [40, 60]
+    which leads to the new egg_limit being [25, 38]
     -----------------
         Parameters
             egg : numpy.ndarray
@@ -569,6 +569,8 @@ def reduce_force_limit(egg, landingposition, impact_force):
             out : numpy.ndarray
                 a np.array with the dimension 1,2
     """
+    # if the impact is negativ of zero the reduced force is zero
+    # otherwise will the force_limit increase instead of decreasing
     if impact_force <= 0:
         reduce_force = 0
     else:
@@ -599,7 +601,7 @@ def reason(impact_total, material, egg_position):
             print(f'\nThe {material} managed to protect your egg sufficiently')
         elif impact_total > 40 and impact_total < 60:
             print(f'\nBecause the egg landed horizontally',
-                  ' the {material} failed to protect your egg')
+                  f' the {material} failed to protect your egg')
     else:
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently',
