@@ -22,7 +22,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
   * [How to play Save the egg](#how-play-use-Save-the-egg)
   * [Future Features](#future-features)
 * [**Technologies Used**](#technologies-used)
-* [**Libraries & Packages**](#libraries--packages)
+* [**Packages and Libraries**](#packages-and-libraries)
 * [**Testing**](#testing)
 * [**Deployment**](#creation--deployment)
 * [**Credits**](#credits) 
@@ -67,8 +67,28 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
 # Technologies Used
+- **HTML, CSS, Javascript** <br>
+Was provided by the temple made by the Cod Institute for this project focusing on Python code.
+- **Python**
+The program was writen in python code inperation and code not writen by my self is cretieded in the section Credits.
+- **Gitpod** <br>
+Used as a workspace to create the program.
+- **GitHub** <br>
+The source code is hosted on GitHub and deployed using Git Pages.
+- **Git** <br>
+During the development of the website, Git was utilized to commit and push code.
+- **Lucidchart**<br>
+Used to create the flowchart of the project.
+- **Google Sheets worhsheets**<br>
+Used to save the highscores on the leaderboard and the materiales usable to protect the egg. As well as the incidints that can occure on the hardest level.
+- **Google cloud console**<br>
+It is used to provide an API connection between the Python code and the worksheet in Google Sheets.
+- **Heroku**<br>
+Was used to deploy the project.
+- **Tinyjpg** <br>
+Used https://tinyjpg.com/ to compress the size of the images.
 
-# Libraries & Packages
+# Packages and Libraries
 Some of the importations have only one functionen been imported this is to make the program more efficent seen i only use one function in the libraries. 
    - **google.oauth.service_account** <br> 
   This libary is used to acess the
@@ -103,3 +123,6 @@ I have created an additional file for manual testing and validation. You can fin
 # Deployment
  
 # Credits
+
+
+[Back to the top](#save-the-egg)
