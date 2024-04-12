@@ -255,7 +255,7 @@ def validation_number(user_input, lst=None):
             return validation_int(user_input, lst)
 
     except ValueError:
-        print(Fore.CYAN + f"You have entered a string,",
+        print(Fore.LIGHTRED_EX + f"You have entered a string,",
               " please enter a number.\n" + Style.RESET_ALL)
         return False
 
@@ -285,7 +285,7 @@ def validation_int(input, lst):
             raise TypeError
 
     except ValueError:
-        print(Fore.CYAN + f"Please enter a whole number,",
+        print(Fore.LIGHTRED_EX + f"Please enter a whole number,",
               f" you have entered {input} which is a decimal number" +
               Style.RESET_ALL)
         return False
@@ -295,7 +295,7 @@ def validation_int(input, lst):
         # between evey value.
         string_lst = ', '.join(map(str, lst))
 
-        print(Fore.CYAN + f'Please enter {string_lst}.' + Style.RESET_ALL)
+        print(Fore.RED + f'Please enter {string_lst}.' + Style.RESET_ALL)
         return False
 
     return True
@@ -323,7 +323,7 @@ def validation_answer(input, lst, exp_answers):
     if input in lst:
         return True
     else:
-        print(Fore.CYAN + f'\nYou entered {input}, ',
+        print(Fore.RED + f'\nYou entered {input}, ',
               f'Please enter \033[1m{exp_answers}\033[0m' + Style.RESET_ALL)
         return False
 
@@ -508,21 +508,6 @@ def generatet_incident(material_value):
         impact_effect = -int_impact_effect
 
     return impact_effect
-
-
-def randomizing_land_of_egg():
-    """
-    Generates a 0 or a 1
-    --------------------------------------
-        Parameters
-            No arguments nedded
-
-        Returns:
-            out : int
-                Value return is int that is a 0 or 1
-    """
-
-    return randint(0, 1)
 
 
 def get_highscore_data(difficulty_level):
@@ -711,7 +696,7 @@ def main():
         # Values the change under the game and
         # resets when the user starts a new game
         egg = np.array(
-            [(0.04, 40), (0.06, 60)],
+            [(0.04, 45), (0.06, 62)],
             dtype=[('height', float), ('force_limit', float)]
         )
         data_protection = get_data('materials')
@@ -729,6 +714,8 @@ def main():
 
         while True:
             protection = True
+            # If the level medium and hard is play
+            # the user can chose to not protect the egg
             if level == 'medium' or level == 'hard':
                 protecting_egg = question_with_valiadation(
                     '\nDo you like to protect the egg? [Y/N]',
@@ -751,7 +738,8 @@ def main():
             height = choose_height()
             clear_screen()
 
-            landingposition = randomizing_land_of_egg()
+            # Generates the position of the egg, vertical or horizontal
+            landingposition = randint(0, 1)
 
             # Calculates the force at the impact with the ground
             impact_force = impact_calculation(height,
@@ -863,4 +851,9 @@ def main():
             break
 
 
-main()
+# main()
+
+print(Fore.LIGHTRED_EX)
+print('Color sfhskj sdkfjsalkhfd sdfjsdfj')
+print(Fore.RED)
+print('VAd ar de for skillnad mellan dessa tva')

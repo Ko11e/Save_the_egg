@@ -64,21 +64,21 @@ To help structre the project, Lucidchart was use to create a flowchat over the g
 For this game, I wanted it to follow some of the physics rules. To find a formula to calculate the force the egg is exposed to, some assumptions are made.  To start with, we need to know the speed of the egg before it hits the ground. To find this velocity the assumption is made that there is no wind resistance no matter what the shape of the egg or the shape after the egg is protected. This means that the energy is conserved and will be the same just before the egg hits the ground as it is when the egg is released, leading to 
 $$mgh = {mv^2\over2} \Rightarrow v_i = \sqrt{2gh} \quad.$$
 
-The force to which the egg is subjected depends on the sum of all the forces over time. This is also an impulse, which can be seen as the momentum the egg has before the collision and after the collision.
+The force to which the egg is subjected depends on the sum of all the forces over time. This is also an impulse, which can be seen as the momentum the egg has before the collision ( $\vec{p_i}$ ) and after the collision ( $\vec{p_f}$ ).
 $$\vec{I} = \vec{\Delta{p}}=\vec{p_f}-\vec{p_i}=m(\vec{v_f}-\vec{v_i}) .$$
 
 Here we assume that the collision is elastic, meaning that no energy is lost through heat. We also assume that the egg does not bounce off the ground, which means that $v_f=0$. This leads to
-$$F={mv_i\over \Delta{t}}.$$
+$$F= {I \over \Delta{t}}={mv_i\over \Delta{t}}.$$
 
 For simplicity, I also assume that the collision time is equal to <br> 
-$$\Delta{t}={distance \over velocity} = {h_{egg} \over v_i}\quad. $$
+$$\Delta{t}={distance \over velocity} = {h_{egg} \over v_i} \ . $$
 
 This results in the collision force being 
-$$F = {2mgh \over h_{egg}}$$
+$$F = {2mgh \over h_{egg}} \ . $$
 
 As you can see, there are a lot of assumptions involved, which leads to further complexity if the force reduction is to be calculated correctly. 
 
-The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits). 
+The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits).  
 
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
