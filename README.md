@@ -31,7 +31,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 # User Experience/User Interface (UX/UI)
 
 ## User Goals
-"Save the Egg" is created for the user as a fun game to test the forcelimit of a egg. The game is shown in a Command Line Interface and the leaderboard is stored in a secure Google Sheet. This are some ponits that i have focust on when making this project
+"Save the Egg" is designed as a fun game for the user to test the force limit of an egg. The game is displayed in a command line interface and the 5 highest scores is stored in a secure Google Sheet. These are some of the points I focused on when creating this project
 
   - It must be easy to navigate and to understand the rules the first time the user read them
   - An engaging UI to capture the user's interest.
@@ -39,15 +39,34 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
   - No dead ends to trap the user at the end of a function.
 
 ## User Stories
-
+1. As a User, i would like to understand the game after reading the instuctions ones
+2. As a User, i want some pysichs to be behind the game
+3. As a User, i want to be able to enter low numbers then 1 m for droping the egg
+4. As a User, i want to be enganged in the game
+5. As a User, i want the game to be harder and less pedictibel at higher levels
 
 # Creation process
 ## Project Planning
+When planning this project, I wanted to create a game based on my knowledge of physics. To begin with, the whole game was supposed to be as physically correct as possible. Unfortunately, the calculations of the material force reduction became too complex, so the force reduction was estimated with the help of Wikipedia. The same goes for the events in the hardest level, but some of the events are designed in such a way that the user will fail no matter what height the user chooses to drop the egg from.
+
+To structure the coding I made a flowchart using Lucischart. The flowchart is also used to see which inputs need to be validated to keep the game from crashing.
+
+To make the game more interesting, there is also a highscore list for the three different levels. As a user, you can only enter a name if you have enough points. 
+
+I decided to use Google Sheets to store the leaderboards for the different levels and also to store the materials to protect the egg and the different incidents that can happen when playing the game on the most difficult level. 
+
 ## Flowchart
 To help structre the project, Lucidchart was use to create a flowchat over the game and the main functions needed.
 ![Flowchart of Save the egg](images/flowchart.webp)
 ## Google API SetUp
+
 ## Logic
+
+$mgh = {mv^2\over2} \Rightarrow v = \sqrt{2gh}$
+
+$\vec{I} = \vec{\Delta{p}}=\vec{p_f}-\vec{p_i}=m(\vec{v_f}-\vec{v_i})$
+
+$F_{avg}={m(\vec{v_f}-\vec{v_i})\over \Delta{t}}$ where $\Delta{t}= {sträckan\over v_i}$
 
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
@@ -60,13 +79,15 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 ![Google Sheets, worksheet incidents](images/sheet-incidents.png)
 ### Highscores
 |Easy|Medium|Hard|
-|----|-----|----|
+|:----:|:-----:|:---:|
 |![Leaderboard Easy](images/highscore_easy.png)|![Leaderboard Medium](images/highscore_medium.png)|![Leaderboard Hard](images/highscore_hard.png)|
 
 ## Design Choices
 
-### A
+### Egg ASCII art
+
 # Feature
+
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
 - The game can be played a diffrent planet

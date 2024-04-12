@@ -220,7 +220,6 @@ def choose_height():
         Retruns
             out : float
                 Given number by the user is return as a float.
-
     """
     while True:
         selected_height = input(
@@ -280,8 +279,6 @@ def validation_int(input, lst):
             out : boolean
                 True if the sting  a number and False it it's not.
     """
-    string_lst = ', '.join(map(str, lst))
-
     try:
         int(input)
         if int(input) not in lst:
@@ -294,6 +291,10 @@ def validation_int(input, lst):
         return False
 
     except TypeError:
+        # Converts the values in to a string with a ','
+        # between evey value.
+        string_lst = ', '.join(map(str, lst))
+
         print(Fore.CYAN + f'Please enter {string_lst}.' + Style.RESET_ALL)
         return False
 
@@ -462,7 +463,7 @@ def impact_calculation(height, radius_egg):
     g = 9.82  # Average gravity in m/s^2
     mass = 0.05  # Mass of the egg in kg
 
-    impact_force = (2*g*height*mass)/radius_egg
+    impact_force = (4*g*height*mass)/radius_egg
 
     return impact_force
 
@@ -722,8 +723,9 @@ def main():
             ['easy', 'medium', 'hard'], 'easy, medium or hard.'
         )
         highscore = get_highscore_data(level)
-        print(Fore.GREEN + Style.BRIGHT + f'\nYou have chosen to play ',
-              f'with difficulty level: {level}\n' + Style.RESET_ALL)
+        print(Fore.GREEN + Style.BRIGHT +
+              f'\nYou have chosen to play with difficulty level: {level}\n' +
+              Style.RESET_ALL)
 
         while True:
             protection = True
@@ -779,22 +781,22 @@ def main():
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
-                    print(f'Woho!! You scored {score} and got on the ',
-                          f'{position_on_highscore+1}:th place\n')
                     # Prints a star if the user is placed first in the leaderbaord
                     if position_on_highscore == 0:
                         print(Style.BRIGHT + Fore.YELLOW)
-                        print("""
-                               \  :  /
-                            `. __/ \__ .'
-                            _ _\     /_ _
-                               /_   _\ 
-                             .'  \ /  `.
-                               /  :  \ 
-                                  '""")
+                        print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ . ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
+                        print(f'Woho!! You scored {score} and got on the ',
+                              '1:th place\n')
+                        print(Style.RESET_ALL)
+                    else:
+                        print(Fore.CYAN)
+                        print(f'Woho!! You scored {score} and got on the ',
+                              f'{position_on_highscore+1}:th place\n')
                         print(Style.RESET_ALL)
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase your score and get to the top of the leaderboard? [Y/N]:\n'),
+                        ('\nDo you want to risk your points to increase \
+                        your score and get to the top of the leaderboard? \
+                        [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
 
@@ -827,7 +829,8 @@ def main():
                     # Would you like to risk your points to boost
                     # your score and try to reach the leaderboard?
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase your score and try to get on leaderboard?[Y/N]:\n'),
+                        ('\nDo you want to risk your points to increase \
+                        your score and try to get on leaderboard?[Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
