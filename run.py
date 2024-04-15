@@ -169,8 +169,11 @@ def end_title():
     system('clear')
     print(Fore.YELLOW + Style.BRIGHT)
     print_acsii_centred('Thank you for playing', 'mini')
+    ptint(Style.BRIGHT)
     print_acsii_centred('Save the egg', 'bulbhead')
+    print('To restart the game press RUN PROGRAM above')
     print(Style.RESET_ALL)
+
 
 
 def title_and_intro():
