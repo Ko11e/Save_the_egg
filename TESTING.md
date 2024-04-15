@@ -19,7 +19,8 @@
 
 |Bug           |Solution             |
 |:----|-----:|
-|bug1          |Solution1            |
+|function validation_number does not ||
+|Getting the wrong value from the             |           |
 |lsdkfjslkdj   |dskjflkjsdl          |
 |sdlksjdlk     |sldlkfjslkdjfö       |
 
