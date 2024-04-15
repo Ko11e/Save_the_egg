@@ -117,6 +117,13 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 <br>
 
 # Feature
+## Start
+
+## Revealed
+
+## Highscore
+
+## End Title 
 
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
@@ -153,8 +160,8 @@ This was imported and used its functionality to smoothly add, remove and manipul
 - **Pandas**<br>
 Pandas has been used to make it easy to handle the data from the worksheet and to present it in the user interface.
 - **Numpy** <br>
-This libary was used to esaly substact and add values to avode using for-loops.
-Since numpy is used to handle vectors and matrices, reorganising some of the data is accomplished with more efficient code. 
+This library was used to replace, substitute and add values to avoid using for loops.
+Since Numpy is used to handle vectors and matrices, the reorganisation of some of the data is done with more efficient code. 
 - **radint, from random** <br> 
 This function was used to generate an integer corresponding to the event or position of the egg when it lands. This makes the player less predictable, even at a lower level.
 - **system, from os** <br>
