@@ -174,7 +174,28 @@ The libarys/functions was used to make the design of the game more appyling and 
 I have created an additional file for manual testing and validation. You can find it here: **[TESTING](/TESTING.md)**
 
 # Deployment
+This project was deployed following the steps below:
 
+1. Log in to Heroku 
+2. Click "New" to create a new app. Placed on the upper right side and then select "Create new app".
+3. Choose an app name and region region, then click "Create app".
+4. Go to "Settings", navigate to Config Vars and click on "Reveal Config Vars". 
+Add the following config variables:<br>
+
+    |KEY|VALUE|
+    |:---:|:---:|
+    |PORT|8000|
+    |CRED|Take the text in the <br> **cred.json** an paste it|
+
+5. While remaining in 'Settings', Go down to Buildpacks and click on **Add buildpack**
+One at a time, choose the **Python** pack and click 'Add Buildpack', then choose the **NodeJS** buildpack and click 'Add Buildpack'. <br>
+**IMPORTEN: the Python buildpack must be above the NodeJS buildpack.**
+6. Navigate to "Deploy". <br>
+Set the 'Deployment method* to Github and enter repository name and click 'Search'. 
+If the right repository is showing click 'Connect'.
+7.  Scroll down to Manual Deploy, select "main" branch and click "Deploy Branch".<br>
+
+The app will now be deployed to heroku
 # Credits
 
 
