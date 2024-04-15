@@ -169,7 +169,7 @@ def end_title():
     system('clear')
     print(Fore.YELLOW + Style.BRIGHT)
     print_acsii_centred('Thank you for playing', 'mini')
-    ptint(Style.BRIGHT)
+    print(Style.BRIGHT)
     print_acsii_centred('Save the egg', 'bulbhead')
     print('To restart the game press RUN PROGRAM above')
     print(Style.RESET_ALL)
@@ -231,7 +231,8 @@ def choose_height():
     """
     while True:
         selected_height = input(
-            'From which height do you want to drop the egg [meters]:\n')
+            'How high do you want the egg to drop from [meters]?\n\
+ You can use decimals:')
         if validation_number(selected_height):
             print(Fore.GREEN + Style.BRIGHT)
             print("You have chosen to release the egg",
