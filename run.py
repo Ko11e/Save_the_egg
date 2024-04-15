@@ -151,7 +151,9 @@ def clear_screen():
     """
     sleep(2)
     system('clear')
+    print(Fore.YELLOW + Style.BRIGHT)
     print_acsii_centred('Save the egg', 'bulbhead')
+    print(Style.RESET_ALL)
 
 
 def end_title():
@@ -165,8 +167,10 @@ def end_title():
     """
     sleep(2)
     system('clear')
+    print(Fore.YELLOW + Style.BRIGHT)
     print_acsii_centred('Thank you for playing', 'mini')
     print_acsii_centred('Save the egg', 'bulbhead')
+    print(Style.RESET_ALL)
 
 
 def title_and_intro():
@@ -176,8 +180,8 @@ def title_and_intro():
         Parameters
             None
     """
-    print_acsii_centred('Save the egg', 'bulbhead')
     print(Fore.YELLOW + Style.BRIGHT)
+    print_acsii_centred('Save the egg', 'bulbhead')
     print_centre("The game is about getting as many points as possible")
     print_centre(
         "by dropping an egg as high as you can without breaking the egg.")
@@ -187,22 +191,22 @@ def title_and_intro():
         "to protect the egg. You can play the game on three different levels,")
     print_centre("see below how these levels work.\n")
     print("""
-    EAYS:     The way the egg lands, either horizontally or vertically,
-              will determine how well it copes with the impact.
-              If you successfully save the egg, you can attempt to earn
-              more points by dropping it again. However, keep in mind that
-              the egg has been damaged from the previous drop, and therefore
-              it won't be able to withstand as big of a hit as before.
-              If the egg breaks, you will lose your points.
+EAYS:     The way the egg lands, either horizontally or vertically,
+          will determine how well it copes with the impact.
+          If you successfully save the egg, you can attempt to earn
+          more points by dropping it again. However, keep in mind that
+          the egg has been damaged from the previous drop, and therefore
+          it won't be able to withstand as big of a hit as before.
+          If the egg breaks, you will lose your points.
 
-    MEDUIM:   For this level, the same rules as the previous level apply.
-              However, your choice of protection will affect the final score.
-              Here you can chose NOT to protect the egg and get 500 points
-              plus the other points.
+MEDUIM:   For this level, the same rules as the previous level apply.
+          However, your choice of protection will affect the final score.
+          Here you can chose NOT to protect the egg and get 500 points
+          plus the other points.
 
-    HARD:     For this level, the same rules as the previous levels apply.
-              However, an event will occur after you have released the egg.
-              This event can be good or bad. So take it carefully\n""")
+HARD:     For this level, the same rules as the previous levels apply.
+          However, an event will occur after you have released the egg.
+          This event can be good or bad. So take it carefully\n""")
     print_centre("\033[1mPress ENTER to Start the game\033[0m")
     input("")
     print(Style.RESET_ALL)
@@ -323,8 +327,10 @@ def validation_answer(input, lst, exp_answers):
     if input in lst:
         return True
     else:
-        print(Fore.RED + f'\nYou entered {input}, ',
-              f'Please enter \033[1m{exp_answers}\033[0m' + Style.RESET_ALL)
+        print(Fore.RED +
+              f'\nYou entered {input}, \
+please enter \033[1m{exp_answers}\033[0m' +
+              Style.RESET_ALL)
         return False
 
 
@@ -406,7 +412,8 @@ def select_protection(pandas_data):
 
     # Asks the user to select a option
     while True:
-        value = input('\nPlease enter the number for the material that you want to use:')
+        value = input('\nPlease enter the number for \
+the material that you want to use:')
         if validation_number(value, keys_data):
             break
 
@@ -588,6 +595,8 @@ def reason(impact_total, material, egg_position):
         elif impact_total > 40 and impact_total < 60:
             print(f'\nBecause the egg landed horizontally',
                   f' the {material} failed to protect your egg')
+        else:
+            print(f'\nThe {material} failed to protect your egg')
     else:
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently',
@@ -680,10 +689,8 @@ def print_acsii_centred(text, fonts):
     https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/
     """
     f = pyfiglet.Figlet(font=fonts)
-    print(Fore.YELLOW + Style.BRIGHT)
     print(*[x.center(get_terminal_size().columns) for x in
           f.renderText(text).split("\n")], sep="\n")
-    print(Style.RESET_ALL)
 
 
 def main():
@@ -769,10 +776,12 @@ def main():
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
-                    # Prints a star if the user is placed first in the leaderbaord
+                    # Prints a star if the user is placed
+                    # first in the leaderbaord
                     if position_on_highscore == 0:
                         print(Style.BRIGHT + Fore.YELLOW)
-                        print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ . ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
+                        print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ .",
+                              " ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
                         print(f'Woho!! You scored {score} and got on the ',
                               '1:th place\n')
                         print(Style.RESET_ALL)
@@ -783,9 +792,9 @@ def main():
                         print(Style.RESET_ALL)
 
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase \
-                        your score and get to the top of the leaderboard? \
-                        [Y/N]:\n'),
+                        ('\nDo you want to risk \
+your points to increase your score and get to the top \
+of the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
 
@@ -819,7 +828,7 @@ def main():
                     # your score and try to reach the leaderboard?
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk your points to increase \
-                        your score and try to get on leaderboard?[Y/N]:\n'),
+your score and try to get on leaderboard?[Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
@@ -846,7 +855,9 @@ def main():
 
         if YES_NO.index(play_again) < 5:
             clear_screen()
+            print(Fore.YELLOW + Style.BRIGHT)
             print_acsii_centred('New game', 'mini')
+            print(Style.RESET_ALL)
         else:
             end_title()
             break

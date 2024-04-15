@@ -97,6 +97,8 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 ## Design Choices
 
 ### Egg ASCII art
+To make the game more appealing, I wanted to show a whole egg or a broken egg depending on the result, unfortunately I had a hard time finding ASCII art, so I decided to make my own, which can be seen below.
+
 
 # Feature
 
