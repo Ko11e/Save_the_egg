@@ -189,7 +189,8 @@ def title_and_intro():
         "To be able to drop the egg higher, there are different materials")
     print_centre(
         "to protect the egg. You can play the game on three different levels,")
-    print_centre("see below how these levels work.\n")
+    print_centre("see below how these levels work.")
+    print(Style.RESET_ALL + Fore.YELLOW)
     print("""
 EAYS:     The way the egg lands, either horizontally or vertically,
           will determine how well it copes with the impact.

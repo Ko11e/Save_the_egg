@@ -95,10 +95,23 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 |![Leaderboard Easy](images/highscore_easy.png)|![Leaderboard Medium](images/highscore_medium.png)|![Leaderboard Hard](images/highscore_hard.png)|
 
 ## Design Choices
+The Colorama Python library was used to create a bright, appealing interface and to give the user some form of feedback on their input. As the library is limited to 8 colours, the Format Style is also used for this.
+
+
 
 ### Egg ASCII art
-To make the game more appealing, I wanted to show a whole egg or a broken egg depending on the result, unfortunately I had a hard time finding ASCII art, so I decided to make my own, which can be seen below.
-
+To make the game more appealing, I wanted to show a whole egg or a broken egg depending on the result, unfortunately I had a hard time finding ASCII art, so I decided to make my own, which can be seen below. The ASCIIart has made by placing a image as a background and then follow the image with symboles. Where the images are taken are cedited in [Credits](#credits).
+<details open>
+    <summary>Whole egg</summary>
+    <img src = "images/wholeegg.png">
+    <img src = images/ASCIIegg.png>
+</details>  
+<details open>
+    <summary>Broken egg</summary>
+    <img src = "images/brokenegg.png">
+    <img src = images/ASCIIbroken.png>
+</details>
+<br>
 
 # Feature
 
