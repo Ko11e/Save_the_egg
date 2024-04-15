@@ -167,7 +167,7 @@ def end_title():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW + Style.BRIGHT)
+    print(Fore.YELLOW)
     print_acsii_centred('Thank you for playing', 'mini')
     print(Style.BRIGHT)
     print_acsii_centred('Save the egg', 'bulbhead')
