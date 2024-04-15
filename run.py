@@ -151,7 +151,7 @@ def clear_screen():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW + Style.BRIGHT)
+    print(Fore.YELLOW)
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Style.RESET_ALL)
 
@@ -169,9 +169,10 @@ def end_title():
     system('clear')
     print(Fore.YELLOW)
     print_acsii_centred('Thank you for playing', 'mini')
-    print(Style.BRIGHT)
     print_acsii_centred('Save the egg', 'bulbhead')
-    print('To restart the game press RUN PROGRAM above')
+    print(Style.BRIGHT)
+    print_centre('Press RUN PROGRAM')
+    print_centre('to restart the game')
     print(Style.RESET_ALL)
 
 
@@ -183,7 +184,7 @@ def title_and_intro():
         Parameters
             None
     """
-    print(Fore.YELLOW + Style.BRIGHT)
+    print(Fore.YELLOW)
     print_acsii_centred('Save the egg', 'bulbhead')
     print_centre("The game is about getting as many points as possible")
     print_centre(
@@ -193,7 +194,6 @@ def title_and_intro():
     print_centre(
         "to protect the egg. You can play the game on three different levels,")
     print_centre("see below how these levels work.")
-    print(Style.RESET_ALL + Fore.YELLOW)
     print("""
 EAYS:     The way the egg lands, either horizontally or vertically,
           will determine how well it copes with the impact.
@@ -304,7 +304,7 @@ def validation_int(input, lst):
         # between evey value.
         string_lst = ', '.join(map(str, lst))
 
-        print(Fore.RED + f'Please enter {string_lst}.' + Style.RESET_ALL)
+        print(Fore.LIGHTRED_EX + f'Please enter {string_lst}.' + Style.RESET_ALL)
         return False
 
     return True
@@ -475,7 +475,7 @@ def impact_calculation(height, radius_egg):
     g = 9.82  # Average gravity in m/s^2
     mass = 0.05  # Mass of the egg in kg
 
-    impact_force = (4*g*height*mass)/radius_egg
+    impact_force = (2*g*height*mass)/radius_egg
 
     return impact_force
 
@@ -574,7 +574,6 @@ def reduce_force_limit(egg, landingposition, impact_force):
     else:
         procent_impact = impact_force/egg['force_limit'][landingposition]
         reduce_force = np.array([20, 30])*procent_impact
-
     return egg['force_limit']-reduce_force
 
 
@@ -593,7 +592,7 @@ def reason(impact_total, material, egg_position):
             None
     """
     egg_limit = [40, 60]
-
+    print(Fore.CYAN)
     if egg_limit[egg_position] == 40:
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently')
@@ -611,7 +610,7 @@ def reason(impact_total, material, egg_position):
                   ', but only because it landed vertically')
         else:
             print(f'\nThe {material} failed to protect your egg')
-
+    print(Style.RESET_ALL)
 
 # ACSII picture functions
 def broken_egg():
@@ -708,7 +707,7 @@ def main():
         # Values the change under the game and
         # resets when the user starts a new game
         egg = np.array(
-            [(0.04, 45), (0.06, 62)],
+            [(0.04, 40), (0.06, 60)],
             dtype=[('height', float), ('force_limit', float)]
         )
         data_protection = get_data('materials')
@@ -757,13 +756,14 @@ def main():
             impact_force = impact_calculation(height,
                                               egg['height'][landingposition])
 
+            print(impact_force)
             # Incident that happen at the hard level
             incident = generatet_incident(
                 material_values['material']) if level == 'hard' else 0
 
             total_impact_force = impact_force - \
                 material_values['impact'] - incident
-
+            print(total_impact_force)
             # Checks if the egg breaks
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()
@@ -860,7 +860,7 @@ your score and try to get on leaderboard?[Y/N]:\n'),
 
         if YES_NO.index(play_again) < 5:
             clear_screen()
-            print(Fore.YELLOW + Style.BRIGHT)
+            print(Fore.YELLOW)
             print_acsii_centred('New game', 'mini')
             print(Style.RESET_ALL)
         else:

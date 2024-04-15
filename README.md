@@ -58,11 +58,10 @@ I decided to use Google Sheets to store the leaderboards for the different level
 ## Flowchart
 To help structre the project, Lucidchart was use to create a flowchat over the game and the main functions needed.
 ![Flowchart of Save the egg](images/flowchart.webp)
-## Google API SetUp
 
 ## Logic
 For this game, I wanted it to follow some of the physics rules. To find a formula to calculate the force the egg is exposed to, some assumptions are made.  To start with, we need to know the speed of the egg before it hits the ground. To find this velocity the assumption is made that there is no wind resistance no matter what the shape of the egg or the shape after the egg is protected. This means that the energy is conserved and will be the same just before the egg hits the ground as it is when the egg is released, leading to 
-$$mgh = {mv^2\over2} \Rightarrow v_i = \sqrt{2gh} \quad.$$
+$$mgh = {mv_i^2\over2} \quad \Longrightarrow  \quad v_i = \sqrt{2gh} \ .$$
 
 The force to which the egg is subjected depends on the sum of all the forces over time. This is also an impulse, which can be seen as the momentum the egg has before the collision ( $\vec{p_i}$ ) and after the collision ( $\vec{p_f}$ ).
 $$\vec{I} = \vec{\Delta{p}}=\vec{p_f}-\vec{p_i}=m(\vec{v_f}-\vec{v_i}) .$$
@@ -76,9 +75,11 @@ $$\Delta{t}={distance \over velocity} = {h_{egg} \over v_i} \ . $$
 This results in the collision force being 
 $$F = {2mgh \over h_{egg}} \ . $$
 
-As you can see, there are a lot of assumptions involved, which leads to further complexity if the force reduction is to be calculated correctly. 
+As you can see, there are a lot of assumptions involved, which leads to further complexity if the force reduction for the materials is to be calculated correctly. 
 
-The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits).  
+The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits).
+
+As the user can drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken.
 
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
@@ -97,7 +98,9 @@ Shown below are the incidents that can occure. The incidents depent on the meter
 ## Design Choices
 The Colorama Python library was used to create a bright, appealing interface and to give the user some form of feedback on their input. As the library is limited to 8 colours, the Format Style is also used for this.
 
+If the user enters an incorrect value, the text is coloured red and an informative text explains why the input was not accepted. If the input is correct, the text is displayed in green. The user's response is also displayed. The text for invalid and valid input is displayed in BRIGHT to make the text more noticeable.
 
+In the programme, the text is WHITE or YELLOW to represent the egg white and yolk, in addition to the text explaining why the egg is whole or broken after the drop that is CYAN.
 
 ### Egg ASCII art
 To make the game more appealing, I wanted to show a whole egg or a broken egg depending on the result, unfortunately I had a hard time finding ASCII art, so I decided to make my own, which can be seen below. The ASCIIart has made by placing a image as a background and then follow the image with symboles. Where the images are taken are cedited in [Credits](#credits).
@@ -144,7 +147,7 @@ Used https://tinyjpg.com/ to compress the size of the images.
 # Packages and Libraries
 Some of the imports have only one function imported, this is to make the programme more efficient, seen I only use one function in the libraries. 
 - **google.oauth.service_account** <br> 
-<span style="color:red;">This libary is used to acess the </span>
+ Used this library to authenticate access to the Google APIs, facilitating the connection between the service account and the credentials function. We then created a CREDS.json file containing the necessary details for API access to my Google account, where the Google Sheets spreadsheet containing the needed data. Cred.json is not commited in to github since it containing secret data.
 - **gspread** <br>
 This was imported and used its functionality to smoothly add, remove and manipulate data in the linked Google Sheets spreadsheets.
 - **Pandas**<br>
@@ -171,7 +174,7 @@ The libarys/functions was used to make the design of the game more appyling and 
 I have created an additional file for manual testing and validation. You can find it here: **[TESTING](/TESTING.md)**
 
 # Deployment
- 
+
 # Credits
 
 
