@@ -264,7 +264,7 @@ def validation_number(user_input, lst=None):
             return validation_int(user_input, lst)
 
     except ValueError:
-        print(Fore.LIGHTRED_EX + f"You have entered a string,",
+        print(Fore.LIGHTRED_EX + f"Invalid input. You entered {user_input},",
               " please enter a number.\n" + Style.RESET_ALL)
         return False
 
@@ -294,8 +294,8 @@ def validation_int(input, lst):
             raise TypeError
 
     except ValueError:
-        print(Fore.LIGHTRED_EX + f"Please enter a whole number,",
-              f" you have entered {input} which is a decimal number" +
+        print(Fore.LIGHTRED_EX + "Invalid input. Please enter a whole number,",
+              f" you entered {input} which is a decimal number" +
               Style.RESET_ALL)
         return False
 
@@ -304,7 +304,7 @@ def validation_int(input, lst):
         # between evey value.
         string_lst = ', '.join(map(str, lst))
 
-        print(Fore.LIGHTRED_EX + f'Please enter {string_lst}.' +
+        print(Fore.LIGHTRED_EX + f'Invalid input. Please enter {string_lst}.' +
               Style.RESET_ALL)
         return False
 
@@ -334,8 +334,8 @@ def validation_answer(input, lst, exp_answers):
         return True
     else:
         print(Fore.RED +
-              f'\nYou entered {input}, \
-please enter \033[1m{exp_answers}\033[0m' +
+              f'Invalid input. You entered {input},',
+              f'please enter \033[1m{exp_answers}\033[0m' +
               Style.RESET_ALL)
         return False
 
@@ -775,7 +775,7 @@ def main():
                 # Adjust the score depending on the material that was used to
                 # protect the egg.
                 if (level == 'medium' or level == 'hard'):
-                    score += score_adjustment(score, protection,
+                    score = score_adjustment(score, protection,
                                              material_values['points'])
 
                 # See if the score was high enough to make the Top 5

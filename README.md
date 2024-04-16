@@ -1,6 +1,6 @@
 # **Save the Egg**
-**PICTURE** 
-<br>
+![A image of the start image](images/Startscreen.png) 
+<br><br>
 "Save the Egg" is a Python command line interface (CLI) game. The main objective of the game is to earn as many points as possible by dropping the egg from as high as possible without breaking it. To protect the egg from breaking, the user can use different materials. The game features three levels, each increasing in difficulty to make it less predictable. 
 
 View the live application here: [Save the Egg](https://savetheegg-09d1666a8257.herokuapp.com/)
@@ -116,13 +116,13 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 <br>
 
 # Feature
-## Start
+### Start
 
-## Revealed
+### Revealed
 
-## Highscore
+### Highscore
 
-## End Title 
+### End Title 
 
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
