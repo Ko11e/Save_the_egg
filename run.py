@@ -409,13 +409,19 @@ def select_protection(pandas_data):
             out3 : int
                 The index number of the chosen material
     """
+    # Enter the keyvaule to a list that is needed when a element is removed
+    keys_data = [x for x in pandas_data.index]
+
+    if len(keys_data) == 0:
+        print(Fore.RED +
+              'You have run out of materials to protect your egg with.' +
+              Style.RESET_ALL)
+        return {'material': 'None', 'impact': 0, 'points': 0}, 100
+
     # Presents the user of the options
     print("Specify which material you want to use to protect your egg?")
     print(pyfiglet.figlet_format("Materials", font="digital"))
     print(pandas_data['material'].to_string() + "\n")
-
-    # Enter the keyvaule to a list that is needed when a element is removed
-    keys_data = [x for x in pandas_data.index]
 
     # Asks the user to select a option
     while True:
