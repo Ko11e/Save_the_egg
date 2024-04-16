@@ -204,7 +204,8 @@ EASY:     The way the egg lands, either horizontally or vertically,
           If the egg breaks, you will lose your points.
 
 MEDUIM:   For this level, the same rules as the previous level apply.
-          However, your choice of protection will affect the final score.
+          However, your choice of protection will affect the final score and 
+          can also decreas your score if you dropp it more then once.
           Here you can chose NOT to protect the egg and get 500 points
           plus the other points.
 
@@ -588,35 +589,42 @@ def reason(impact_total, material, egg_position):
             material : str
                 A string of the material that was used to protect the egg
             egg_position : int
-                The value 0 or 1
+                The value 0 or 1  
         Returns
             None
     """
-    egg_limit = [40, 60]
     print(Fore.CYAN)
     if material == 'None':
         if impact_total < 40:
             print('The egg survived without any protection')
-        elif impact_total > 40 and impact_total < 60:
+
+        elif impact_total > 40 and impact_total < 60 and \
+        egg_position == 1:
             print('The egg survived but only because it landed vertically.')
+
+        elif impact_total > 40 and impact_total < 60 and \
+        egg_position == 0:
+            print('The egg did not survive because is landed horizontally')
+            print('Maybe you should have protected it...')
+
         else:
             print('The egg did not survive the drop')
-            print('Maybe you should protect it...')
-    elif egg_limit[egg_position] == 40:
-        if impact_total < 40:
-            print(f'\nThe {material} managed to protect your egg sufficiently')
-        elif impact_total > 40 and impact_total < 60:
-            print(f'\nBecause the egg landed horizontally,', 
-                  f'the {material} failed to protect your egg')
-        else:
-            print(f'\nThe {material} failed to protect your egg')
+            print('Maybe you should have protected it...')
+
     else:
         if impact_total < 40:
-            print(f'\nThe {material} managed to protect your egg sufficiently,',
-                  'even if it had landed horizontally')
-        elif impact_total > 40 and impact_total < 60:
+            print(f'\nThe {material} managed to protect your egg sufficiently')
+
+        elif impact_total > 40 and impact_total < 60 and \
+        egg_position == 0:
+            print(f'\nBecause the egg landed horizontally,', 
+                  f'the {material} failed to protect your egg')
+
+        elif impact_total > 40 and impact_total < 60 and \
+        egg_position == 1:
             print(f'\nThe {material} managed to protect your egg sufficiently,',
                   'but only because it landed vertically')
+
         else:
             print(f'\nThe {material} failed to protect your egg')
     print(Style.RESET_ALL)
@@ -754,7 +762,9 @@ def main():
             if protection is True:
                 material_values, value = select_protection(data_protection)
                 # Remove the chosen protection for the list
-                data_protection = data_protection.drop([value])
+                # if the value is 100 this means the list is empty
+                if value != 100:
+                    data_protection = data_protection.drop([value])
 
             height = choose_height()
             clear_screen()
