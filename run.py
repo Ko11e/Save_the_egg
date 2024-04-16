@@ -74,6 +74,7 @@ class Highscore:
         """
         board = pd.DataFrame(
             {'Name': self.names, 'Score': self.scores}, index=[1, 2, 3, 4, 5])
+        print(Fore.LIGHTWHITE_EX)
         print(pyfiglet.figlet_format("High Score", font="threepoint"))
         return board.to_string()
 
@@ -803,7 +804,6 @@ your points to increase your score and get to the top \
 of the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
-
                     clear_screen()
 
                     # Users answered NO to try to increase the score
@@ -812,7 +812,6 @@ of the leaderboard? [Y/N]:\n'),
                         highscore.add_to_board(position_on_highscore,
                                                name, score)
                         # Prints the new leaderboard with the new name
-                        print(Style.BRIGHT)
                         print(highscore)
                         print(Style.RESET_ALL)
                         # Updates the sheet at google sheets
