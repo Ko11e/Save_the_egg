@@ -176,7 +176,6 @@ def end_title():
     print(Style.RESET_ALL)
 
 
-
 def title_and_intro():
     """
     Prints the titel of the game (Save the egg) and a introdution to the game
@@ -304,7 +303,8 @@ def validation_int(input, lst):
         # between evey value.
         string_lst = ', '.join(map(str, lst))
 
-        print(Fore.LIGHTRED_EX + f'Please enter {string_lst}.' + Style.RESET_ALL)
+        print(Fore.LIGHTRED_EX + f'Please enter {string_lst}.' +
+              Style.RESET_ALL)
         return False
 
     return True
@@ -613,6 +613,8 @@ def reason(impact_total, material, egg_position):
     print(Style.RESET_ALL)
 
 # ACSII picture functions
+
+
 def broken_egg():
     """
     Prints a broken egg
