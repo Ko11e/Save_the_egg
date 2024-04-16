@@ -14,7 +14,6 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 * [**Creation process**](#creation-process)
   * [Project Planning](#project-planning)
   * [Flowchart](#flowchart)
-  * [Google API SetUp](#google-api-setup)
   * [Logic](#logic)
   * [Google Sheets](#Google-sheets)
   * [Design Choices](#design-choices)
@@ -79,7 +78,7 @@ As you can see, there are a lot of assumptions involved, which leads to further 
 
 The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits).
 
-As the user can drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken.
+By allowing the user to be able to drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken.
 
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
@@ -128,6 +127,7 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
 - Add the weight of the protection to the calculation
+- Ask if the right answer is provided even if the input is valid
 - The game can be played a diffrent planet
 
 # Technologies Used

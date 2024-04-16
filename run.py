@@ -195,7 +195,7 @@ def title_and_intro():
         "to protect the egg. You can play the game on three different levels,")
     print_centre("see below how these levels work.")
     print("""
-EAYS:     The way the egg lands, either horizontally or vertically,
+EASY:     The way the egg lands, either horizontally or vertically,
           will determine how well it copes with the impact.
           If you successfully save the egg, you can attempt to earn
           more points by dropping it again. However, keep in mind that
@@ -232,11 +232,11 @@ def choose_height():
     while True:
         selected_height = input(
             'How high do you want the egg to drop from [meters]?\n\
- You can use decimals:')
+You can use decimals:')
         if validation_number(selected_height):
             print(Fore.GREEN + Style.BRIGHT)
             print("You have chosen to release the egg",
-                  f"from {selected_height} metres.\n")
+                  f"from {selected_height} meters.\n")
             print(Style.RESET_ALL)
             break
 
@@ -598,24 +598,23 @@ def reason(impact_total, material, egg_position):
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently')
         elif impact_total > 40 and impact_total < 60:
-            print(f'\nBecause the egg landed horizontally',
+            print(f'\nBecause the egg landed horizontally,', 
                   f' the {material} failed to protect your egg')
         else:
             print(f'\nThe {material} failed to protect your egg')
     else:
         if impact_total < 40:
-            print(f'\nThe {material} managed to protect your egg sufficiently',
-                  ', even if it had landed horizontally')
+            print(f'\nThe {material} managed to protect your egg sufficiently,',
+                  ' even if it had landed horizontally')
         elif impact_total > 40 and impact_total < 60:
-            print(f'\nThe {material} managed to protect your egg sufficiently',
-                  ', but only because it landed vertically')
+            print(f'\nThe {material} managed to protect your egg sufficiently,',
+                  ' but only because it landed vertically')
         else:
             print(f'\nThe {material} failed to protect your egg')
     print(Style.RESET_ALL)
 
+
 # ACSII picture functions
-
-
 def broken_egg():
     """
     Prints a broken egg
@@ -776,7 +775,7 @@ def main():
                 # Adjust the score depending on the material that was used to
                 # protect the egg.
                 if (level == 'medium' or level == 'hard'):
-                    score = score_adjustment(score, protection,
+                    score += score_adjustment(score, protection,
                                              material_values['points'])
 
                 # See if the score was high enough to make the Top 5
