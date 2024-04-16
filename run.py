@@ -594,21 +594,29 @@ def reason(impact_total, material, egg_position):
     """
     egg_limit = [40, 60]
     print(Fore.CYAN)
-    if egg_limit[egg_position] == 40:
+    if material == 'None':
+        if impact_total < 40:
+            print('The egg survived without any protection')
+        elif impact_total > 40 and impact_total < 60:
+            print('The egg survived but only because it landed vertically.')
+        else:
+            print('The egg did not survive the drop')
+            print('Maybe you should protect it...')
+    elif egg_limit[egg_position] == 40:
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently')
         elif impact_total > 40 and impact_total < 60:
             print(f'\nBecause the egg landed horizontally,', 
-                  f' the {material} failed to protect your egg')
+                  f'the {material} failed to protect your egg')
         else:
             print(f'\nThe {material} failed to protect your egg')
     else:
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently,',
-                  ' even if it had landed horizontally')
+                  'even if it had landed horizontally')
         elif impact_total > 40 and impact_total < 60:
             print(f'\nThe {material} managed to protect your egg sufficiently,',
-                  ' but only because it landed vertically')
+                  'but only because it landed vertically')
         else:
             print(f'\nThe {material} failed to protect your egg')
     print(Style.RESET_ALL)
