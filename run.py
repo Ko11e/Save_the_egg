@@ -482,8 +482,9 @@ def impact_calculation(height, radius_egg):
 
     g = 9.82  # Average gravity in m/s^2
     mass = 0.05  # Mass of the egg in kg
+    radius_egg_avg = 0.06 # meters
 
-    impact_force = (2*g*height*mass)/radius_egg
+    impact_force = (2*g*height*mass)/radius_egg_avg
 
     return impact_force
 
@@ -555,13 +556,13 @@ def get_highscore_data(difficulty_level):
 def reduce_force_limit(egg, landingposition, impact_force):
     """
     Reduces the limit of force the egg dependent on how much force the egg
-    was subjected to during the first strike. One-third of the initial
-    force limit times the percentage force to which the egg was subjected
-    will be removed from limit. The reduce force limit will be returned.
+    was subjected to during the first strike. The percentage force to which 
+    the egg was subjected to will be removed from limit. 
+    The reduce force limit will be returned.
     Exempel:
     impact_force= 59 egg_limit=60
-    This means 98% of [20, 30] will be reduced from [40, 60]
-    which leads to the new egg_limit being [25, 38]
+    This means 98% of the force limit will be reduce from [40, 60]
+    which leads to the new egg_limit being [0.8, 1.2]
     -----------------
         Parameters
             egg : numpy.ndarray
@@ -581,11 +582,11 @@ def reduce_force_limit(egg, landingposition, impact_force):
         reduce_force = 0
     else:
         procent_impact = impact_force/egg['force_limit'][landingposition]
-        reduce_force = np.array([20, 30])*procent_impact
+        reduce_force = egg['force_limit']*procent_impact
     return egg['force_limit']-reduce_force
 
 
-def reason(impact_total, material, egg_position):
+def reason(impact_total, material, egg_position, dropps):
     """
     Prints the reason if the egg is intact or breaks
     --------------------------------------
@@ -600,7 +601,10 @@ def reason(impact_total, material, egg_position):
             None
     """
     print(Fore.CYAN)
-    if material == 'None':
+    if dropps == 7:
+        print('You have droped the egg to many times so this time it broke')
+    
+    elif material == 'None':
         if impact_total < 40:
             print('The egg survived without any protection')
 
@@ -736,6 +740,7 @@ def main():
         )
         data_protection = get_data('materials')
         score = 0
+        dropps = 0
 
         # User selects difficulty of the game
         level = question_with_valiadation(
@@ -789,11 +794,14 @@ def main():
             total_impact_force = impact_force - \
                 material_values['impact'] - incident
 
+            dropps += 1 # 
+
             # Checks if the egg breaks
-            if (total_impact_force) < egg['force_limit'][landingposition]:
+            if (total_impact_force) < egg['force_limit'][landingposition] \
+            and dropps != 7:
                 intact_egg()
                 reason(total_impact_force, material_values['material'],
-                       landingposition)
+                       landingposition, dropps)
                 score += int(impact_force * 10)
 
                 # Adjust the score depending on the material that was used to
@@ -873,7 +881,7 @@ your score and try to get on leaderboard?[Y/N]:\n'),
             else:
                 broken_egg()
                 reason(total_impact_force,
-                       material_values['material'], landingposition)
+                       material_values['material'], landingposition, dropps)
                 break
 
         play_again = question_with_valiadation(
