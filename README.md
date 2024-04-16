@@ -127,6 +127,7 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
+- Add the weight of the protection to the calculation
 - The game can be played a diffrent planet
 
 # Technologies Used

@@ -11,6 +11,7 @@
 The code have been validated using Code Institute's PEP8 Linter. No errors were found in the last validation test, se result below:
 ![Result PEP8 validation](images/PEP8-validation.png) 
 ### Lighthouse
+I ran a Lighthouse assessment on it to receive these scores:
 
 ## Manual Testing
 Below are the manual tests that have been made.
