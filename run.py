@@ -758,14 +758,13 @@ def main():
             impact_force = impact_calculation(height,
                                               egg['height'][landingposition])
 
-            print(impact_force)
             # Incident that happen at the hard level
             incident = generatet_incident(
                 material_values['material']) if level == 'hard' else 0
 
             total_impact_force = impact_force - \
                 material_values['impact'] - incident
-            print(total_impact_force)
+
             # Checks if the egg breaks
             if (total_impact_force) < egg['force_limit'][landingposition]:
                 intact_egg()

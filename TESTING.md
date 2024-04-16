@@ -37,4 +37,4 @@ No know bugs found
 
 --------------------
 
-[Return to Main README](/README.md)
+[Return to main README](/README.md)
