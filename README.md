@@ -204,7 +204,31 @@ If the right repository is showing click 'Connect'.
 7.  Scroll down to Manual Deploy, select "main" branch and click "Deploy Branch".<br>
 
 The app will now be deployed to heroku
- 
+
+-------
+
+### Forking the GitHub Repository
+By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/Ko11e/Save_the_egg)
+2. At the top-right corner of the Repository, locate the "**Fork**" Button. Click on the button to make a fork of this repository
+3. You should now have a copy of the original repository in your GitHub account.
+<br><br>
+-----  
+
+### Clone this GitHub Repository
+
+A local clone of this repository can be made on GitHub. Please follow the below steps:
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/Ko11e/Save_the_egg)
+2. Above the repository file section, locate the '**Code**' button.
+3. Click on this button and choose your clone method from HTTPS, SSH or GitHub CLI, copy the URL to your clipboard by clicking the '**Copy**' button.
+4. Open your Git Bash Terminal.
+5. Change the current working directory to the location where you want the cloned directory.
+6. Type `git clone`, and then paste the URL you copied earlier.<br>
+7. Press **Enter** to create your local clone.
+<br>
+<br>
 # Credits
 ## Content References
 - **Code Institute's 'Love Sandwiches'** - The step-by-step instructions from the walkthrough project were used to set up the Google Sheets API and credentials.
@@ -219,8 +243,8 @@ The ASCII art that a created the images for imparation have taken from:
   - Brooken egg - [Alamy, photo stock](https://www.alamy.com/stock-photo/broken-egg-isolated-vector-illustration.html?sortBy=relevant)
 
 #### **Youtube** 
-  - **[_Fore Guy_](https://www.youtube.com/watch?v=kVv-gTJeJUY)** <br> 
-  To find the force limit for a egg Force Guy uses a hydraulic press. "Force Guy" makes two tests for each direction and therefore the average is taken from these values.
+  - **_Fore Guy_** <br> 
+  To find the force limit for a egg [Force Guy](https://www.youtube.com/watch?v=kVv-gTJeJUY) uses a hydraulic press. "Force Guy" makes two tests for each direction and therefore the average is taken from these values.
   - **_Classes_** <br>
   To understand more about classes i watched the playlist from _Corey Schafer_ [_Python OOP_](https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc) and the video provided by Code Institute [_Exploring Python Classes with Ben Kavanagh_](https://www.youtube.com/watch?v=opOK_1g1rsw&list=PL_7334VduOHvzZYlgy_0kZLcic2NINCUt&index=7).
 
@@ -231,5 +255,5 @@ The ASCII art that a created the images for imparation have taken from:
 - Thank you to my mentor Gareth McGirr for his support and guidance.
 - Thanks and appreciation to my classmates on Code Institute students who have offered great support and ideas. 
 
-
-[Back to the top](#save-the-egg)
+<br><br>
+**[Back to the top](#save-the-egg)**
