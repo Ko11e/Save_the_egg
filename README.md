@@ -242,6 +242,7 @@ A local clone of this repository can be made on GitHub. Please follow the below 
 7. Press **Enter** to create your local clone.
 <br>
 <br>
+
 # Credits
 ## Content References
 - **Code Institute's 'Love Sandwiches'** - The step-by-step instructions from the walkthrough project were used to set up the Google Sheets API and credentials.
@@ -251,7 +252,7 @@ A local clone of this repository can be made on GitHub. Please follow the below 
 
 ## Media
 #### **ASCII art**
-The ASCII art that a created the images for imparation have taken from:
+The images I used as a template to create the ASCII art are taken from:
   - Whole egg - [BBC page](https://www.bbc.com/news/newsbeat-47127298)
   - Brooken egg - [Alamy, photo stock](https://www.alamy.com/stock-photo/broken-egg-isolated-vector-illustration.html?sortBy=relevant)
 
@@ -262,11 +263,12 @@ The ASCII art that a created the images for imparation have taken from:
   To understand more about classes i watched the playlist from _Corey Schafer_ [_Python OOP_](https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc) and the video provided by Code Institute [_Exploring Python Classes with Ben Kavanagh_](https://www.youtube.com/watch?v=opOK_1g1rsw&list=PL_7334VduOHvzZYlgy_0kZLcic2NINCUt&index=7).
 
 ## Acknowledgements  
-- Thanks to Amy Richardson, helping with inperation and advice for the  for the README.
-- Many thanks to my former classmate who helped with the physics calculations and even the more complex ones that are not in the project.
+- Thanks to Amy Richardson, who helped with inperation and advice for the README.
+- Thanks to my former classmate who helped with the physics calculations and even the more complex ones that are not in the project.
 - Thanks to my family, who tested the programme and helped me make up for the hard level.
-- Thank you to my mentor Gareth McGirr for his support and guidance.
-- Thanks and appreciation to my classmates on Code Institute students who have offered great support and ideas. 
+- Thanks to my mentor Gareth McGirr for his support and guidance.
+- Thanks and appreciation to my classmates at the Code Institute students who gave great support, ideas and feedback.
 
-<br><br>
+<br>
+
 **[Back to the top](#save-the-egg)**

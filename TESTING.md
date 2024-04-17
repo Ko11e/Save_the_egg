@@ -14,17 +14,34 @@ The code have been validated using Code Institute's PEP8 Linter. No errors were 
 I ran a Lighthouse assessment on it to receive these scores:
 
 ## Manual Testing
-Below are the manual tests that have been made.
-## Validations
-![]()
-![]()
-## Calculations
+### User Stories 
+
+  1. As a User, i would like to understand the game after reading the instuctions ones
+
+    - 
+
+  2. As a User, i want some pysichs to be behind the game
+    
+    - 
+  3. As a User, i want to be able to enter low numbers then 1 m for droping the egg
+
+    - 
+  4. As a User, i want to be enganged in the game
+
+    - 
+  5. As a User, i want the game to be harder and less pedictibel at higher levels
+    
+    - 
+
+### Function Testing
+#### Validation
+![Validation list](images/Validations.png)
+#### Calculations
 ![]()
 ![]()
 
 ## Bugs
 ### Fixed Bugs
-
 
 |Bug           |Solution             |
 |:----|:-----|

@@ -265,8 +265,11 @@ def validation_number(user_input, lst=None):
             return validation_int(user_input, lst)
 
     except ValueError:
-        print(Fore.LIGHTRED_EX + f"Invalid input. You entered {user_input},",
-              " please enter a number.\n" + Style.RESET_ALL)
+        print(Fore.LIGHTRED_EX + f"Invalid input. You entered '{user_input}',",
+              " please enter a number." + Style.RESET_ALL)
+        if ',' in user_input:
+            print(Fore.LIGHTRED_EX + "Please use . as a decimal point" +
+                  Style.RESET_ALL)
         return False
 
     return True
