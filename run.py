@@ -413,8 +413,8 @@ def select_protection(pandas_data):
     keys_data = [x for x in pandas_data.index]
 
     if len(keys_data) == 0:
-        print(Fore.RED +
-              'You have run out of materials to protect your egg with.' +
+        print(Fore.LIGHTRED_EX + 'WARNING!\n'
+              'You have run out of materials to protect your egg with.\n' +
               Style.RESET_ALL)
         return {'material': 'None', 'impact': 0, 'points': 0}, 100
 
@@ -460,7 +460,7 @@ def score_adjustment(score, protection, points):
         return score + points
 
 
-def impact_calculation(height, radius_egg):
+def impact_calculation(height):
     """
     Calculates the force that the egg will
     be impacted by when it hit the ground.
@@ -581,9 +581,9 @@ def reduce_force_limit(egg, landingposition, impact_force):
     if impact_force <= 0:
         reduce_force = 0
     else:
-        procent_impact = impact_force/egg['force_limit'][landingposition]
-        reduce_force = egg['force_limit']*procent_impact
-    return egg['force_limit']-reduce_force
+        procent_impact = impact_force/egg[landingposition]
+        reduce_force = egg*procent_impact
+    return egg-reduce_force
 
 
 def reason(impact_total, material, egg_position, dropps):
@@ -600,7 +600,7 @@ def reason(impact_total, material, egg_position, dropps):
         Returns
             None
     """
-    print(Fore.CYAN)
+    print(Fore.LIGHTCYAN_EX)
     if dropps == 7:
         print('You have droped the egg to many times so this time it broke')
     
@@ -638,6 +638,36 @@ def reason(impact_total, material, egg_position, dropps):
         else:
             print(f'\nThe {material} failed to protect your egg')
     print(Style.RESET_ALL)
+
+
+def placement_on_the_board(placement, score):
+    """
+    Print a text that infroms where the user is
+    placed on the lederboard.
+    ------------------------------------
+        Parameters
+            placment : int
+                this is the placment om the leadorbaord
+                The function takes negativ numbers but 
+                for the right value enter positivt numbers
+            score : int
+                The score the user has
+        Return
+            None
+    """
+    if placement == 0:
+        print(Style.BRIGHT + Fore.YELLOW)
+        print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ . ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
+        print(f'Woho!! You scored {score} and got on FIRST place\n' +
+        Style.RESET_ALL)
+    elif placement > 2:
+        print(Fore.CYAN + 'Woho!! You have a score of'
+              f'{score} points and are in {placement+1}nd place.' +
+              Style.RESET_ALL)
+    else: 
+        print(Fore.CYAN + 'Woho!! You have a score of'
+              f'{score} points and are in {placement+1}th place.' +
+              Style.RESET_ALL) 
 
 
 # ACSII picture functions
@@ -734,12 +764,11 @@ def main():
     while True:
         # Values the change under the game and
         # resets when the user starts a new game
-        egg = np.array(
-            [(0.04, 40), (0.06, 60)],
-            dtype=[('height', float), ('force_limit', float)]
-        )
+        egg = np.array([40, 60])
         data_protection = get_data('materials')
         score = 0
+        # Dropps counter to provent the user to drop the egg
+        # more then 7 times
         dropps = 0
 
         # User selects difficulty of the game
@@ -762,6 +791,7 @@ def main():
                     YES_NO, 'Y for Yes or N for No'
                 )
 
+                # The user enterd No to protect the egg
                 if YES_NO.index(protecting_egg) >= 5:
                     protection = False
                     material_values = {'material': 'None',
@@ -784,8 +814,7 @@ def main():
             landingposition = randint(0, 1)
 
             # Calculates the force at the impact with the ground
-            impact_force = impact_calculation(height,
-                                              egg['height'][landingposition])
+            impact_force = impact_calculation(height)
 
             # Incident that happen at the hard level
             incident = generatet_incident(
@@ -794,10 +823,10 @@ def main():
             total_impact_force = impact_force - \
                 material_values['impact'] - incident
 
-            dropps += 1 # 
+            dropps += 1 
 
             # Checks if the egg breaks
-            if (total_impact_force) < egg['force_limit'][landingposition] \
+            if (total_impact_force) < egg[landingposition] \
             and dropps != 7:
                 intact_egg()
                 reason(total_impact_force, material_values['material'],
@@ -816,18 +845,7 @@ def main():
                 if position_on_highscore != 10:
                     # Prints a star if the user is placed
                     # first in the leaderbaord
-                    if position_on_highscore == 0:
-                        print(Style.BRIGHT + Fore.YELLOW)
-                        print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ .",
-                              " ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
-                        print(f'Woho!! You scored {score} and got on the ',
-                              '1:th place\n')
-                        print(Style.RESET_ALL)
-                    else:
-                        print(Fore.CYAN)
-                        print(f'Woho!! You scored {score} and got on the ',
-                              f'{position_on_highscore+1}:th place\n')
-                        print(Style.RESET_ALL)
+                    placement_on_the_board(position_on_highscore)        
 
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk \
@@ -852,7 +870,7 @@ of the leaderboard? [Y/N]:\n'),
                     # User answered YES to try to increas the score
                     else:
                         # Reduces the forcelimit of the egg
-                        egg['force_limit'] = \
+                        egg = \
                             reduce_force_limit(egg,
                                                landingposition,
                                                total_impact_force)
@@ -860,18 +878,16 @@ of the leaderboard? [Y/N]:\n'),
                 else:
                     print(f'\nYou scored {score} points and ',
                           'your score did not make the top 5')
-                    # Would you like to risk your points to boost
-                    # your score and try to reach the leaderboard?
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk your points to increase \
-your score and try to get on leaderboard?[Y/N]:\n'),
+'\nWould you like to risk your points to boost your score \
+and try to reach the leaderboard [Y/N]?',
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
 
                     if YES_NO.index(try_again) < 5:
                         # Reduces the forcelimit of the egg
-                        egg['force_limit'] = \
+                        egg = \
                             reduce_force_limit(egg,
                                                landingposition,
                                                total_impact_force)

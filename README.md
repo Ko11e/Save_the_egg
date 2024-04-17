@@ -59,6 +59,7 @@ To help structre the project, Lucidchart was use to create a flowchat over the g
 ![Flowchart of Save the egg](images/flowchart.webp)
 
 ## Logic
+### Physics
 For this game, I wanted it to follow some of the physics rules. To find a formula to calculate the force the egg is exposed to, some assumptions are made.  To start with, we need to know the speed of the egg before it hits the ground. To find this velocity the assumption is made that there is no wind resistance no matter what the shape of the egg or the shape after the egg is protected. This means that the energy is conserved and will be the same just before the egg hits the ground as it is when the egg is released, leading to 
 $$mgh = {mv_i^2\over2} \quad \Longrightarrow  \quad v_i = \sqrt{2gh} \ .$$
 
@@ -78,7 +79,7 @@ As you can see, there are a lot of assumptions involved, which leads to further 
 
 The force that can be applied to the egg before it breaks is taken from a YouTube video, see [Cedits](#credits).
 
-By allowing the user to be able to drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken.
+By allowing the user to be able to drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken. 
 
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
@@ -99,16 +100,16 @@ The Colorama Python library was used to create a bright, appealing interface and
 
 If the user enters an incorrect value, the text is coloured red and an informative text explains why the input was not accepted. If the input is correct, the text is displayed in green. The user's response is also displayed. The text for invalid and valid input is displayed in BRIGHT to make the text more noticeable.
 
-In the programme, the text is WHITE or YELLOW to represent the egg white and yolk, in addition to the text explaining why the egg is whole or broken after the drop that is CYAN.
+In the programme, the text is WHITE or YELLOW to represent the egg white and yolk, in addition to the text explaining why the egg is whole or broken after the drop that is LIGHTCYAN_EX.
 
 ### Egg ASCII art
 To make the game more appealing, I wanted to show a whole egg or a broken egg depending on the result, unfortunately I had a hard time finding ASCII art, so I decided to make my own, which can be seen below. The ASCIIart has made by placing a image as a background and then follow the image with symboles. Where the images are taken are cedited in [Credits](#credits).
-<details open>
+<details>
     <summary>Whole egg</summary>
     <img src = "images/wholeegg.png">
     <img src = images/ASCIIegg.png>
 </details>  
-<details open>
+<details>
     <summary>Broken egg</summary>
     <img src = "images/brokenegg.png">
     <img src = images/ASCIIbroken.png>
@@ -128,7 +129,7 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 - The user can see the leaderboard for the diffrent levels before starting the game.
 - Add the weight of the protection to the calculation
 - Ask if the right answer is provided even if the input is valid
-- The game can be played a diffrent planet
+- The game can be played on diffrent planet
 
 # Technologies Used
 - **HTML, CSS, Javascript** <br>
