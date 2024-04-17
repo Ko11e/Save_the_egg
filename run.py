@@ -204,7 +204,7 @@ EASY:     The way the egg lands, either horizontally or vertically,
           If the egg breaks, you will lose your points.
 
 MEDUIM:   For this level, the same rules as the previous level apply.
-          However, your choice of protection will affect the final score and 
+          However, your choice of protection will affect the final score and
           can also decreas your score if you dropp it more then once.
           Here you can chose NOT to protect the egg and get 200 points
           plus the other points.
@@ -485,7 +485,7 @@ def impact_calculation(height):
 
     g = 9.82  # Average gravity in m/s^2
     mass = 0.05  # Mass of the egg in kg
-    radius_egg_avg = 0.06 # meters
+    radius_egg_avg = 0.06  # meters
 
     impact_force = (2*g*height*mass)/radius_egg_avg
 
@@ -559,8 +559,8 @@ def get_highscore_data(difficulty_level):
 def reduce_force_limit(egg, landingposition, impact_force):
     """
     Reduces the limit of force the egg dependent on how much force the egg
-    was subjected to during the first strike. The percentage force to which 
-    the egg was subjected to will be removed from limit. 
+    was subjected to during the first strike. The percentage force to which
+    the egg was subjected to will be removed from limit.
     The reduce force limit will be returned.
     Exempel:
     impact_force= 59 egg_limit=60
@@ -599,24 +599,22 @@ def reason(impact_total, material, egg_position, dropps):
             material : str
                 A string of the material that was used to protect the egg
             egg_position : int
-                The value 0 or 1  
+                The value 0 or 1
         Returns
             None
     """
     print(Fore.LIGHTCYAN_EX)
     if dropps == 7:
         print('You have droped the egg to many times so this time it broke')
-    
+
     elif material == 'None':
         if impact_total < 40:
             print('The egg survived without any protection')
 
-        elif impact_total > 40 and impact_total < 60 and \
-        egg_position == 1:
+        elif impact_total > 40 and impact_total < 60 and egg_position == 1:
             print('The egg survived but only because it landed vertically.')
 
-        elif impact_total > 40 and impact_total < 60 and \
-        egg_position == 0:
+        elif impact_total > 40 and impact_total < 60 and egg_position == 0:
             print('The egg did not survive because is landed horizontally')
             print('Maybe you should have protected it...')
 
@@ -628,15 +626,13 @@ def reason(impact_total, material, egg_position, dropps):
         if impact_total < 40:
             print(f'\nThe {material} managed to protect your egg sufficiently')
 
-        elif impact_total > 40 and impact_total < 60 and \
-        egg_position == 0:
-            print(f'\nBecause the egg landed horizontally,', 
+        elif impact_total > 40 and impact_total < 60 and egg_position == 0:
+            print(f'\nBecause the egg landed horizontally,',
                   f'the {material} failed to protect your egg')
 
-        elif impact_total > 40 and impact_total < 60 and \
-        egg_position == 1:
-            print(f'\nThe {material} managed to protect your egg sufficiently,',
-                  'but only because it landed vertically')
+        elif impact_total > 40 and impact_total < 60 and egg_position == 1:
+            print(f'\nThe {material} managed to protect your egg',
+                  'sufficiently, but only because it landed vertically')
 
         else:
             print(f'\nThe {material} failed to protect your egg')
@@ -651,7 +647,7 @@ def print_placement(placement, score):
         Parameters
             placment : int
                 this is the placment om the leadorbaord
-                The function takes negativ numbers but 
+                The function takes negativ numbers but
                 for the right value enter positivt numbers
             score : int
                 The score the user has
@@ -662,7 +658,7 @@ def print_placement(placement, score):
         print(Style.BRIGHT + Fore.YELLOW)
         print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ . ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
         print(f'Woho!! You scored {score} and got on FIRST place\n' +
-        Style.RESET_ALL)
+              Style.RESET_ALL)
     elif placement == 1:
         print(Fore.CYAN + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}nd place.' +
@@ -670,11 +666,11 @@ def print_placement(placement, score):
     elif placement == 2:
         print(Fore.CYAN + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}rd place.' +
-              Style.RESET_ALL)          
-    else: 
+              Style.RESET_ALL)
+    else:
         print(Fore.CYAN + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}th place.' +
-              Style.RESET_ALL) 
+              Style.RESET_ALL)
 
 
 # ACSII picture functions
@@ -830,11 +826,10 @@ def main():
             total_impact_force = impact_force - \
                 material_values['impact'] - incident
 
-            dropps += 1 
+            dropps += 1
 
             # Checks if the egg breaks
-            if (total_impact_force) < egg[landingposition] \
-            and dropps != 7:
+            if (total_impact_force) < egg[landingposition] and dropps != 7:
                 intact_egg()
                 reason(total_impact_force, material_values['material'],
                        landingposition, dropps)
@@ -852,7 +847,7 @@ def main():
                 if position_on_highscore != 10:
                     # Prints statmant for the placement for
                     # the user, gets stars i placed first
-                    print_placement(position_on_highscore, score)        
+                    print_placement(position_on_highscore, score)
 
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk \
@@ -886,9 +881,9 @@ of the leaderboard? [Y/N]:\n'),
                     print(f'\nYou scored {score} points and ',
                           'your score did not make the top 5')
                     try_again = question_with_valiadation(
-'\nWould you like to risk your points to boost your score \
-and try to reach the leaderboard [Y/N]?',
-                        YES_NO, 'Y for Yes or N for No'
+                     '\nWould you like to risk your points to boost \
+your score and try to reach the leaderboard [Y/N]?',
+                     YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
 

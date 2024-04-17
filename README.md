@@ -129,9 +129,12 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 
 # Feature
 ### Start
+As a opening screen the user is meet by the name of the game in ASCII art and an explanation of the main purpice of the game and the diffrent rulse for the levels.<br>
+![Start screnn](images/Startscreen.png) 
+### Resulte
+#### Easy/Medium
 
-### Revealed
-
+#### Hard
 ### Highscore
 
 ### End Title 

@@ -36,9 +36,8 @@ I ran a Lighthouse assessment on it to receive these scores:
 ### Function Testing
 #### Validation
 ![Validation list](images/Validations.png)
+The remaining questions have the same validation function, which means that their test is not documented.
 #### Calculations
-![]()
-![]()
 
 ## Bugs
 ### Fixed Bugs
