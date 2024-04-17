@@ -206,7 +206,7 @@ EASY:     The way the egg lands, either horizontally or vertically,
 MEDUIM:   For this level, the same rules as the previous level apply.
           However, your choice of protection will affect the final score and 
           can also decreas your score if you dropp it more then once.
-          Here you can chose NOT to protect the egg and get 500 points
+          Here you can chose NOT to protect the egg and get 200 points
           plus the other points.
 
 HARD:     For this level, the same rules as the previous levels apply.
@@ -640,7 +640,7 @@ def reason(impact_total, material, egg_position, dropps):
     print(Style.RESET_ALL)
 
 
-def placement_on_the_board(placement, score):
+def print_placement(placement, score):
     """
     Print a text that infroms where the user is
     placed on the lederboard.
@@ -660,10 +660,14 @@ def placement_on_the_board(placement, score):
         print(". ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁ . ⟡ ݁ .  ݁₊ ⊹ . ݁ ⟡ ݁ . ⊹ ₊ ݁.")
         print(f'Woho!! You scored {score} and got on FIRST place\n' +
         Style.RESET_ALL)
-    elif placement > 2:
+    elif placement == 1:
         print(Fore.CYAN + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}nd place.' +
               Style.RESET_ALL)
+    elif placement == 2:
+        print(Fore.CYAN + 'Woho!! You have a score of'
+              f'{score} points and are in {placement+1}rd place.' +
+              Style.RESET_ALL)          
     else: 
         print(Fore.CYAN + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}th place.' +
@@ -796,7 +800,7 @@ def main():
                     protection = False
                     material_values = {'material': 'None',
                                        'impact': 0,
-                                       'points': 500}
+                                       'points': 200}
                     print(Fore.GREEN + Style.BRIGHT + "You've chosen to ",
                           "not protect your egg\n" + Style.RESET_ALL)
 
@@ -843,9 +847,9 @@ def main():
                 position_on_highscore = highscore.made_highscore(score)
 
                 if position_on_highscore != 10:
-                    # Prints a star if the user is placed
-                    # first in the leaderbaord
-                    placement_on_the_board(position_on_highscore)        
+                    # Prints statmant for the placement for
+                    # the user, gets stars i placed first
+                    print_placement(position_on_highscore, score)        
 
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk \

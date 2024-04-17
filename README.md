@@ -81,6 +81,17 @@ The force that can be applied to the egg before it breaks is taken from a YouTub
 
 By allowing the user to be able to drop the egg more than once, two important functions are added to make the game more challenging. The first removes the protective material from the list that the user has already used, and the second reduces the egg's force limit depending on the amount of force in the impact it has already taken. 
 
+-------------------------------------------------------------------
+
+### Python
+I started this project by setting up the connection to the API and Google Sheets. After that I thought it was important to have validation functions that were as universal as possible. This was achieved by using the try/except statement.
+
+To make the flow of the program as good as possible, I started by making the main function of the game (level easy). To make the game more fun and interesting, a leaderboard of the top 5 scores is created. This was done using classes and the information was stored in a google sheet. The Google Sheet was also used to store information about protection and incidents for the hard level.
+
+After the result the user can make the decision to try to increase the score by risking the current score, this only happens if the egg does not brake. This is achieved by using the IF statement.
+
+To manipulate the egg limit, Numpy is used to avoid for-loops. Numpy is also used to rotate the display of the data.
+
 ## Google Sheets
 I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
 
