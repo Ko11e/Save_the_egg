@@ -38,7 +38,7 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
   - No dead ends to trap the user at the end of a function.
 
 ## User Stories
-1. As a User, i would like to understand the game after reading the instuctions ones
+1. As a User, i want the explanation and the rules of the game to be clear and easy to understand.
 2. As a User, i want some pysichs to be behind the game
 3. As a User, i want to be able to enter low numbers then 1 m for droping the egg
 4. As a User, i want to be enganged in the game

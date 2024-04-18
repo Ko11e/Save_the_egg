@@ -16,9 +16,10 @@ I ran a Lighthouse assessment on it to receive these scores:
 ## Manual Testing
 ### User Stories 
 
-  1. As a User, i would like to understand the game after reading the instuctions ones
-
-    - 
+  1. As a User, i want the explanation and the rules of the game to be clear and easy to understand.
+  
+    - At the start of the game clear instructions of the game and of the levels are presented to the user
+    - User is prompted and instructed when invalid information is entered
 
   2. As a User, i want some pysichs to be behind the game
     
@@ -28,7 +29,13 @@ I ran a Lighthouse assessment on it to receive these scores:
     - 
   4. As a User, i want to be enganged in the game
 
-    - 
+    - Colorama library used to produce text with engaging colours and meaning and makeing ASCII art more appyling.
+        - GREEN for valid input
+        - RED for invalid input
+        - CYAN for the users attention to be drawn to important information
+        - YELLOW for the name of the game and
+    - Having a Highscore board to push engang the user to want a higher  score
+
   5. As a User, i want the game to be harder and less pedictibel at higher levels
     
     - 

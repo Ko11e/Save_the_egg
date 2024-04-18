@@ -177,7 +177,7 @@ def end_title():
     print(Style.RESET_ALL)
 
 
-def title_and_intro():
+def start_menu():
     """
     Prints the titel of the game (Save the egg) and a introdution to the game
     ----------------------------------
@@ -192,30 +192,77 @@ def title_and_intro():
     print_centre(
         "To be able to drop the egg higher, there are different materials")
     print_centre(
-        "to protect the egg. You can play the game on three different levels,")
-    print_centre("see below how these levels work.")
+        "to protect the egg. You can play the game on three different levels.")
     print("""
-EASY:     The way the egg lands, either horizontally or vertically,
-          will determine how well it copes with the impact.
-          If you successfully save the egg, you can attempt to earn
-          more points by dropping it again. However, keep in mind that
-          the egg has been damaged from the previous drop, and therefore
-          it won't be able to withstand as big of a hit as before.
-          If the egg breaks, you will lose your points.
-
-MEDUIM:   For this level, the same rules as the previous level apply.
-          However, your choice of protection will affect the final score and
-          can also decreas your score if you dropp it more then once.
-          Here you can chose NOT to protect the egg and get 200 points
-          plus the other points.
-
-HARD:     For this level, the same rules as the previous levels apply.
-          However, an event will occur after you have released the egg.
-          This event can be good or bad. So take it carefully\n""")
-    print_centre("\033[1mPress ENTER to Start the game\033[0m")
-    input("")
+-------------------------------------------------------------------------------
+    1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
+-------------------------------------------------------------------------------""") 
+        
     print(Style.RESET_ALL)
+    while True:
+        number = input('')
+        if validation_number(number, (1,2,3,4)):
+            number = int(number)
+            if number == 1:
+                show_rules()
+                break
+            elif number == 2:
+                show_highscores()
+                break
+            elif number == 3:
+                main()
+                break
+            else:
+                end_title()
+                break
 
+
+def show_rules():
+    """
+    Show the rules of the differens levels
+    ---------------------------
+        Parameters
+            None
+    """
+    clear_screen()
+    print(Fore.YELLOW)
+    print("""
+        EASY:   The way the egg lands, either horizontally or vertically,
+                will determine how well it copes with the impact.
+                If you successfully save the egg, you can attempt to earn
+                more points by dropping it again. However, keep in mind that
+                the egg has been damaged from the previous drop, and therefore
+                it won't be able to withstand as big of a hit as before.
+                If the egg breaks, you will lose your points.
+
+        MEDUIM: For this level, the same rules as the previous level apply.
+                However, your choice of protection will affect the final score and
+                can also decreas your score if you dropp it more then once.
+                Here you can chose NOT to protect the egg and get 200 points
+                plus the other points.
+
+        HARD:   For this level, the same rules as the previous levels apply.
+                However, an event will occur after you have released the egg.
+                This event can be good or bad. So take it carefully\n""")
+    print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
+    input('')
+    system('clear')
+    start_menu()            
+
+def show_highscores():
+    print(Fore.YELLOW)
+    Easy = get_highscore_data('easy')
+    Medium = get_highscore_data('medium')
+    Hard = get_highscore_data('hard')
+    print_acsii_centred('EASY', mini)
+    print(Easy)
+    print_acsii_centred('MEDUIM', mini)
+    print(Medium)
+    print_acsii_centred('HARD', mini)
+    print(Hard)
+    print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
+    input('')
+    print(Style.RESET_ALL)
 
 def choose_height():
     """
@@ -762,8 +809,6 @@ def main():
     """
     The main function running the game save the egg.
     """
-    title_and_intro()
-
     while True:
         # Values the change under the game and
         # resets when the user starts a new game
@@ -917,4 +962,4 @@ your score and try to reach the leaderboard [Y/N]?',
             break
 
 
-main()
+start_menu()
