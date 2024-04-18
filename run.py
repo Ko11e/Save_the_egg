@@ -138,7 +138,7 @@ class Highscore:
             None
         """
         self.names = np.array(self.names)
-        self.scores= np.array(self.scores)
+        self.scores = np.array(self.scores)
         for i in range(2, 7):
             SHEET.worksheet(self.level).update([[self.names[i-2]]], f'A{i}')
             SHEET.worksheet(self.level).update([[self.scores[i-2]]], f'B{i}')
@@ -198,12 +198,13 @@ def start_menu():
     print("""
  ------------------------------------------------------------------------------
     1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
- ------------------------------------------------------------------------------""") 
-        
+ ------------------------------------------------------------------------------
+ """)
+
     print(Style.RESET_ALL)
     while True:
         number = input('')
-        if validation_number(number, (1,2,3,4)):
+        if validation_number(number, (1, 2, 3, 4)):
             number = int(number)
             if number == 1:
                 show_rules()
@@ -249,7 +250,8 @@ def show_rules():
     print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
     input('')
     system('clear')
-    start_menu()            
+    start_menu()
+
 
 def get_n_insert_spaces(level):
     """
@@ -259,32 +261,33 @@ def get_n_insert_spaces(level):
     --------------------------------
         Parameter
             level : srt
-                The level of the highscoreboard 
+                The level of the highscoreboard
     """
     data = get_data(level)
     data.insert(0, " ", [1, 2, 3, 4, 5], True)
-    data.insert(0, " ", [" "," ", " "," ", " "], True)
-    data.insert(0, " ", [" "," ", " "," ", " "], True)
-    data.insert(0, " ", [" "," ", " "," ", " "], True)
+    for i in range(3):
+        data.insert(0, " ", [" ", " ", " ", " ", " "], True)
+
     return data
+
 
 def show_highscores():
     """
-    Show the leaderboard
+    Show the leaderboard - easy medium and hard
     """
     clear_screen()
     print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('High Score', 'threepoint')
     print_acsii_centred('  Easy             Medium          Hard', 'mini')
-    
+
     # Gets data from the Google sheet
     easy = get_data('easy')
     medium = get_n_insert_spaces('medium')
     hard = get_n_insert_spaces('hard')
     # merges the diffrent dataframes
     new_nd = pd.concat([easy, medium, hard], axis=1)
-    new_fd = new_nd.set_axis([1,2,3,4,5], axis='index')
-    
+    new_fd = new_nd.set_axis([1, 2, 3, 4, 5], axis='index')
+
     # Convert DataFrame to string
     df_string = new_fd.to_string()
     df_split = df_string.split('\n')
@@ -299,6 +302,7 @@ def show_highscores():
     system('clear')
     start_menu()
     print(Style.RESET_ALL)
+
 
 def choose_height():
     """
@@ -315,8 +319,8 @@ def choose_height():
     """
     while True:
         selected_height = input(
-            'How high do you want the egg to drop from [meters]?\n\
-You can use decimals:')
+            ' How high do you want the egg to drop from [meters]?\n\
+ You can use decimals:')
         if validation_number(selected_height):
             print(Fore.GREEN + Style.BRIGHT)
             print("You have chosen to release the egg",
@@ -598,7 +602,7 @@ def generatet_incident(material_value):
     # Creates new index to the extracted data
     chosen_material.index = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    #Generates a number between 1 to 8
+    # Generates a number between 1 to 8
     incident = randint(1, 8)
     if incident <= 4:
         print(Fore.GREEN + "\033[1m" +
@@ -945,7 +949,7 @@ of the leaderboard? [Y/N]:\n'),
                         print('Enter your name to the leaderboard,')
                         name = input('Maximum of 10 characters:')
                         # Makes the name max 10 characters
-                        name = name[:10] if len(name) > 11 else name                        
+                        name = name[:10] if len(name) > 11 else name
                         highscore.add_to_board(position_on_highscore,
                                                name, score)
                         # Prints the new leaderboard with the new name
