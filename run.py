@@ -137,6 +137,8 @@ class Highscore:
         Parameters
             None
         """
+        self.names = np.array(self.names)
+        self.scores= np.array(self.scores)
         for i in range(2, 7):
             SHEET.worksheet(self.level).update([[self.names[i-2]]], f'A{i}')
             SHEET.worksheet(self.level).update([[self.scores[i-2]]], f'B{i}')
@@ -743,15 +745,15 @@ def print_placement(placement, score):
               Style.RESET_ALL)
     elif placement == 1:
         print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
-              f'{score} points and are in {placement+1}nd place.' +
+              f' {score} points and are in {placement+1}nd place.' +
               Style.RESET_ALL)
     elif placement == 2:
         print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
-              f'{score} points and are in {placement+1}rd place.' +
+              f' {score} points and are in {placement+1}rd place.' +
               Style.RESET_ALL)
     else:
         print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
-              f'{score} points and are in {placement+1}th place.' +
+              f' {score} points and are in {placement+1}th place.' +
               Style.RESET_ALL)
 
 
@@ -940,7 +942,7 @@ of the leaderboard? [Y/N]:\n'),
 
                     # Users answered NO to try to increase the score
                     if YES_NO.index(try_again) >= 5:
-                        print('Enter your name to the leaderboard,\n')
+                        print('Enter your name to the leaderboard,')
                         name = input('Maximum of 10 characters:')
                         # Makes the name max 10 characters
                         name = name[:10] if len(name) > 11 else name                        
