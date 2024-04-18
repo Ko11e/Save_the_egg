@@ -154,7 +154,7 @@ def clear_screen():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW)
+    print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Style.RESET_ALL)
 
@@ -196,7 +196,6 @@ def start_menu():
         "To be able to drop the egg higher, there are different materials")
     print_centre(
         "to protect the egg. You can play the game on three different levels.\n")
-    print(' ')
     print("""
  ------------------------------------------------------------------------------
     1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
@@ -241,8 +240,8 @@ def show_rules():
             If the egg breaks, you will lose your points.
 
     MEDUIM: For this level, the same rules as the previous level apply.
-            However, your choice of protection will affect the final score and
-            can also decreas your score if you dropp it more then once.
+            However, your choice of protection will affect the final score
+            and can also decreas your score if you dropp it more then once.
             Here you can chose NOT to protect the egg and get 200 points
             plus the other points.
 
@@ -267,7 +266,7 @@ def get_n_insert_spaces(level):
     """
     data = get_data(level)
     data.insert(0, " ", [1, 2, 3, 4, 5], True)
-    for i in range(3):
+    for i in range(2):
         data.insert(0, " ", [" ", " ", " ", " ", " "], True)
 
     return data
@@ -516,7 +515,7 @@ def select_protection(pandas_data):
 
     # Asks the user to select a option
     while True:
-        value = input('\nPlease enter the number for\
+        value = input('Please enter the number for\
  the material that you want to use:')
         if validation_number(value, keys_data):
             break
@@ -861,6 +860,7 @@ def main():
         # more then 7 times
         dropps = 0
 
+        clear_screen()
         # User selects difficulty of the game
         level = question_with_valiadation(
             'What level do you want to play at? [easy/medium/hard]:',

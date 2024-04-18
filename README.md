@@ -1,5 +1,5 @@
 # **Save the Egg**
-![A image of the start image](images/Startscreen.png) 
+![A image of the start image](images/headimage.png) 
 <br><br>
 "Save the Egg" is a Python command line interface (CLI) game. The main objective of the game is to earn as many points as possible by dropping the egg from as high as possible without breaking it. To protect the egg from breaking, the user can use different materials. The game features three levels, each increasing in difficulty to make it less predictable. 
 
@@ -128,9 +128,23 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 <br>
 
 # Feature
-### Start
-As a opening screen the user is meet by the name of the game in ASCII art and an explanation of the main purpice of the game and the diffrent rulse for the levels.<br>
-![Start screnn](images/Startscreen.png) 
+### Start menu
+As an opening screen, the user is greeted by the name of the game in ASCII art and a menu where the user can choose to read more about the rules for the different levels, see the high score boards, start the game or quit the game. As long as the user is in the menu, the text is YELLOW to make it easy for the user to see that the game has not yet started.<br>
+![Start screnn](images/Startscreen.png)
+#### Rulse For the diffrent level 
+<details>
+    <summary>Rulse for the different levels featurs</summary>
+    <img src = "images/rulse_levels.png">
+</details>
+
+#### High Scores
+<details>
+    <summary>High Scores features</summary>
+    <img src = "images/highscores_print.png">
+</details>
+
+---------------------------------------------------------
+
 ### Resulte
 #### Easy/Medium
 
@@ -138,7 +152,7 @@ As a opening screen the user is meet by the name of the game in ASCII art and an
 ### Highscore
 
 ### End Title 
-
+![Picture of the end title](images/end_title.png)
 ## Future Features
 - The user can see the leaderboard for the diffrent levels before starting the game.
 - Add the weight of the protection to the calculation
@@ -149,7 +163,7 @@ As a opening screen the user is meet by the name of the game in ASCII art and an
 - **HTML, CSS, Javascript** <br>
 Was provided by the temple made by the Cod Institute for this project focusing on Python code.
 - **Python**<br>
-The program was writen in python code inperation and code not writen by my self is cretieded in the section Credits.
+The game was achieved through using Python.
 - **Gitpod** <br>
 Used as a workspace to create the program.
 - **GitHub** <br>
@@ -164,8 +178,7 @@ Used to save the highscores on the leaderboard and the materiales usable to prot
 It is used to provide an API connection between the Python code and the worksheet in Google Sheets.
 - **Heroku**<br>
 Was used to deploy the project.
-- **Tinyjpg** <br>
-Used https://tinyjpg.com/ to compress the size of the images.
+
 
 # Packages and Libraries
 Some of the imports have only one function imported, this is to make the programme more efficient, seen I only use one function in the libraries. 
