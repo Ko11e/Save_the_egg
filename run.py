@@ -194,9 +194,9 @@ def start_menu():
     print_centre(
         "to protect the egg. You can play the game on three different levels.")
     print("""
--------------------------------------------------------------------------------
+ ------------------------------------------------------------------------------
     1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
--------------------------------------------------------------------------------""") 
+ ------------------------------------------------------------------------------""") 
         
     print(Style.RESET_ALL)
     while True:
@@ -227,41 +227,75 @@ def show_rules():
     clear_screen()
     print(Fore.YELLOW)
     print("""
-        EASY:   The way the egg lands, either horizontally or vertically,
-                will determine how well it copes with the impact.
-                If you successfully save the egg, you can attempt to earn
-                more points by dropping it again. However, keep in mind that
-                the egg has been damaged from the previous drop, and therefore
-                it won't be able to withstand as big of a hit as before.
-                If the egg breaks, you will lose your points.
+    EASY:   The way the egg lands, either horizontally or vertically,
+            will determine how well it copes with the impact.
+            If you successfully save the egg, you can attempt to earn
+            more points by dropping it again. However, keep in mind that
+            the egg has been damaged from the previous drop, and therefore
+            it won't be able to withstand as big of a hit as before.
+            If the egg breaks, you will lose your points.
 
-        MEDUIM: For this level, the same rules as the previous level apply.
-                However, your choice of protection will affect the final score and
-                can also decreas your score if you dropp it more then once.
-                Here you can chose NOT to protect the egg and get 200 points
-                plus the other points.
+    MEDUIM: For this level, the same rules as the previous level apply.
+            However, your choice of protection will affect the final score and
+            can also decreas your score if you dropp it more then once.
+            Here you can chose NOT to protect the egg and get 200 points
+            plus the other points.
 
-        HARD:   For this level, the same rules as the previous levels apply.
-                However, an event will occur after you have released the egg.
-                This event can be good or bad. So take it carefully\n""")
+    HARD:   For this level, the same rules as the previous levels apply.
+            However, an event will occur after you have released the egg.
+            This event can be good or bad. So take it carefully\n""")
     print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
     input('')
     system('clear')
     start_menu()            
 
+def get_n_insert_spaces(level):
+    """
+    Gets the data from the Google Sheets and insert
+    1 column [1,2,3,4,5] and then 3 empty column.
+    This is to make it more appealing when printed
+    --------------------------------
+        Parameter
+            level : srt
+                The level of the highscoreboard 
+    """
+    data = get_data(level)
+    data.insert(0, " ", [1, 2, 3, 4, 5], True)
+    data.insert(0, " ", [" "," ", " "," ", " "], True)
+    data.insert(0, " ", [" "," ", " "," ", " "], True)
+    data.insert(0, " ", [" "," ", " "," ", " "], True)
+    return data
+
 def show_highscores():
+    """
+    Show the leaderboard
+    """
+    clear_screen()
     print(Fore.YELLOW)
-    Easy = get_highscore_data('easy')
-    Medium = get_highscore_data('medium')
-    Hard = get_highscore_data('hard')
-    print_acsii_centred('EASY', mini)
-    print(Easy)
-    print_acsii_centred('MEDUIM', mini)
-    print(Medium)
-    print_acsii_centred('HARD', mini)
-    print(Hard)
+    print_acsii_centred('High Score', 'threepoint')
+    print_acsii_centred('  Easy             Medium          Hard', 'mini')
+    
+    # Gets data from the Google sheet
+    easy = get_data('easy')
+    medium = get_n_insert_spaces('medium')
+    hard = get_n_insert_spaces('hard')
+    # merges the diffrent dataframes
+    new_nd = pd.concat([easy, medium, hard], axis=1)
+    new_fd = new_nd.set_axis([1,2,3,4,5], axis='index')
+    
+    # Convert DataFrame to string
+    df_string = new_fd.to_string()
+    df_split = df_string.split('\n')
+
+    # Prints the lists in the center of the terminal
+    for i in range(len(new_fd)+1):
+        print_centre(df_split[i])
+    print('')
+
     print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
     input('')
+    system('clear')
+    start_menu()
     print(Style.RESET_ALL)
 
 def choose_height():
@@ -785,6 +819,7 @@ def print_centre(text):
             No returns
     """
     print(text.center(get_terminal_size().columns))
+    columns = get_terminal_size().columns
 
 
 def print_acsii_centred(text, fonts):
@@ -962,4 +997,5 @@ your score and try to reach the leaderboard [Y/N]?',
             break
 
 
-start_menu()
+# start_menu()
+show_highscores()
