@@ -159,18 +159,28 @@ When the game starts, all the questions are white and the valid answers are colo
 </details>
 
 ### Resulte
-#### Easy/Medium
+After the egg is dropped the user is first shown a text saying `Dropping the egg...` to build a suspens. After that is a whole och a broken egg shown with a text explaining why the egg broke or suvivied. 
+<details>
+  <summary>Easy and Medium</summary>
+  <img src="">
+</details>
+<details>
+  <summary>Hard</summary>
+  <img src="">
+  <img src="">
+</details>
 
-#### Hard
 ### Highscore
-
-### End Title 
+After a user have entered their name to be place in the leaderboard the user gets pressented with the highscore to be able to see the resten of the scores.
+![Images of the highscores from the played level](images/highscore.png)
+### End Title
+When the user has finished playing the game, they will see a message thanking them for playing the game and informing them that they can press `RUN PROGRAM` to restart the game.
 ![Picture of the end title](images/end_title.png)
+
 ## Future Features
-- The user can see the leaderboard for the diffrent levels before starting the game.
 - Add the weight of the protection to the calculation
-- Ask if the right answer is provided even if the input is valid
-- The game can be played on diffrent planet
+- Ask if the right answer is provided even if the input is valided
+- Add the option for the user to play the game on diffrent planet
 
 # Technologies Used
 - **HTML, CSS, Javascript** <br>
