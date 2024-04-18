@@ -271,7 +271,7 @@ def show_highscores():
     Show the leaderboard
     """
     clear_screen()
-    print(Fore.YELLOW)
+    print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('High Score', 'threepoint')
     print_acsii_centred('  Easy             Medium          Hard', 'mini')
     
@@ -997,5 +997,5 @@ your score and try to reach the leaderboard [Y/N]?',
             break
 
 
-# start_menu()
-show_highscores()
+start_menu()
+
