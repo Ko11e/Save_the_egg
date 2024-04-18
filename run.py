@@ -63,8 +63,8 @@ class Highscore:
                     The score if the players starting with the highest score
         """
         self.level = level
-        self.names = names
-        self.scores = scores
+        self.names = names.tolist()
+        self.scores = scores.tolist()
 
     def __str__(self):
         """
@@ -122,13 +122,13 @@ class Highscore:
         """
         # Add the name on the right position and removes
         # the last name that is now on the 6:th place
-        self.names = np.insert(self.names, position, new_name)
-        self.names = np.delete(self.names, -1)
+        self.names.insert(position, new_name)
+        self.names.pop(-1)
 
         # Add the score on the right position and removes
         # the last score that is now on the 6:th place
-        self.scores = np.insert(self.scores, position, new_score)
-        self.scores = np.delete(self.scores, -1)
+        self.scores.insert(position, new_score)
+        self.scores.pop(-1)
 
     def uppdate_sheet(self):
         """
@@ -168,7 +168,7 @@ def end_title():
     """
     sleep(2)
     system('clear')
-    print(Fore.YELLOW)
+    print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('Thank you for playing', 'mini')
     print_acsii_centred('Save the egg', 'bulbhead')
     print(Style.BRIGHT)
@@ -184,7 +184,7 @@ def start_menu():
         Parameters
             None
     """
-    print(Fore.YELLOW)
+    print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('Save the egg', 'bulbhead')
     print_centre("The game is about getting as many points as possible")
     print_centre(
@@ -292,7 +292,7 @@ def show_highscores():
         print_centre(df_split[i])
     print('')
 
-    print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
+    print_centre("Press ENTER to go back to the main meun")
     input('')
     system('clear')
     start_menu()
@@ -596,6 +596,7 @@ def generatet_incident(material_value):
     # Creates new index to the extracted data
     chosen_material.index = [1, 2, 3, 4, 5, 6, 7, 8]
 
+    #Generates a number between 1 to 8
     incident = randint(1, 8)
     if incident <= 4:
         print(Fore.GREEN + "\033[1m" +
@@ -741,15 +742,15 @@ def print_placement(placement, score):
         print(f'Woho!! You scored {score} and got on FIRST place\n' +
               Style.RESET_ALL)
     elif placement == 1:
-        print(Fore.CYAN + 'Woho!! You have a score of'
+        print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}nd place.' +
               Style.RESET_ALL)
     elif placement == 2:
-        print(Fore.CYAN + 'Woho!! You have a score of'
+        print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}rd place.' +
               Style.RESET_ALL)
     else:
-        print(Fore.CYAN + 'Woho!! You have a score of'
+        print(Fore.LIGHTCYAN_EX + 'Woho!! You have a score of'
               f'{score} points and are in {placement+1}th place.' +
               Style.RESET_ALL)
 
@@ -939,7 +940,10 @@ of the leaderboard? [Y/N]:\n'),
 
                     # Users answered NO to try to increase the score
                     if YES_NO.index(try_again) >= 5:
-                        name = input('Enter your name to the leaderboard:\n')
+                        print('Enter your name to the leaderboard,\n')
+                        name = input('Maximum of 10 characters:')
+                        # Makes the name max 10 characters
+                        name = name[:10] if len(name) > 11 else name                        
                         highscore.add_to_board(position_on_highscore,
                                                name, score)
                         # Prints the new leaderboard with the new name
@@ -998,4 +1002,3 @@ your score and try to reach the leaderboard [Y/N]?',
 
 
 start_menu()
-
