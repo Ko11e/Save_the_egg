@@ -715,12 +715,12 @@ def reason(impact_total, material, egg_position, dropps):
             print(f'The {material} managed to protect your egg sufficiently')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 0:
-            print(f'Because the egg landed horizontally,',
+            print(f'Because the egg landed horizontally,\n',
                   f'the {material} failed to protect your egg')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 1:
             print(f'The {material} managed to protect your egg',
-                  'sufficiently, but only because it landed vertically')
+                  'sufficiently, \nbut only because it landed vertically')
 
         else:
             print(f'The {material} failed to protect your egg')
@@ -938,8 +938,8 @@ def main():
 
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk\
- your points to increase your score and get to the top\
- of the leaderboard? [Y/N]:\n'),
+ your points to \nincrease your score and get to the top\
+ of the leaderboard? [Y/N]:'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
@@ -968,11 +968,12 @@ def main():
                                                total_impact_force)
 
                 else:
-                    print(f'\nYou scored {score} points and ',
+                    print(Fore.LIGHTCYAN_EX +
+                          f'\nYou scored {score} points and ',
                           'your score did not make the top 5')
                     try_again = question_with_valiadation(
                      '\nWould you like to risk your points to boost\
- your score and try to reach the leaderboard [Y/N]?',
+ your score \nand try to reach the leaderboard [Y/N]?',
                      YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()

@@ -145,6 +145,19 @@ As an opening screen, the user is greeted by the name of the game in ASCII art a
 
 ---------------------------------------------------------
 
+### Inputs
+When the game starts, all the questions are white and the valid answers are colour coded. The wrong answer is red and the correct answer is green. This allows the user to understand whether the feedback is negative or positive in a simple and clever way. 
+<details open>
+    <summary>Invalid</summary>
+    <img src = "images/wrongvalue.png">
+    <img src = "images/wrongvalue2.png">
+</details>
+<details>
+    <summary>Valid</summary>
+    <img src = "images/rightvalue2.png">
+    <img src = "images/rightvalue.png">
+</details>
+
 ### Resulte
 #### Easy/Medium
 
