@@ -188,13 +188,15 @@ def start_menu():
     """
     print(Fore.LIGHTYELLOW_EX)
     print_acsii_centred('Save the egg', 'bulbhead')
+    print(' ')
     print_centre("The game is about getting as many points as possible")
     print_centre(
         "by dropping an egg as high as you can without breaking the egg.")
     print_centre(
         "To be able to drop the egg higher, there are different materials")
     print_centre(
-        "to protect the egg. You can play the game on three different levels.")
+        "to protect the egg. You can play the game on three different levels.\n")
+    print(' ')
     print("""
  ------------------------------------------------------------------------------
     1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
@@ -228,7 +230,7 @@ def show_rules():
             None
     """
     clear_screen()
-    print(Fore.YELLOW)
+    print(Fore.LIGHTYELLOW_EX)
     print("""
     EASY:   The way the egg lands, either horizontally or vertically,
             will determine how well it copes with the impact.
@@ -322,9 +324,8 @@ def choose_height():
             ' How high do you want the egg to drop from [meters]?\n\
  You can use decimals:')
         if validation_number(selected_height):
-            print(Fore.GREEN + Style.BRIGHT)
-            print("You have chosen to release the egg",
-                  f"from {selected_height} meters.\n")
+            print(Fore.GREEN + Style.BRIGHT + "You have chosen ",
+                  f"to release the egg from {selected_height} meters.\n")
             print(Style.RESET_ALL)
             break
 
@@ -515,8 +516,8 @@ def select_protection(pandas_data):
 
     # Asks the user to select a option
     while True:
-        value = input('\nPlease enter the number for \
-the material that you want to use:')
+        value = input('\nPlease enter the number for\
+ the material that you want to use:')
         if validation_number(value, keys_data):
             break
 
@@ -712,18 +713,18 @@ def reason(impact_total, material, egg_position, dropps):
 
     else:
         if impact_total < 40:
-            print(f'\nThe {material} managed to protect your egg sufficiently')
+            print(f'The {material} managed to protect your egg sufficiently')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 0:
-            print(f'\nBecause the egg landed horizontally,',
+            print(f'Because the egg landed horizontally,',
                   f'the {material} failed to protect your egg')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 1:
-            print(f'\nThe {material} managed to protect your egg',
+            print(f'The {material} managed to protect your egg',
                   'sufficiently, but only because it landed vertically')
 
         else:
-            print(f'\nThe {material} failed to protect your egg')
+            print(f'The {material} failed to protect your egg')
     print(Style.RESET_ALL)
 
 
@@ -826,7 +827,6 @@ def print_centre(text):
             No returns
     """
     print(text.center(get_terminal_size().columns))
-    columns = get_terminal_size().columns
 
 
 def print_acsii_centred(text, fonts):
@@ -863,12 +863,12 @@ def main():
 
         # User selects difficulty of the game
         level = question_with_valiadation(
-            'What level do you want to play at? [easy/medium/hard]:\n',
+            'What level do you want to play at? [easy/medium/hard]:',
             ['easy', 'medium', 'hard'], 'easy, medium or hard.'
         )
         highscore = get_highscore_data(level)
         print(Fore.GREEN + Style.BRIGHT +
-              f'\nYou have chosen to play with difficulty level: {level}\n' +
+              f'You have chosen to play with difficulty level: {level}\n' +
               Style.RESET_ALL)
 
         while True:
@@ -937,9 +937,9 @@ def main():
                     print_placement(position_on_highscore, score)
 
                     try_again = question_with_valiadation(
-                        ('\nDo you want to risk \
-your points to increase your score and get to the top \
-of the leaderboard? [Y/N]:\n'),
+                        ('\nDo you want to risk\
+ your points to increase your score and get to the top\
+ of the leaderboard? [Y/N]:\n'),
                         YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
@@ -971,8 +971,8 @@ of the leaderboard? [Y/N]:\n'),
                     print(f'\nYou scored {score} points and ',
                           'your score did not make the top 5')
                     try_again = question_with_valiadation(
-                     '\nWould you like to risk your points to boost \
-your score and try to reach the leaderboard [Y/N]?',
+                     '\nWould you like to risk your points to boost\
+ your score and try to reach the leaderboard [Y/N]?',
                      YES_NO, 'Y for Yes or N for No'
                     )
                     clear_screen()
