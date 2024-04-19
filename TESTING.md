@@ -41,8 +41,10 @@ The code have been validated using Code Institute's PEP8 Linter. No errors were 
 #### Validation
 ![Validation list](images/Validations.png) <br>
 The remaining questions have the same validation function, which means that their test is not documented.
-#### Calculations
 
+#### Calculations
+I have tested functions by printing their output and verifying the results manually. Additionally, all the randomly generated events were printed and cross-checked manually in the Google Sheets worksheet. Below is the list of all the tested functions.<br>
+![Table of all the tested functions](images/test_functions.png)
 ## Bugs
 ### Fixed Bugs
 
