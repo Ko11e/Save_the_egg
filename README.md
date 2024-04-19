@@ -159,11 +159,14 @@ When the game starts, all the questions are white and the valid answers are colo
 </details>
 
 ### Resulte
-After the egg is dropped the user is first shown a text saying `Dropping the egg...` to build a suspens. After that is a whole och a broken egg shown with a text explaining why the egg broke or suvivied. 
-<details>
+After the user drops the egg, they are first shown a text saying "Dropping the egg..." to build suspense. After two seconds, a whole and broken egg is shown, along with a text explaining why the egg broke or survived.  If the egg survives, the user can see the score they got, along with information on whether they made the leaderboard or not, and if they made the leaderboard, their placement number.
+
+Players have the option to drop the egg again and risk their current score, adding an element of excitement to the game.
+<details open>
   <summary>Easy and Medium</summary>
   <img src="">
 </details>
+In the 
 <details>
   <summary>Hard</summary>
   <img src="">

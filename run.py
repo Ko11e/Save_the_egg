@@ -619,6 +619,8 @@ def generatet_incident(material_value):
         int_impact_effect = int(impact_effect.strip(impact_effect[0]))
         impact_effect = -int_impact_effect
 
+    sleep(2)
+
     return impact_effect
 
 
@@ -938,7 +940,7 @@ def main():
 
                     try_again = question_with_valiadation(
                         ('\nDo you want to risk\
- your points to \nincrease your score and get to the top\
+ your points to increase your score \nand get to the top\
  of the leaderboard? [Y/N]:'),
                         YES_NO, 'Y for Yes or N for No'
                     )
@@ -969,8 +971,9 @@ def main():
 
                 else:
                     print(Fore.LIGHTCYAN_EX +
-                          f'\nYou scored {score} points and ',
-                          'your score did not make the top 5')
+                          f'You scored {score} points and ',
+                          'your score did not make the top 5' +
+                          Style.RESET_ALL)
                     try_again = question_with_valiadation(
                      '\nWould you like to risk your points to boost\
  your score \nand try to reach the leaderboard [Y/N]?',
