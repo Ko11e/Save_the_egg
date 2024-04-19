@@ -195,7 +195,8 @@ def start_menu():
     print_centre(
         "To be able to drop the egg higher, there are different materials")
     print_centre(
-        "to protect the egg. You can play the game on three different levels.\n")
+        "to protect the egg. You can play the game on three different levels.")
+    print("")
     print("""
  ------------------------------------------------------------------------------
     1. Rules for the levels   2. Highscores    3. Start the Game    4.Exit
@@ -247,7 +248,7 @@ def show_rules():
 
     HARD:   For this level, the same rules as the previous levels apply.
             However, an event will occur after you have released the egg.
-            This event can be good or bad. So take it carefully\n""")
+            This event can be good or bad. So take it carefully\n\n""")
     print_centre("\033[1mPress ENTER to go back to the main meun\033[0m")
     input('')
     system('clear')
@@ -717,7 +718,7 @@ def reason(impact_total, material, egg_position, dropps):
             print(f'The {material} managed to protect your egg sufficiently')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 0:
-            print(f'Because the egg landed horizontally,\n',
+            print('Because the egg landed horizontally,\n',
                   f'the {material} failed to protect your egg')
 
         elif impact_total > 40 and impact_total < 60 and egg_position == 1:

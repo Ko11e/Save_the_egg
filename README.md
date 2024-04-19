@@ -93,14 +93,17 @@ After the result the user can make the decision to try to increase the score by 
 To manipulate the egg limit, Numpy is used to avoid for-loops. Numpy is also used to rotate the display of the data.
 
 ## Google Sheets
-I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided. **[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
+I created a Google Sheets document to storage the materials that can be used to protect an egg and their consequences on harder levels of a game. The document also contains the events that can occur on the hardest level. In addition, there's a leaderboard for the three difficulty levels where users can enter their names if they achieve a high score. The document is only editable by me, but you can view it using the link I provided.**[here](https://docs.google.com/spreadsheets/d/1SLiWQUgkEJjnfCm5Y_rsjwojI7-m6nipCWDagON4oKk/edit?usp=sharing)**
 
 ### Materials
-On this sheet contains the materials the user can chose from and the diffrenc of the impact is does on the egg. 
+On this sheet contains the materials the user can chose from and the diffrenc of the impact is does on the egg.
+
 ![Google Sheets, worksheet materials](images/sheet-materials.png)
 ### Incidents
 Shown below are the incidents that can occure. The incidents depent on the meterials the user have chosen to use. To see all the incidents click in the lick to the view over the whole google sheet.
+
 ![Google Sheets, worksheet incidents](images/sheet-incidents.png)
+
 ### Highscores
 |Easy|Medium|Hard|
 |:----:|:-----:|:---:|
@@ -129,7 +132,8 @@ To make the game more appealing, I wanted to show a whole egg or a broken egg de
 
 # Feature
 ### Start menu
-As an opening screen, the user is greeted by the name of the game in ASCII art and a menu where the user can choose to read more about the rules for the different levels, see the high score boards, start the game or quit the game. As long as the user is in the menu, the text is YELLOW to make it easy for the user to see that the game has not yet started.<br>
+As an opening screen, the user is greeted by the name of the game in ASCII art and a menu where the user can choose to read more about the rules for the different levels, see the high score boards, start the game or quit the game. As long as the user is in the menu, the text is YELLOW to make it easy for the user to see that the game has not yet started.
+
 ![Start screnn](images/Startscreen.png)
 #### Rulse For the diffrent level 
 <details>
@@ -159,25 +163,40 @@ When the game starts, all the questions are white and the valid answers are colo
 </details>
 
 ### Resulte
-After the user drops the egg, they are first shown a text saying "Dropping the egg..." to build suspense. After two seconds, a whole and broken egg is shown, along with a text explaining why the egg broke or survived.  If the egg survives, the user can see the score they got, along with information on whether they made the leaderboard or not, and if they made the leaderboard, their placement number.
+After the user drops the egg, they are first shown a text saying "Dropping the egg..." to build suspense. After two seconds, a whole and broken egg is shown, along with a text explaining why the egg broke or survived. The text is determined by the material selected and the force of the impact. If the egg survives, the user can see the score they got, along with information on whether they made the leaderboard or not, and if they made the leaderboard, their placement number.
 
 Players have the option to drop the egg again and risk their current score, adding an element of excitement to the game.
 <details open>
   <summary>Easy and Medium</summary>
-  <img src="">
+  <b>Whole egg <br>
+  <img src="images/result_whole.png">
+  <br>
+  Broken egg</b> 
+  <br>
+  <img src="images/result_broken.png">
 </details>
-In the 
-<details>
+<br>
+When playing on the hard level, an unpredictable incident can occur which makes it difficult to guess the outcome of the game. The type of incident that can occur is determined by the chosen material, and there is a 50-50 chance that it can be either good or bad. However, every material has a bad incident where the egg will break, no matter how high the user drops it from. The type of incident that occurs will be displayed in text before the result of the egg's survival is revealed.
+<details open>
   <summary>Hard</summary>
-  <img src="">
-  <img src="">
+  <b>Good incident <br>
+  <img src="images/incident__good.png">
+  <br>
+  Bad incident </b>
+  <br>
+  <img src="images/incident_bad.png">
 </details>
+
+#### First place
+![Image of the text when the user get first place](images/firstplace.png)
 
 ### Highscore
 After a user have entered their name to be place in the leaderboard the user gets pressented with the highscore to be able to see the resten of the scores.
+
 ![Images of the highscores from the played level](images/highscore.png)
 ### End Title
 When the user has finished playing the game, they will see a message thanking them for playing the game and informing them that they can press `RUN PROGRAM` to restart the game.
+
 ![Picture of the end title](images/end_title.png)
 
 ## Future Features
