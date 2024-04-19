@@ -50,10 +50,12 @@ I have tested functions by printing their output and verifying the results manua
 
 |Bug           |Solution             |
 |:----|:-----|
-|The function validation_number does not run validation_int if a list is provided | the wrong if statment was used. Where `lst != None` was use first and found truogh stackoverflow that iss should be `lst is not None`|
+|The function validation_number does not run validation_int if a list is provided | the wrong if statment was used. Where `lst != None` was use first and found truogh stackoverflow that it should be `lst is not None`|
 |Getting the wrong value from the data.<br> Exempel Sleepingbag was chosen and Woodenbox was selected. | The wrong function was used `.iloc` was replaced with `.loc`|
 |If the impact value becomes negative due to a low height drop and good protection. The egg force limit will increase rather than decrease. |By having a if statment, checking if the value of the total impact is negative. If the value is negative no calculations is made and the force limit remain the same.       |
 |If the incident, on hard level, was bad the value retrieved from the Google sheet was a string insted of a integer.|By checking the retrieved value if it is a string and then remaking it into an integer. This bug/solution to the bug made it easier to print the occurrence of the text in green or red.|
+|When enter a name to add to the highscore it only add en five characters with out there being any restriction in the code|When "self.names" and "self.scores" were changed from a `numpy.array` to a `list`, the bug disappeared. However, there is now a 10 character restriction for user input. When entering their name, users will be notified of a 10 character limit for input.|
+
 
 
 ### Unfixed Bugs
