@@ -39,8 +39,8 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 
 ## User Stories
 1. As a User, i want the explanation and the rules of the game to be clear and easy to understand.
-2. As a User, i want some pysichs to be behind the game
-3. As a User, i want to be able to enter low numbers then 1 m for droping the egg
+2. As a user, I want to be provided with clear instructions throughout the main menu and game.
+3. As a User, I want to be able to navigate back to the Main Menu.
 4. As a User, i want to be enganged in the game
 5. As a User, i want the game to be harder and less pedictibel at higher levels
 
