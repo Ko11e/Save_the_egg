@@ -15,27 +15,33 @@ The code have been validated using Code Institute's PEP8 Linter. No errors were 
 
   1. As a User, i want the explanation and the rules of the game to be clear and easy to understand.
   
-    - At the start of the game clear instructions of the game and of the levels are presented to the user
+    - At the start of the game there are clear instructions of the game.
+    - By pressing 1 or 2 in the start menu the user can read more about the differcultes and the highscores of the levels
+
+  2. As a user, I want to be provided with clear instructions throughout the main menu and game.
+
+    - All sections requiring user input are signposted with clear instructions on how to proceed
     - User is prompted and instructed when invalid information is entered
 
-  2. As a User, i want some pysichs to be behind the game
-    
-    - 
-  3. As a User, i want to be able to enter low numbers then 1 m for droping the egg
+  3. As a User, I want to be able to navigate back to the Main Menu.
 
-    - 
+    - By presing ENTER the user will return to main menu
+
   4. As a User, i want to be enganged in the game
 
     - Colorama library used to produce text with engaging colours and meaning and makeing ASCII art more appyling.
-        - GREEN for valid input
-        - RED for invalid input
+        - GREEN for valid input and good intcedent for hard level
+        - RED for invalid input and bad incedent for hard level
         - CYAN for the users attention to be drawn to important information
-        - YELLOW for the name of the game and
-    - Having a Highscore board to push engang the user to want a higher  score
+        - YELLOW for the main menu and when a user gets first place
+    - Having a Highscore board to push engang the user to want a higher score
 
   5. As a User, i want the game to be harder and less pedictibel at higher levels
     
-    - 
+    - From easy to medium points will be redust depending on the merteral
+       - The user has the chose to protect the egg or not, but resev 200 point if the egg survives
+    - From medum to hard 
+       - A incident can occure which can be good or bad
 
 ### Function Testing
 #### Validation
