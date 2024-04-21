@@ -188,6 +188,7 @@ When playing on the hard level, an unpredictable incident can occur which makes 
 </details>
 
 #### First place
+When a user gets first place on the leaderboard they are presserted with stars and the text is yellow. <br>
 ![Image of the text when the user get first place](images/firstplace.png)
 
 ### Highscore
