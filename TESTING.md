@@ -14,34 +14,34 @@ The code has been validated using Code Institute's PEP8 Linter. No errors were f
 ### User Stories 
 
  1. As a User, I want the explanation and the rules of the game to be clear and easy to understand.
- 
-- At the start of the game there are clear instructions for the game.
-- By pressing 1 or 2 in the start menu the user can read more about the difficulties and the high scores of the levels
 
+    - At the start of the game there are clear instructions for the game.
+    - By pressing 1 or 2 in the start menu the user can read more about the difficulties and the high scores of the levels
+ 
  2. As a user, I want to be provided with clear instructions throughout the main menu and game.
 
-- All sections requiring user input are signposted with clear instructions on how to proceed
-- User is prompted and instructed when invalid information is entered
+    - All sections requiring user input are signposted with clear instructions on how to proceed
+    - User is prompted and instructed when invalid information is entered
 
  3. As a User, I want to be able to navigate back to the Main Menu.
 
-- By pressing ENTER the user will return to the main menu
+    - By pressing ENTER the user will return to the main menu
 
  4. As a User, I want to be engaged in the game
 
-- Colorama library is used to produce text with engaging colors and meaning and make ASCII art more appealing.
-- GREEN for valid input and good incident for hard-level
-- RED for invalid input and bad incident for hard-level
-- CYAN for the user's attention to be drawn to important information
-- YELLOW for the main menu and when a user gets first place
-- Having a Scoreboard to engage the user to want a higher score
+    - Colorama library is used to produce text with engaging colors and meaning and make ASCII art more appealing.
+    - GREEN for valid input and good incident for hard-level
+    - RED for invalid input and bad incident for hard-level
+    - CYAN for the user's attention to be drawn to important information
+    - YELLOW for the main menu and when a user gets first place
+    - Having a Scoreboard to engage the user to want a higher score
 
  5. As a User, I want the game to be harder and less predictable at higher levels
-  
-- From easy to medium points will be reduced depending on the material
-- The user has the choice to protect the egg or not, but receive 200 points if the egg survives
-- From medium to hard 
-- An incident can occur which can be good or bad
+
+    -From easy to medium points will be reduced depending on the material
+        - The user has the choice to protect the egg or not, but receive 200 points if the egg survives
+    - From medium to hard 
+        - An incident can occur which can be good or bad
 
 ### Function Testing
 #### Validation

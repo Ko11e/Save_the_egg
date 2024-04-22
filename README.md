@@ -31,10 +31,10 @@ Google Sheets Materials, Incident (Level: Hard), Leaderboard - easy, medium, har
 ## User Goals
 "Save the Egg" is designed as a fun game for the user to test the force limit of an egg. The game is displayed in a command line interface and the 5 highest scores are stored in a secure Google Sheet. These are some of the points I focused on when creating this project
 
- - It must be easy to navigate and to understand the rules the first time the user read them
- - An engaging UI to capture the user's interest.
- - Clear instructions for entering data correctly are provided.
- - No dead ends to trap the user at the end of a function.
+ - It must be easy to navigate and to understand the rules the first time the user read them
+ - An engaging UI to capture the user's interest.
+ - Clear instructions for entering data correctly are provided.
+ - No dead ends to trap the user at the end of a function.
 
 ## User Stories
 1. As a User, I want the explanation and the rules of the game to be clear and easy to understand.
